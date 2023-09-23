@@ -15,6 +15,7 @@ namespace Managers
         public Dictionary<int, Character> Characters = new Dictionary<int, Character>();
 
         public UnityAction<Character> OnCharacterEnter;
+        public UnityAction<Character> OnCharacterLeave;
 
         public CharacterManager()
         {
@@ -36,7 +37,7 @@ namespace Managers
             this.Characters.Clear();
         }
 
-        public void AddCharacter(NCharacterInfo cha)
+        public void AddCharacter(SkillBridge.Message.NCharacterInfo cha)
         {
             Debug.LogFormat("AddCharacter:{0}:{1} Map:{2} Entity:{3}", cha.Id,cha.Name,cha.mapId,cha.Entity.String());
             Character character = new Character(cha);
@@ -46,6 +47,13 @@ namespace Managers
             {
                 OnCharacterEnter(character);
             }
+        }
+
+        public void RemoveCharacter(int characterId)
+        {
+            Debug.LogFormat("RemoveCharacter:{0}", characterId);
+            this.Characters.Remove(characterId);
+
         }
     }
 }

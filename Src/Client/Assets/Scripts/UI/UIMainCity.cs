@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Managers;
+using Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,4 +23,10 @@ public class UIMainCity : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void BackToCharacterSelect()
+    {
+        SceneManager.Instance.LoadScene("CharSelect");
+        Services.UserService.Instance.SendGameLeave();
+    }
 }

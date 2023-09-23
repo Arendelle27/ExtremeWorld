@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Managers;
+using Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ public class GameObjectManager : MonoBehaviour {
     Dictionary<int, GameObject> Characters = new Dictionary<int, GameObject>();
 	void Start () {
         StartCoroutine(InitGameObjects());
-        CharacterManager.Instance.OnCharacterEnter = OnCharacterEmter;
+        CharacterManager.Instance.OnCharacterEnter = OnCharacterEnter;
 	}
 
     private void OnDestroy()
@@ -19,7 +20,7 @@ public class GameObjectManager : MonoBehaviour {
         CharacterManager.Instance.OnCharacterEnter = null;
     }
 
-    private void OnCharacterEmter(Character cha)
+    private void OnCharacterEnter(Character cha)
     {
         CreateCharacterObjection(cha);
     }
@@ -70,6 +71,7 @@ public class GameObjectManager : MonoBehaviour {
             {
                 if(character.Info.Id==Models.User.Instance.CurrentCharacter.Id)//判断是否是当前玩家控制的角色
                 {
+                    User.Instance.CurrentCharacterObject = go;
                     MainPlayerCamera.Instance.player = go;
                     pc.enabled = true;
                     pc.character = character;
