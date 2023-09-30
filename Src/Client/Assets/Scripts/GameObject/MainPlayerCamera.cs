@@ -9,15 +9,11 @@ public class MainPlayerCamera : MonoSingleton<MainPlayerCamera>
 
     public GameObject player;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    protected override void OnStart()
+    {
+
+    }
 
     private void LateUpdate()
     {

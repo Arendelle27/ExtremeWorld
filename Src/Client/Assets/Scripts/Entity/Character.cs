@@ -61,7 +61,7 @@ namespace Entities
 
         public void SetPosition(Vector3Int position)
         {
-            Debug.LogFormat("SetPosition:{0}", position);
+            //Debug.LogFormat("SetPosition:{0}", position);
             this.position = position;
         }
     }

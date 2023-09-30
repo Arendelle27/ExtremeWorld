@@ -16,7 +16,6 @@ namespace Services
         public UnityEngine.Events.UnityAction<Result, string> OnLogin;
         public UnityEngine.Events.UnityAction<Result, string> OnRegister;
         public UnityEngine.Events.UnityAction<Result, string> OnCharacterCreate;
-        public UnityEngine.Events.UnityAction<Result, string> OnGameEnter;
 
         NetMessage pendingMessage = null;
         bool connected = false;
@@ -256,6 +255,7 @@ namespace Services
         void OnUserGameLeave(object sender, UserGameLeaveResponse response)
         {
             Debug.LogFormat("OnUserGameLeave:{0} [{1}]", response.Result, response.Errormsg);
+            MapService.Instance.CurrentMapId = 0;
         }
     }
 }

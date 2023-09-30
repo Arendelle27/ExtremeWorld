@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Services;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -128,5 +129,6 @@ public class PlayerInputController:MonoBehaviour
         {
             entityController.OnEntityEvent(entityEvent);
         }
+        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData);
     }
 }

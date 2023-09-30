@@ -9,9 +9,7 @@ public class UIWorldElementManager : MonoSingleton<UIWorldElementManager>
     public GameObject nameBarPrefab;
 
     private Dictionary<Transform, GameObject> element = new Dictionary<Transform, GameObject>();
-	void Start () {
-		
-	}
+
 	
 	// Update is called once per frame
 	void Update () {

@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Entities;
+using Managers;
 using SkillBridge.Message;
 using UnityEngine;
 
-public class EntityController:MonoBehaviour
+public class EntityController:MonoBehaviour,IEntityNotify
 {
     public Animator anim;
     public Rigidbody rb;
@@ -32,6 +33,7 @@ public class EntityController:MonoBehaviour
     {
         if(entity!=null)
         {
+            EntityManager.Instance.RegisterEntityChangeNotify(entity.entityId, this);
             this.UpdataTransform();
         }
 
@@ -73,6 +75,13 @@ public class EntityController:MonoBehaviour
         }
     }
 
+    public void OnEntityRemoved()
+    {
+        if (UIWorldElementManager.Instance != null)
+            UIWorldElementManager.Instance.RemoveCharacterNameBar(this.transform);
+        Destroy(this.gameObject);
+    }
+
     public void OnEntityEvent(EntityEvent entityEvent)
     {
         switch (entityEvent)
@@ -91,5 +100,10 @@ public class EntityController:MonoBehaviour
                 anim.SetTrigger("Jump");
                 break;
         }
+    }
+
+    public void OnEntityChanged(Entity entity)
+    {
+        Debug.LogFormat("OnEntityChanged:ID:{0} POS:{1} DIR:{2} SPD:{3}", entity.entityId, entity.position, entity.direction, entity.speed);
     }
 }

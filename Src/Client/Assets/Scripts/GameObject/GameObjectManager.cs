@@ -7,17 +7,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class GameObjectManager : MonoBehaviour {
+public class GameObjectManager : MonoSingleton<GameObjectManager> {
 
     Dictionary<int, GameObject> Characters = new Dictionary<int, GameObject>();
-	void Start () {
+	protected override void OnStart () {//单例的Mono对象中不能写Start
         StartCoroutine(InitGameObjects());
-        CharacterManager.Instance.OnCharacterEnter = OnCharacterEnter;
-	}
+        CharacterManager.Instance.OnCharacterEnter += OnCharacterEnter;
+        CharacterManager.Instance.OnCharacterLeave += OnCharacterLeave;
+    }
+
 
     private void OnDestroy()
     {
-        CharacterManager.Instance.OnCharacterEnter = null;
+        CharacterManager.Instance.OnCharacterEnter -= OnCharacterEnter;
+        CharacterManager.Instance.OnCharacterLeave -= OnCharacterLeave;
     }
 
     private void OnCharacterEnter(Character cha)
@@ -25,7 +28,16 @@ public class GameObjectManager : MonoBehaviour {
         CreateCharacterObjection(cha);
     }
 
-
+    private void OnCharacterLeave(Character cha)
+    {
+        if (!Characters.ContainsKey(cha.entityId))
+            return;
+        if(Characters[cha.entityId]!=null)
+        {
+            Destroy(Characters[cha.entityId]);
+            this.Characters.Remove(cha.entityId);
+        }
+    }
 
     IEnumerator InitGameObjects()
     {
@@ -44,7 +56,7 @@ public class GameObjectManager : MonoBehaviour {
 
     private void CreateCharacterObjection(Character character)
     {
-        if(!Characters.ContainsKey(character.Info.Id)||Characters[character.Info.Id]==null)
+        if(!Characters.ContainsKey(character.entityId) ||Characters[character.entityId]==null)
         {
             Object obj = Resloader.Load<Object>(character.Define.Resource);
             if(obj==null)
@@ -52,37 +64,41 @@ public class GameObjectManager : MonoBehaviour {
                 Debug.LogErrorFormat("Character[{0}] Resource[{1}] not existed.", character.Define.TID, character.Define.Resource);
                 return;
             }
-            GameObject go = (GameObject)Instantiate(obj);
+            GameObject go = (GameObject)Instantiate(obj,this.transform);
             go.name = "Character_" + character.Info.Id + "_" + character.Info.Name;
-
-            go.transform.position = GameObjectTool.LogicToWorld(character.position);
-            go.transform.forward = GameObjectTool.LogicToWorld(character.direction);
-            Characters[character.Info.Id] = go;
-
-            EntityController ec = go.GetComponent<EntityController>();
-            if(ec!=null)
-            {
-                ec.entity = character;
-                ec.isPlayer = character.IsPlayer;
-            }
-
-            PlayerInputController pc = go.GetComponent<PlayerInputController>();
-            if(pc!=null)
-            {
-                if(character.Info.Id==Models.User.Instance.CurrentCharacter.Id)//判断是否是当前玩家控制的角色
-                {
-                    User.Instance.CurrentCharacterObject = go;
-                    MainPlayerCamera.Instance.player = go;
-                    pc.enabled = true;
-                    pc.character = character;
-                    pc.entityController = ec;
-                }
-                else
-                {
-                    pc.enabled = false;
-                }
-            }
+            Characters[character.entityId] = go;
             UIWorldElementManager.Instance.AddCharacterNameBar(go.transform, character);
+        }
+        this.InitGameObject(Characters[character.entityId], character);
+    }
+
+    private void InitGameObject(GameObject go,Character character)
+    {
+        go.transform.position = GameObjectTool.LogicToWorld(character.position);
+        go.transform.forward = GameObjectTool.LogicToWorld(character.direction);
+
+        EntityController ec = go.GetComponent<EntityController>();
+        if (ec != null)
+        {
+            ec.entity = character;
+            ec.isPlayer = character.IsPlayer;
+        }
+
+        PlayerInputController pc = go.GetComponent<PlayerInputController>();
+        if (pc != null)
+        {
+            if (character.Info.Id == Models.User.Instance.CurrentCharacter.Id)//判断是否是当前玩家控制的角色
+            {
+                User.Instance.CurrentCharacterObject = go;
+                MainPlayerCamera.Instance.player = go;
+                pc.enabled = true;
+                pc.character = character;
+                pc.entityController = ec;
+            }
+            else
+            {
+                pc.enabled = false;
+            }
         }
     }
 }

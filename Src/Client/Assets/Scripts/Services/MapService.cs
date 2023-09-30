@@ -19,7 +19,9 @@ namespace Services
             MessageDistributer.Instance.Subscribe<MapCharacterEnterResponse>(this.OnMapCharacterEnter);
             MessageDistributer.Instance.Subscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
 
+            MessageDistributer.Instance.Subscribe<MapEntitySyncResponse>(this.OnMapEntitySync);
         }
+
 
         public void Dispose()
         {
@@ -73,5 +75,33 @@ namespace Services
             }
         }
 
+        internal void SendMapEntitySync(EntityEvent entityEvent, NEntity entity)
+        {
+            Debug.LogFormat("MapEntityUpdateRequest:ID:{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.mapEntitySync = new MapEntitySyncRequest();
+            message.Request.mapEntitySync.entitySync = new NEntitySync()
+            {
+                Id = entity.Id,
+                Event = entityEvent,
+                Entity = entity
+            };
+            NetClient.Instance.SendMessage(message);
+        }
+
+        private void OnMapEntitySync(object sender, MapEntitySyncResponse response)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendFormat("MapEntityUpdateResponse:Entity:{0}", response.entitySyncs.Count);
+            sb.AppendLine();
+            foreach(var entity in response.entitySyncs)
+            {
+                EntityManager.Instance.OnEntitySync(entity);
+                sb.AppendFormat("[{0}]eve:{1} entity:{2}", entity.Id, entity.Event, entity.Entity.String());
+                sb.AppendLine();
+            }
+            Debug.Log(sb.ToString());
+        }
     }
 }
