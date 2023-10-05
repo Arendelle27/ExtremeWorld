@@ -29,7 +29,13 @@ public class MiniMap : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        this.playerTransform = User.Instance.CurrentCharacterObject.transform;
+        if (this.playerTransform == null)
+        {
+            this.playerTransform = MiniMapManager.Instance.PlayerTranform;
+        }
+
+        if (this.playerTransform == null || this.miniMapBoundingBox == null) return;
+
         float realWidth = miniMapBoundingBox.bounds.size.x;
         float realHeight = miniMapBoundingBox.bounds.size.z;
 
