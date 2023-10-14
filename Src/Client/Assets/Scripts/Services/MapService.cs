@@ -103,5 +103,15 @@ namespace Services
             }
             Debug.Log(sb.ToString());
         }
+
+        public void SendMapTeleport(int telepoterID)
+        {
+            Debug.LogFormat("MapEntityUpdateRequest :teleporterID:{0}", telepoterID);
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.mapTeleport = new MapTeleportRequest();
+            message.Request.mapTeleport.teleporterId = telepoterID;
+            NetClient.Instance.SendMessage(message);
+        }
     }
 }
