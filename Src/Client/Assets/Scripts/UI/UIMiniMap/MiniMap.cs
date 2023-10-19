@@ -13,18 +13,19 @@ public class MiniMap : MonoBehaviour {
 
     private Transform playerTransform;
 	void Start () {
-        this.MapInit();
+        MiniMapManager.Instance.miniMap = this;
+        this.UpdateMap();
 	}
 
-    void MapInit()
+    public void UpdateMap()
     {
         this.mapName.text = User.Instance.CurrentMapData.Name;
-        if (this.miniMap.overrideSprite == null)
-        {
-            this.miniMap.overrideSprite = MiniMapManager.Instance.LoadCurrentMinimap();
-        }
+        this.miniMap.overrideSprite = MiniMapManager.Instance.LoadCurrentMinimap();
+
         this.miniMap.SetNativeSize();
         this.miniMap.transform.localPosition = Vector3.zero;
+        this.miniMapBoundingBox = MiniMapManager.Instance.MinimapBoundingBox;
+        this.playerTransform = null;
     }
 
     // Update is called once per frame
