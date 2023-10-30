@@ -16,6 +16,7 @@ public class UIManager : Singleton<UIManager> {
     public UIManager()
     {
         this.UIResources.Add(typeof(UITest), new UIElement() { Resources = "UI/UITest", Cache = true });
+        this.UIResources.Add(typeof(UIBag), new UIElement() { Resources = "UI/UIBag", Cache = true });
     }
 
     ~UIManager()
@@ -23,7 +24,7 @@ public class UIManager : Singleton<UIManager> {
 
     }
 
-    public T Show<T>(Transform parent)
+    public T Show<T>()
     {
         Type type = typeof(T);
         if(this.UIResources.ContainsKey(type))
@@ -40,7 +41,7 @@ public class UIManager : Singleton<UIManager> {
                 {
                     return default(T);
                 }
-                info.Instance = (GameObject)GameObject.Instantiate(prefab,parent);
+                info.Instance = (GameObject)GameObject.Instantiate(prefab);
             }
             return info.Instance.GetComponent<T>();
         }

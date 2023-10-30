@@ -25,7 +25,7 @@ public class MapTool : MonoBehaviour {
 
         foreach(var map in DataManager.Instance.Maps)
         {
-            string sceneFile = "Assert/Levels/" + map.Value.Resource + ".unity";
+            string sceneFile = "Assets/Levels/" + map.Value.Resource + ".unity";
             if(!System.IO.File.Exists(sceneFile))
             {
                 Debug.LogWarningFormat("Scene {0} not existed!", sceneFile);

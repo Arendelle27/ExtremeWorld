@@ -33,7 +33,7 @@ public class UIMain : MonoSingleton<UIMain>{
 
     public void OnClickTest()
     {
-        UITest test=UIManager.Instance.Show<UITest>(this.transform);
+        UITest test=UIManager.Instance.Show<UITest>();
         test.SetTitle("测试");
         test.OnClose += Test_OnClose;
     }
@@ -41,5 +41,10 @@ public class UIMain : MonoSingleton<UIMain>{
     private void Test_OnClose(UIWindow sender,UIWindow.WindowResult result)
     {
         MessageBox.Show("点击了对话框的：" + result, "对话框响应结果", MessageBoxType.Information);
+    }
+
+    public void OnClickBag()
+    {
+        UIManager.Instance.Show<UIBag>();
     }
 }
