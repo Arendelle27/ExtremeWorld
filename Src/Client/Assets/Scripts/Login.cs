@@ -11,8 +11,6 @@ public class Login : MonoBehaviour {
 
         SkillBridge.Message.NetMessage msg= new SkillBridge.Message.NetMessage();//构建主消息
         msg.Request = new SkillBridge.Message.NetMessageRequest();//构建请求消息
-        msg.Request.firstRequest = new SkillBridge.Message.FirstTestRequest();//构建自己写的消息
-        msg.Request.firstRequest.Hellowworld = "helloworld";//填上对应的值
         Network.NetClient.Instance.SendMessage(msg);//发送
 	}
 	

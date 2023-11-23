@@ -1,102 +1,66 @@
-2023-10-27 17:04:34,279 [ 1] INFO  Unity: LoadingManager start
-2023-10-27 17:04:37,394 [ 1] INFO  Unity: DataManager > DataManager()
-2023-10-27 17:04:40,308 [ 1] INFO  Unity: UserLoginRequest::user :111 psw:111
-2023-10-27 17:04:40,309 [ 1] INFO  Unity: ConnectToServer() Start 
-2023-10-27 17:04:40,310 [ 1] INFO  Unity: DoConnect
-2023-10-27 17:04:40,313 [ 1] INFO  Unity: NetClient.DoConnect on 127.0.0.1:8000
-2023-10-27 17:04:40,314 [ 1] INFO  Unity: Connect[0] to server 127.0.0.1:8000
+2023-11-23 20:01:59,943 [ 1] INFO  Unity: LoadingManager start
+2023-11-23 20:02:03,026 [ 1] INFO  Unity: DataManager > DataManager()
+2023-11-23 20:02:05,651 [ 1] INFO  Unity: UserLoginRequest::user :111 psw:111
+2023-11-23 20:02:05,653 [ 1] INFO  Unity: ConnectToServer() Start 
+2023-11-23 20:02:05,653 [ 1] INFO  Unity: DoConnect
+2023-11-23 20:02:05,655 [ 1] INFO  Unity: NetClient.DoConnect on 127.0.0.1:8000
+2023-11-23 20:02:05,656 [ 1] INFO  Unity: Connect[0] to server 127.0.0.1:8000
 
-2023-10-27 17:04:40,317 [ 1] INFO  Unity: LoadingMesager::OnGameServerConnect :0 reason:Success
-2023-10-27 17:04:42,483 [ 1] INFO  Unity: OnLogin:Success [None]
-2023-10-27 17:04:42,485 [ 1] INFO  Unity: LoadLevel: CharSelect
-2023-10-27 17:04:42,640 [ 1] INFO  Unity: LevelLoadCompleted:1
-2023-10-27 17:04:43,577 [ 1] INFO  Unity: Select Char:[1]二[Archer]
-2023-10-27 17:04:44,124 [ 1] INFO  Unity: UserGameEnterRequest::characterId :0 
-2023-10-27 17:04:44,468 [ 1] INFO  Unity: OnUserGameEnter:Success [None]
-2023-10-27 17:04:44,470 [ 1] INFO  Unity: ItemManager:Init[Id:1,Count:200]
-2023-10-27 17:04:44,470 [ 1] INFO  Unity: ItemManager:Init[Id:2,Count:79]
-2023-10-27 17:04:44,471 [ 1] INFO  Unity: ItemManager:Init[Id:3,Count:30]
-2023-10-27 17:04:44,472 [ 1] INFO  Unity: ItemManager:Init[Id:4,Count:120]
-2023-10-27 17:04:44,478 [ 1] INFO  Unity: OnMapCharacterEnter:Map:1 Count:1
-2023-10-27 17:04:44,480 [ 1] INFO  Unity: AddCharacter:1:二 Map:1 Entity:(1:pos:(5000,4000,820),dir:(100,0,0),spd:0
-2023-10-27 17:04:44,483 [ 1] INFO  Unity: LoadLevel: MainCity
-2023-10-27 17:04:45,019 [ 1] WARN  Unity: No mesh data available for mesh Sphere001 on particle system fx_portal. Make sure Read/Write Enabled is set in the importer to work on the particle system renderer
+2023-11-23 20:02:05,659 [ 1] INFO  Unity: LoadingMesager::OnGameServerConnect :0 reason:Success
+2023-11-23 20:02:05,727 [ 1] INFO  Unity: OnLogin:Success [None]
+2023-11-23 20:02:05,728 [ 1] INFO  Unity: LoadLevel: CharSelect
+2023-11-23 20:02:05,823 [ 1] INFO  Unity: LevelLoadCompleted:1
+2023-11-23 20:02:06,318 [ 1] INFO  Unity: Select Char:[1]二[Archer]
+2023-11-23 20:02:06,811 [ 1] INFO  Unity: UserGameEnterRequest::characterId :0 
+2023-11-23 20:02:06,827 [ 1] INFO  Unity: OnUserGameEnter:Success [None]
+2023-11-23 20:02:06,829 [ 1] INFO  Unity: ItemManager:Init[Id:1,Count:20]
+2023-11-23 20:02:06,829 [ 1] INFO  Unity: ItemManager:Init[Id:2,Count:20]
+2023-11-23 20:02:06,830 [ 1] INFO  Unity: ItemManager:Init[Id:1001,Count:2]
+2023-11-23 20:02:06,830 [ 1] INFO  Unity: ItemManager:Init[Id:3002,Count:1]
+2023-11-23 20:02:06,831 [ 1] INFO  Unity: ItemManager:Init[Id:1002,Count:1]
+2023-11-23 20:02:06,831 [ 1] INFO  Unity: ItemManager:Init[Id:3001,Count:1]
+2023-11-23 20:02:06,832 [ 1] INFO  Unity: ItemManager:Init[Id:3006,Count:1]
+2023-11-23 20:02:06,832 [ 1] INFO  Unity: ItemManager:Init[Id:3003,Count:1]
+2023-11-23 20:02:06,833 [ 1] INFO  Unity: ItemManager:Init[Id:3005,Count:1]
+2023-11-23 20:02:06,833 [ 1] INFO  Unity: ItemManager:Init[Id:2007,Count:1]
+2023-11-23 20:02:06,837 [ 1] INFO  Unity: OnMapCharacterEnter:Map:1 Count:1
+2023-11-23 20:02:06,838 [ 1] INFO  Unity: AddCharacter:28:二 Map:1 Entity:(28:pos:(5000,4000,820),dir:(100,0,0),spd:0
+2023-11-23 20:02:06,840 [ 1] INFO  Unity: LoadLevel: MainCity
+2023-11-23 20:02:07,320 [ 1] WARN  Unity: No mesh data available for mesh Sphere001 on particle system fx_portal. Make sure Read/Write Enabled is set in the importer to work on the particle system renderer
 
-2023-10-27 17:04:45,111 [ 1] WARN  Unity: UIWorldElementManager[37596] Awake
+2023-11-23 20:02:07,400 [ 1] WARN  Unity: UIWorldElementManager[145692] Awake
 UnityEngine.Debug:LogWarningFormat(String, Object[])
 MonoSingleton`1:Awake() (at Assets/Scripts/Utilities/MonoSingleton.cs:23)
 
-2023-10-27 17:04:45,112 [ 1] WARN  Unity: GameObjectManager[38234] Awake
+2023-11-23 20:02:07,400 [ 1] WARN  Unity: GameObjectManager[146364] Awake
 UnityEngine.Debug:LogWarningFormat(String, Object[])
 MonoSingleton`1:Awake() (at Assets/Scripts/Utilities/MonoSingleton.cs:23)
 
-2023-10-27 17:04:45,132 [ 1] WARN  Unity: MainPlayerCamera[38736] Awake
+2023-11-23 20:02:07,415 [ 1] WARN  Unity: MainPlayerCamera[146892] Awake
 UnityEngine.Debug:LogWarningFormat(String, Object[])
 MonoSingleton`1:Awake() (at Assets/Scripts/Utilities/MonoSingleton.cs:23)
 
-2023-10-27 17:04:45,132 [ 1] WARN  Unity: UIMain[38884] Awake
+2023-11-23 20:02:07,415 [ 1] WARN  Unity: UIMain[147040] Awake
 UnityEngine.Debug:LogWarningFormat(String, Object[])
 MonoSingleton`1:Awake() (at Assets/Scripts/Utilities/MonoSingleton.cs:23)
 
-2023-10-27 17:04:45,160 [ 1] INFO  Unity: LevelLoadCompleted:1
-2023-10-27 17:04:45,762 [ 1] INFO  Unity: MoveForward
-2023-10-27 17:04:45,768 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5000,4000,820) DIR:(100,0,0) SPD:300
-2023-10-27 17:04:45,868 [ 1] INFO  Unity: SetDirection:(98, -20, 0)
-2023-10-27 17:04:45,868 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5030,4000,820) DIR:(98,-20,0) SPD:300
-2023-10-27 17:04:45,969 [ 1] INFO  Unity: SetDirection:(92, -38, 0)
-2023-10-27 17:04:45,970 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5060,3994,820) DIR:(92,-38,0) SPD:300
-2023-10-27 17:04:46,068 [ 1] INFO  Unity: SetDirection:(82, -57, 0)
-2023-10-27 17:04:46,069 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5090,3982,820) DIR:(82,-57,0) SPD:300
-2023-10-27 17:04:46,164 [ 1] INFO  Unity: SetDirection:(70, -71, 0)
-2023-10-27 17:04:46,165 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5114,3964,820) DIR:(70,-71,0) SPD:300
-2023-10-27 17:04:46,314 [ 1] INFO  Unity: SetDirection:(56, -83, 0)
-2023-10-27 17:04:46,315 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5150,3928,820) DIR:(56,-83,0) SPD:300
-2023-10-27 17:04:46,483 [ 1] INFO  Unity: SetDirection:(39, -92, 0)
-2023-10-27 17:04:46,484 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5180,3888,820) DIR:(39,-92,0) SPD:300
-2023-10-27 17:04:46,581 [ 1] INFO  Unity: SetDirection:(20, -98, 0)
-2023-10-27 17:04:46,582 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5192,3858,820) DIR:(20,-98,0) SPD:300
-2023-10-27 17:04:46,686 [ 1] INFO  Unity: SetDirection:(1, -100, 0)
-2023-10-27 17:04:46,686 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5198,3828,820) DIR:(1,-100,0) SPD:300
-2023-10-27 17:04:46,869 [ 1] INFO  Unity: SetDirection:(-17, -99, 0)
-2023-10-27 17:04:46,870 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5198,3773,820) DIR:(-17,-99,0) SPD:300
-2023-10-27 17:04:47,351 [ 1] INFO  Unity: SetDirection:(2, -100, 0)
-2023-10-27 17:04:47,352 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5169,3628,820) DIR:(2,-100,0) SPD:300
-2023-10-27 17:04:47,454 [ 1] INFO  Unity: SetDirection:(20, -98, 0)
-2023-10-27 17:04:47,455 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5169,3598,820) DIR:(20,-98,0) SPD:300
-2023-10-27 17:04:47,584 [ 1] INFO  Unity: SetDirection:(38, -92, 0)
-2023-10-27 17:04:47,585 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5177,3558,820) DIR:(38,-92,0) SPD:300
-2023-10-27 17:04:48,017 [ 1] INFO  Unity: SetDirection:(21, -98, 0)
-2023-10-27 17:04:48,017 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5229,3428,820) DIR:(21,-98,0) SPD:300
-2023-10-27 17:04:48,120 [ 1] INFO  Unity: SetDirection:(0, -100, 0)
-2023-10-27 17:04:48,121 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5235,3398,820) DIR:(0,-100,0) SPD:300
-2023-10-27 17:04:48,223 [ 1] INFO  Unity: SetDirection:(-21, -98, 0)
-2023-10-27 17:04:48,223 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5235,3368,820) DIR:(-21,-98,0) SPD:300
-2023-10-27 17:04:48,786 [ 1] INFO  Unity: Stop
-2023-10-27 17:04:48,788 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5201,3198,820) DIR:(-21,-98,0) SPD:0
-2023-10-27 17:04:50,260 [ 1] INFO  Unity: MoveForward
-2023-10-27 17:04:50,261 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5201,3198,820) DIR:(-21,-98,0) SPD:300
-2023-10-27 17:04:50,440 [ 1] INFO  Unity: SetDirection:(-38, -93, 0)
-2023-10-27 17:04:50,441 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5190,3143,820) DIR:(-38,-93,0) SPD:300
-2023-10-27 17:04:50,539 [ 1] INFO  Unity: SetDirection:(-54, -84, 0)
-2023-10-27 17:04:50,540 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5178,3113,820) DIR:(-54,-84,0) SPD:300
-2023-10-27 17:04:50,642 [ 1] INFO  Unity: SetDirection:(-70, -71, 0)
-2023-10-27 17:04:50,642 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5160,3089,820) DIR:(-70,-71,0) SPD:300
-2023-10-27 17:04:50,744 [ 1] INFO  Unity: SetDirection:(-83, -55, 0)
-2023-10-27 17:04:50,745 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5136,3065,820) DIR:(-83,-55,0) SPD:300
-2023-10-27 17:04:50,843 [ 1] INFO  Unity: SetDirection:(-92, -38, 0)
-2023-10-27 17:04:50,843 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5112,3047,820) DIR:(-92,-38,0) SPD:300
-2023-10-27 17:04:51,007 [ 1] INFO  Unity: SetDirection:(-98, -21, 0)
-2023-10-27 17:04:51,008 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5062,3027,820) DIR:(-98,-21,0) SPD:300
-2023-10-27 17:04:51,107 [ 1] INFO  Unity: Stop
-2023-10-27 17:04:51,108 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5032,3021,820) DIR:(-98,-21,0) SPD:0
-2023-10-27 17:04:53,197 [ 1] INFO  Unity: MoveForward
-2023-10-27 17:04:53,198 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(5032,3021,820) DIR:(-98,-21,0) SPD:300
-2023-10-27 17:04:53,780 [ 1] INFO  Unity: Stop
-2023-10-27 17:04:53,780 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:1 POS:(4857,2986,820) DIR:(-98,-21,0) SPD:0
-2023-10-27 17:04:56,581 [ 1] INFO  Unity: OnDestroy NetworkManager.
-2023-10-27 17:04:56,582 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
+2023-11-23 20:02:07,440 [ 1] INFO  Unity: LevelLoadCompleted:1
+2023-11-23 20:02:07,442 [ 1] FATAL Unity: <log4net.Error>Exception during StringFormat: Input string was not in a correct format. <format>{0
+{1}</format><args>{NullReferenceException: Object reference not set to an instance of an object, UIShop+<InitItems>c__Iterator0.MoveNext () (at Assets/Scripts/UI/UIShop.cs:29)
+UnityEngine.SetupCoroutine.InvokeMoveNext (IEnumerator enumerator, IntPtr returnValueAddress) (at C:/buildslave/unity/build/Runtime/Export/Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+UIShop:Start() (at Assets/Scripts/UI/UIShop.cs:22)
+}</args></log4net.Error>
+2023-11-23 20:02:08,193 [ 1] INFO  Unity: SetDirection:(98, 20, 0)
+2023-11-23 20:02:08,194 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:28 POS:(5000,4000,820) DIR:(98,20,0) SPD:0
+2023-11-23 20:02:08,294 [ 1] INFO  Unity: SetDirection:(93, 38, 0)
+2023-11-23 20:02:08,294 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:28 POS:(5000,4000,820) DIR:(93,38,0) SPD:0
+2023-11-23 20:02:08,411 [ 1] INFO  Unity: SetDirection:(84, 54, 0)
+2023-11-23 20:02:08,412 [ 1] INFO  Unity: MapEntityUpdateRequest:ID:28 POS:(5000,4000,820) DIR:(84,54,0) SPD:0
+2023-11-23 20:02:29,388 [ 1] INFO  Unity: Character_28_二 OnDestory:ID:28 POS:(5000, 4000, 820) DIR:(84, 54, 0) SPD:0
+2023-11-23 20:02:29,390 [ 1] INFO  Unity: OnDestroy NetworkManager.
+2023-11-23 20:02:29,390 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
 UnityEngine.Debug:LogWarning(Object)
 Network.NetClient:CloseConnection(Int32) (at Assets/Scripts/Network/NetClient.cs:176)
 Network.NetClient:OnDestroy() (at Assets/Scripts/Network/NetClient.cs:171)
 
-2023-10-27 17:04:56,587 [ 1] INFO  Unity: Character_1_二 OnDestory:ID:1 POS:(4857, 2986, 820) DIR:(-98, -21, 0) SPD:0

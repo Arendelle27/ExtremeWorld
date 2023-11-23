@@ -33,5 +33,7 @@ namespace Common.Data
         public ItemFunction Function { get; set; }
         public int Param { get; set; }
         public List<int> Params { get; set; }
+        public CharacterClass LimitClass { get; set; }
+        public int Level { get; set; }
     }
 }

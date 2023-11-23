@@ -25,12 +25,12 @@ namespace GameServer
         {
             network = new NetService();
             network.Init(8000);
-            HelloworldService.Instance.Init();
 
             DBService.Instance.Init();
             UserService.Instance.Init();
             DataManager.Instance.Load();
             MapService.Instance.Init();
+            ItemService.Instance.Init();
             thread = new Thread(new ThreadStart(this.Update));
 
             return true;
@@ -39,7 +39,6 @@ namespace GameServer
         public void Start()
         {
             network.Start();
-            HelloworldService.Instance.Start();
             running = true;
             thread.Start();
         }

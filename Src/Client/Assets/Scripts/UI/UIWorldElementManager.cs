@@ -10,11 +10,6 @@ public class UIWorldElementManager : MonoSingleton<UIWorldElementManager>
 
     private Dictionary<Transform, GameObject> element = new Dictionary<Transform, GameObject>();
 
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void AddCharacterNameBar(Transform owner,Character character)
     {

@@ -32,32 +32,30 @@ namespace GameServer.Services
         {
             Log.InfoFormat("UserLoginRequest: User:{0}  Pass:{1}", request.User, request.Passward);
 
-            NetMessage message = new NetMessage();
-            message.Response = new NetMessageResponse();
-            message.Response.userLogin = new UserLoginResponse();
+            sender.Session.Response.userLogin = new UserLoginResponse();
 
 
             TUser user = DBService.Instance.Entities.Users.Where(u => u.Username == request.User).FirstOrDefault();
             if(user==null)
             {
-                message.Response.userLogin.Result = Result.Failed;
-                message.Response.userLogin.Errormsg = "用户不存在";
+                sender.Session.Response.userLogin.Result = Result.Failed;
+                sender.Session.Response.userLogin.Errormsg = "用户不存在";
             }
             else if(user.Password != request.Passward)
             {
-                message.Response.userLogin.Result = Result.Failed;
-                message.Response.userLogin.Errormsg = "密码错误";
+                sender.Session.Response.userLogin.Result = Result.Failed;
+                sender.Session.Response.userLogin.Errormsg = "密码错误";
             }
             else
             {
                 sender.Session.User = user;
 
-                message.Response.userLogin.Result = Result.Success;
-                message.Response.userLogin.Errormsg = "None";
-                message.Response.userLogin.Userinfo = new NUserInfo();
-                message.Response.userLogin.Userinfo.Id = (int)user.ID;
-                message.Response.userLogin.Userinfo.Player = new NPlayerInfo();
-                message.Response.userLogin.Userinfo.Player.Id = user.Player.ID;
+                sender.Session.Response.userLogin.Result = Result.Success;
+                sender.Session.Response.userLogin.Errormsg = "None";
+                sender.Session.Response.userLogin.Userinfo = new NUserInfo();
+                sender.Session.Response.userLogin.Userinfo.Id = (int)user.ID;
+                sender.Session.Response.userLogin.Userinfo.Player = new NPlayerInfo();
+                sender.Session.Response.userLogin.Userinfo.Player.Id = user.Player.ID;
                 foreach(var c in user.Player.Characters)
                 {
                     NCharacterInfo info = new NCharacterInfo();
@@ -66,12 +64,11 @@ namespace GameServer.Services
                     info.Type = CharacterType.Player;
                     info.Class = (CharacterClass)c.Class;
                     info.Tid = c.ID;
-                    message.Response.userLogin.Userinfo.Player.Characters.Add(info);
+                    sender.Session.Response.userLogin.Userinfo.Player.Characters.Add(info);
                 }
                
             }
-            byte[]  data = PackageHandler.PackMessage(message);
-            sender.SendData(data, 0, data.Length);
+            sender.SendResponse();
         }
 
         void OnRegister(NetConnection<NetSession> sender, UserRegisterRequest request)
@@ -115,6 +112,9 @@ namespace GameServer.Services
                 MapPosX = 5000,
                 MapPosY = 4000,
                 MapPosZ = 820,
+
+                Gold = 100000,//初始金钱
+                Equips = new byte[28]
             };
 
             var bag = new TCharacterBag();
@@ -124,6 +124,19 @@ namespace GameServer.Services
             character.Bag = DBService.Instance.Entities.CharacterBags.Add(bag);
 
             character=DBService.Instance.Entities.Characters.Add(character);
+            character.Items.Add(new TCharacterItem()
+            {
+                Owner = character,
+                ItemID = 1,
+                ItemCount=20,
+            });
+            character.Items.Add(new TCharacterItem()
+            {
+                Owner=character,
+                ItemID=2,
+                ItemCount=20,
+            });
+
             sender.Session.User.Player.Characters.Add(character);
             DBService.Instance.Entities.SaveChanges();
 
@@ -163,29 +176,10 @@ namespace GameServer.Services
             //进入成功，发送初始角色信息
             message.Response.gameEnter.Character = character.Info;
 
-            //道具系统测试
-            int itemId = 2;
-            bool hasItem = character.ItemManager.HasItem(itemId);
-            Log.InfoFormat("HasItem:[{0}]{1}", itemId, hasItem);
-            if(hasItem)
-            {
-                character.ItemManager.RemoveItem(itemId, 1);
-            }
-            else
-            {
-                character.ItemManager.AddItem(1, 200);
-                character.ItemManager.AddItem(2, 100);
-                character.ItemManager.AddItem(3, 30);
-                character.ItemManager.AddItem(4, 120);
-            }
-            Models.Item item = character.ItemManager.GetItem(itemId);
-
-            Log.InfoFormat("Item:[{0}][{1}]", itemId, item);
-            DBService.Instance.Save();
-
             byte[] data = PackageHandler.PackMessage(message);
             sender.SendData(data, 0, data.Length);
             sender.Session.Character = character;
+
             MapManager.Instance[dbchar.MapID].CharacterEnter(sender, character);
         }
 
