@@ -28,9 +28,14 @@ public class UIWindow : MonoBehaviour {
         this.Close(WindowResult.Yes);
     }
 
+    public virtual void OnNoClick()
+    {
+        this.Close(WindowResult.None);
+    }
+
     public void OnCloseClick()
     {
-        this.Close(WindowResult.No);
+        this.Close(WindowResult.None);
     }
 
     private void OnMouseDown()
