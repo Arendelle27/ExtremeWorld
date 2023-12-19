@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Models\Quest.cs" />
     <Compile Include="Assets\Scripts\Utilities\GameUtil.cs" />
     <Compile Include="Assets\Scripts\UI\UIMain.cs" />
+    <Compile Include="Assets\Scripts\UI\InputBox.cs" />
     <Compile Include="Assets\Scripts\Log\UnityLogger.cs" />
     <Compile Include="Assets\Scripts\Managers\QuestManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\EntityController.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestDialog.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabButton.cs" />
     <Compile Include="Assets\Scripts\Services\UserService.cs" />
+    <Compile Include="Assets\Scripts\UI\UIFriend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\Models\User.cs" />
     <Compile Include="Assets\Scripts\UI\UIIconItem.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectManager.cs" />
@@ -122,11 +124,16 @@
     <Compile Include="Assets\Scripts\GameObject\TelepertorObject.cs" />
     <Compile Include="Assets\Scripts\Utilities\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\UI\UICharEquip.cs" />
+    <Compile Include="Assets\Scripts\Managers\FriendManager.cs" />
     <Compile Include="Assets\Scripts\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\MainPlayerCamera.cs" />
+    <Compile Include="Assets\Scripts\Services\FriendService.cs" />
+    <Compile Include="Assets\Scripts\GameObject\SpawnPoint.cs" />
+    <Compile Include="Assets\Scripts\UI\UIFriend\UIFriendItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIEquipItem.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Services\QuestService.cs" />
+    <Compile Include="Assets\Scripts\UI\UIFriend\UIInputBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

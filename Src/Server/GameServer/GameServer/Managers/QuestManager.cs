@@ -53,7 +53,7 @@ namespace Managers
             QuestDefine quest;
             if(DataManager.Instance.Quests.TryGetValue(questId,out quest))
             {
-                var dbquest = DBService.Instance.Entities.TCharacterQuests.Create();
+                var dbquest = DBService.Instance.Entities.CharacterQuests.Create();
                 dbquest.QuestID = quest.ID;
                 if(quest.Target1==QuestTarget.None)
                 {//没有目标直接完成

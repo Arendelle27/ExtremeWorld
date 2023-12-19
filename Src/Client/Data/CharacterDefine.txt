@@ -40,7 +40,7 @@
   },
   "1002": {
     "TID": 1002,
-    "Name": "-",
+    "Name": "骷髅王",
     "Type": "Normal",
     "Class": "WIZARD",
     "Resource": "Monster/M1002",
@@ -49,7 +49,7 @@
   },
   "1003": {
     "TID": 1003,
-    "Name": "-",
+    "Name": "红暴徒",
     "Type": "Normal",
     "Class": "ARCHER",
     "Resource": "Monster/M1003",

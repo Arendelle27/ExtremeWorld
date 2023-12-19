@@ -23,8 +23,9 @@ namespace GameServer
 
         public bool Init()
         {
+            int Port = Properties.Settings.Default.ServerPort;
             network = new NetService();
-            network.Init(8000);
+            network.Init(Port);
 
             DBService.Instance.Init();
             UserService.Instance.Init();
@@ -32,6 +33,7 @@ namespace GameServer
             MapService.Instance.Init();
             ItemService.Instance.Init();
             QuestService.Instance.Init();
+            FriendService.Instance.Init();
             thread = new Thread(new ThreadStart(this.Update));
 
             return true;
@@ -59,6 +61,7 @@ namespace GameServer
                 Time.Tick();
                 Thread.Sleep(100);
                 //Console.WriteLine("{0} {1} {2} {3} {4}", Time.deltaTime, Time.frameCount, Time.ticks, Time.time, Time.realtimeSinceStartup);
+                MapManager.Instance.Update();
             }
         }
     }

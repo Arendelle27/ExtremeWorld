@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/03/2023 16:46:49
+-- Date Created: 12/18/2023 17:09:09
 -- Generated from EDMX file: C:\GameMaker\ExtremeWorld\mmowork\Src\Server\GameServer\GameServer\Entities.edmx
 -- --------------------------------------------------
 
@@ -30,7 +30,10 @@ IF OBJECT_ID(N'[dbo].[FK_TCharacterTCharacterBag]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Characters] DROP CONSTRAINT [FK_TCharacterTCharacterBag];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TCharacterTCharacterQuest]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TCharacterQuests] DROP CONSTRAINT [FK_TCharacterTCharacterQuest];
+    ALTER TABLE [dbo].[CharacterQuests] DROP CONSTRAINT [FK_TCharacterTCharacterQuest];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TCharacterFriendTCharacter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CharacterFriends] DROP CONSTRAINT [FK_TCharacterFriendTCharacter];
 GO
 
 -- --------------------------------------------------
@@ -52,8 +55,11 @@ GO
 IF OBJECT_ID(N'[dbo].[CharacterBags]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CharacterBags];
 GO
-IF OBJECT_ID(N'[dbo].[TCharacterQuests]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[TCharacterQuests];
+IF OBJECT_ID(N'[dbo].[CharacterQuests]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CharacterQuests];
+GO
+IF OBJECT_ID(N'[dbo].[CharacterFriends]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CharacterFriends];
 GO
 
 -- --------------------------------------------------
@@ -88,6 +94,8 @@ CREATE TABLE [dbo].[Characters] (
     [MapPosZ] int  NOT NULL,
     [Gold] bigint  NOT NULL,
     [Equips] binary(28)  NOT NULL,
+    [Level] int  NOT NULL,
+    [Exp] int  NULL,
     [Player_ID] int  NOT NULL,
     [Bag_Id] int  NOT NULL
 );
@@ -110,8 +118,8 @@ CREATE TABLE [dbo].[CharacterBags] (
 );
 GO
 
--- Creating table 'TCharacterQuests'
-CREATE TABLE [dbo].[TCharacterQuests] (
+-- Creating table 'CharacterQuests'
+CREATE TABLE [dbo].[CharacterQuests] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [TCharacterID] int  NOT NULL,
     [Target1] int  NOT NULL,
@@ -119,6 +127,18 @@ CREATE TABLE [dbo].[TCharacterQuests] (
     [Target3] int  NOT NULL,
     [Status] int  NOT NULL,
     [QuestID] int  NOT NULL
+);
+GO
+
+-- Creating table 'CharacterFriends'
+CREATE TABLE [dbo].[CharacterFriends] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FriendID] int  NOT NULL,
+    [FriendName] nvarchar(max)  NOT NULL,
+    [Class] int  NOT NULL,
+    [Level] int  NOT NULL,
+    [CharacterID] int  NOT NULL,
+    [Owner_ID] int  NOT NULL
 );
 GO
 
@@ -156,9 +176,15 @@ ADD CONSTRAINT [PK_CharacterBags]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'TCharacterQuests'
-ALTER TABLE [dbo].[TCharacterQuests]
-ADD CONSTRAINT [PK_TCharacterQuests]
+-- Creating primary key on [Id] in table 'CharacterQuests'
+ALTER TABLE [dbo].[CharacterQuests]
+ADD CONSTRAINT [PK_CharacterQuests]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CharacterFriends'
+ALTER TABLE [dbo].[CharacterFriends]
+ADD CONSTRAINT [PK_CharacterFriends]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -226,8 +252,8 @@ ON [dbo].[Characters]
     ([Bag_Id]);
 GO
 
--- Creating foreign key on [TCharacterID] in table 'TCharacterQuests'
-ALTER TABLE [dbo].[TCharacterQuests]
+-- Creating foreign key on [TCharacterID] in table 'CharacterQuests'
+ALTER TABLE [dbo].[CharacterQuests]
 ADD CONSTRAINT [FK_TCharacterTCharacterQuest]
     FOREIGN KEY ([TCharacterID])
     REFERENCES [dbo].[Characters]
@@ -237,8 +263,23 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TCharacterTCharacterQuest'
 CREATE INDEX [IX_FK_TCharacterTCharacterQuest]
-ON [dbo].[TCharacterQuests]
+ON [dbo].[CharacterQuests]
     ([TCharacterID]);
+GO
+
+-- Creating foreign key on [Owner_ID] in table 'CharacterFriends'
+ALTER TABLE [dbo].[CharacterFriends]
+ADD CONSTRAINT [FK_TCharacterFriendTCharacter]
+    FOREIGN KEY ([Owner_ID])
+    REFERENCES [dbo].[Characters]
+        ([ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TCharacterFriendTCharacter'
+CREATE INDEX [IX_FK_TCharacterFriendTCharacter]
+ON [dbo].[CharacterFriends]
+    ([Owner_ID]);
 GO
 
 -- --------------------------------------------------
