@@ -10,6 +10,8 @@ public class UIMain : MonoSingleton<UIMain>{
 
     public Text avatarName;
     public Text avaterLevel;
+
+    public UITeam TeamWindow;
 	protected override void OnStart () {
         this.UpdateAvater();
 	}
@@ -61,5 +63,10 @@ public class UIMain : MonoSingleton<UIMain>{
     public void OnClickFirend()
     {
         UIManager.Instance.Show<UIFriend>();
+    }
+
+    public void ShowTeamUI(bool show)
+    {
+        TeamWindow.ShowTeam(show);
     }
 }

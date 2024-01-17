@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Managers\EquipManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestItem.cs" />
     <Compile Include="Assets\Scripts\Managers\BagManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UITeam\UITeam.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestInfo.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
@@ -116,6 +117,8 @@
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\Models\User.cs" />
     <Compile Include="Assets\Scripts\UI\UIIconItem.cs" />
+    <Compile Include="Assets\Scripts\UI\UITeam\UITeamItem.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectManager.cs" />
     <Compile Include="Assets\Scripts\Services\ItemService.cs" />
     <Compile Include="Assets\Scripts\Managers\EntityManager.cs" />
@@ -125,12 +128,14 @@
     <Compile Include="Assets\Scripts\Utilities\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\UI\UICharEquip.cs" />
     <Compile Include="Assets\Scripts\Managers\FriendManager.cs" />
+    <Compile Include="Assets\Scripts\Services\TeamService.cs" />
     <Compile Include="Assets\Scripts\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\MainPlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Services\FriendService.cs" />
     <Compile Include="Assets\Scripts\GameObject\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriendItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIEquipItem.cs" />
+    <Compile Include="Assets\Scripts\Managers\TeamManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Services\QuestService.cs" />
     <Compile Include="Assets\Scripts\UI\UIFriend\UIInputBox.cs" />

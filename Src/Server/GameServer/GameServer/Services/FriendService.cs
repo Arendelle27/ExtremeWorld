@@ -71,7 +71,7 @@ namespace GameServer.Services
                 return;
             }
 
-            Log.InfoFormat("ForwardRequest::FromId:{0} FromName:{1} ToID:{2} ToName:{3}", request.FromId, request.FromName, request.ToId, request.ToName);
+            Log.InfoFormat("FriendAddRequest::FromId:{0} FromName:{1} ToID:{2} ToName:{3}", request.FromId, request.FromName, request.ToId, request.ToName);
             friend.Session.Response.friendAddReq = request;
             friend.SendResponse();
         }
