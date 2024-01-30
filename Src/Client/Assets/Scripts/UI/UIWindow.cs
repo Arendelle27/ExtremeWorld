@@ -30,7 +30,7 @@ public class UIWindow : MonoBehaviour {
 
     public virtual void OnNoClick()
     {
-        this.Close(WindowResult.None);
+        this.Close(WindowResult.No);
     }
 
     public void OnCloseClick()

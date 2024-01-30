@@ -1,9 +1,9 @@
 ﻿using Common;
 using Common.Data;
+using Common.Utils;
 using GameServer.Core;
 using GameServer.Managers;
 using GameServer.Models;
-using Managers;
 using Network;
 using SkillBridge.Message;
 using System;
@@ -14,10 +14,14 @@ using System.Threading.Tasks;
 
 namespace GameServer.Entities
 {
+    /// <summary>
+    /// Character
+    /// 玩家角色类
+    /// </summary>
     class Character : CharacterBase,IPostResponser
     {
-       
         public TCharacter Data;
+
 
         public ItemManager ItemManager;
         public QuestManager QuestManager;
@@ -25,17 +29,20 @@ namespace GameServer.Entities
         public FriendManager FriendManager;
 
         public Team Team;
-        public int TeamUpdateTS;
+        public double TeamUpdateTS;
+
+        public Guild Guild;
+        public double GuildUpdateTS;
 
         public Character(CharacterType type,TCharacter cha):
             base(new Core.Vector3Int(cha.MapPosX, cha.MapPosY, cha.MapPosZ),new Core.Vector3Int(100,0,0))
         {
             this.Data = cha;
-            this.Id=cha.ID;
+            this.Id = cha.ID;
             this.Info = new NCharacterInfo();
             this.Info.Type = type;
             this.Info.Id = cha.ID;
-            this.Info.EntityId=this.entityId;
+            this.Info.EntityId = this.entityId;
             this.Info.Name = cha.Name;
             this.Info.Level = 10;//cha.Level;
             this.Info.ConfigId = cha.TID;
@@ -56,6 +63,8 @@ namespace GameServer.Entities
             this.StatusManager = new StatusManager(this);
             this.FriendManager = new FriendManager(this);
             this.FriendManager.GetFriendInfos(this.Info.Friends);
+
+            this.Guild = GuildManager.Instance.GetGuild(this.Data.GuildId);
         }
 
         public long Gold
@@ -72,20 +81,36 @@ namespace GameServer.Entities
 
         public void PostProcess(NetMessageResponse message)
         {
-            Log.InfoFormat("PostProcess > Character:characterID:{0}:{1}",this.Id,this.Info.Name);
+            Log.InfoFormat("PostProcess > Character: characterID:{0}:{1}", this.Id, this.Info.Name);
             this.FriendManager.PostProcess(message);
 
-            if(this.Team!=null)
+            if (this.Team != null)
             {
-                Log.InfoFormat("PostProcess > Team:characterID:{0}:{1} {2}<{3}", this.Id, this.Info.Name,TeamUpdateTS,this.Team.timestamp);
-                if(TeamUpdateTS<this.Team.timestamp)
+                Log.InfoFormat("PostProcess > Team: characterID:{0}:{1}  {2}<{3}", this.Id, this.Info.Name, TeamUpdateTS, this.Team.timestamp);
+                if (TeamUpdateTS < this.Team.timestamp)
                 {
-                    TeamUpdateTS = this.Team.timestamp;
+                    TeamUpdateTS = Team.timestamp;
                     this.Team.PostProcess(message);
                 }
             }
 
-            if(this.StatusManager.HasStatus)
+            if (this.Guild != null)
+            {
+                Log.InfoFormat("PostProcess > Guild: characterID:{0}:{1}  {2}<{3}", this.Id, this.Info.Name, GuildUpdateTS, this.Guild.timestamp);
+                if (this.Info.Guild == null)
+                {
+                    this.Info.Guild = this.Guild.GuildInfo(this);
+                    if (message.mapCharacterEnter != null)
+                        GuildUpdateTS = Guild.timestamp;
+                }
+                if (GuildUpdateTS < this.Guild.timestamp && message.mapCharacterEnter == null)
+                {
+                    GuildUpdateTS = Guild.timestamp;
+                    this.Guild.PostProcess(this, message);
+                }
+            }
+
+            if (this.StatusManager.HasStatus)
             {
                 this.StatusManager.PostProcess(message);
             }
@@ -105,8 +130,8 @@ namespace GameServer.Entities
             {
                 Id = this.Id,
                 Name = this.Info.Name,
-                Level = this.Info.Level,
-                Class = this.Info.Class
+                Class = this.Info.Class,
+                Level = this.Info.Level
             };
         }
     }

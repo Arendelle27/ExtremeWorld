@@ -24,6 +24,7 @@ namespace GameServer.Managers
         public Dictionary<int, EquipDefine> Equips = null;
         public Dictionary<int, QuestDefine> Quests = null;
 
+
         public DataManager()
         {
             this.DataPath = "Data/";

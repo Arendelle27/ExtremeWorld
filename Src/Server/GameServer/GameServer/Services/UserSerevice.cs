@@ -161,20 +161,18 @@ namespace GameServer.Services
             Log.InfoFormat("UserGameEnterRequest: characterID:{0}:{1} Map:{2}", dbchar.ID,dbchar.Name,dbchar.MapID);
             Character character = CharacterManager.Instance.AddCharacter(dbchar);
             SessionManager.Instance.AddSession(character.Id, sender);
-            NetMessage message = new NetMessage();
-            message.Response = new NetMessageResponse();
+
             sender.Session.Response.gameEnter = new UserGameEnterResponse();
             sender.Session.Response.gameEnter.Result = Result.Success;
             sender.Session.Response.gameEnter.Errormsg = "None";
 
             //进入成功，发送初始角色信息
+            sender.Session.Character = character;
+            sender.Session.PostResponser = character;
             sender.Session.Response.gameEnter.Character = character.Info;
             sender.SendResponse();
 
-            sender.Session.Character = character;
-            sender.Session.PostResponser = character;
             MapManager.Instance[dbchar.MapID].CharacterEnter(sender, character);
-            sender.SendResponse();
         }
 
         void OnGameLeave(NetConnection<NetSession> sender, UserGameLeaveRequest request)

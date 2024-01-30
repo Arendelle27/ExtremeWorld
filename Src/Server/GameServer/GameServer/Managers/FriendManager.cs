@@ -20,9 +20,7 @@ namespace GameServer.Managers
         bool friendChanged {
             get { return friendChanged_t; }
             set {
-                Log.InfoFormat("Set: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
                 friendChanged_t = value;
-                Log.InfoFormat("Set: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
             }
         }
 
@@ -62,7 +60,6 @@ namespace GameServer.Managers
             this.Owner.Data.Friends.Add(tf);
 
             this.friendChanged = true;
-            Log.InfoFormat("AddFriend: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
 
         }
 
@@ -75,7 +72,6 @@ namespace GameServer.Managers
             }
 
             friendChanged = true;
-            Log.InfoFormat("RemoveFriendByFriendId: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
             return true;
         }
 
@@ -89,7 +85,6 @@ namespace GameServer.Managers
 
 
             friendChanged = true;
-            Log.InfoFormat("RemoveFriendByID: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
             return true;
         }
 
@@ -122,7 +117,6 @@ namespace GameServer.Managers
                 character.FriendManager.UpdateFriendInfo(this.Owner.Info, 1);
                 friendInfo.Status = 1;
             }
-            Log.InfoFormat("{0}:{1} GetFriendInfo : {2}:{3} Status:{4} ", this.Owner.Id, this.Owner.Info.Name, friendInfo.friendInfo.Name, friendInfo.friendInfo.Level, friendInfo.Status);
             return friendInfo;
         }
 
@@ -149,7 +143,6 @@ namespace GameServer.Managers
                 }
             }
             this.friendChanged  = true;
-            Log.InfoFormat("UpdateFriendInfo: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
         }
 
         public void OfflineNotify()
@@ -166,7 +159,6 @@ namespace GameServer.Managers
 
         public void PostProcess(NetMessageResponse message)
         {
-            Log.InfoFormat("friendPostProcess: Name: {0}  friendChanaged : {1}", Owner.Data.Name, friendChanged);
             if (friendChanged)
             {
                 Log.InfoFormat("PostProcess > FriendManager: characterID:{0}:{1}", this.Owner.Id, this.Owner.Info.Name);

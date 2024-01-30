@@ -60,9 +60,29 @@ public class UIMain : MonoSingleton<UIMain>{
         UIManager.Instance.Show<UIQuestSystem>();
     }
 
-    public void OnClickFirend()
+    public void OnClickFirends()
     {
         UIManager.Instance.Show<UIFriend>();
+    }
+
+    public void OnClickGuild()
+    {
+        GuildManager.Instance.ShowGuild();
+    }
+
+    public void OnClickRide()
+    {
+
+    }
+
+    public void OnClickSetting()
+    {
+
+    }
+
+    public void OnClickSkill()
+    {
+
     }
 
     public void ShowTeamUI(bool show)

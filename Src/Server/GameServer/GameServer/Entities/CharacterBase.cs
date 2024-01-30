@@ -14,6 +14,8 @@ namespace GameServer.Entities
     {
 
         public int Id { get; set; }
+        public string Name { get { return this.Info.Name; } }
+
         public NCharacterInfo Info;
         public CharacterDefine Define;
 
@@ -30,7 +32,7 @@ namespace GameServer.Entities
             this.Info.Level = level;
             this.Info.ConfigId = configId;
             this.Info.Entity = this.EntityData;
-            this.Info.EntityId=this.entityId;
+            this.Info.EntityId = this.entityId;
             this.Define = DataManager.Instance.Characters[this.Info.ConfigId];
             this.Info.Name = this.Define.Name;
         }
