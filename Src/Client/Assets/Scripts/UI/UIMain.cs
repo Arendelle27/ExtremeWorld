@@ -33,12 +33,6 @@ public class UIMain : MonoSingleton<UIMain>{
         UserService.Instance.SendGameLeave();
     }
 
-    public void OnClickTest()
-    {
-        UITest test=UIManager.Instance.Show<UITest>();
-        test.SetTitle("测试");
-        test.OnClose += Test_OnClose;
-    }
 
     private void Test_OnClose(UIWindow sender,UIWindow.WindowResult result)
     {

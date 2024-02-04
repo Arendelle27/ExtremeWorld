@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIGuildPopNoGuild: UIWindow
+namespace UIGUILD
 {
+    public class UIGuildPopNoGuild : UIWindow
+    {
 
+    }
 }

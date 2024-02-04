@@ -681,7 +681,7 @@ message GuildLeaveResponse
 enum GUILD_ADMIN_COMMAND
 {
 	KICKOUT=1;//踢人
-	RPOMOTE=2;//晋升
+	PROMOTE=2;//晋升
 	DEPOST=3;//罢免
 	TRANSFER=4;//转让会长
 }
@@ -689,7 +689,7 @@ enum GUILD_ADMIN_COMMAND
 message GuildAdminRequest
 {
 	GUILD_ADMIN_COMMAND command=1;
-	int32 targets=2;
+	int32 target=2;
 }
 
 message GuildAdminResponse

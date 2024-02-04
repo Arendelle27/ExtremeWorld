@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Models\BagItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIWorldElement.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildApplyLIst.cs" />
     <Compile Include="Assets\Scripts\UI\UIWorldElementManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\NpcController.cs" />
     <Compile Include="Assets\Scripts\Managers\GuildManager.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\Scripts\UI\MessageBox.cs" />
     <Compile Include="Assets\Scripts\UI\UINameBar.cs" />
     <Compile Include="Assets\Scripts\Assets\Resloader.cs" />
+    <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildApplyItem.cs" />
     <Compile Include="Assets\Scripts\Managers\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIBag.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
