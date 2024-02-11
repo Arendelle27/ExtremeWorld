@@ -27,17 +27,6 @@ public class UIMain : MonoSingleton<UIMain>{
 		
 	}
 
-    public void BackToCharacterSelect()
-    {
-        SceneManager.Instance.LoadScene("CharSelect");
-        UserService.Instance.SendGameLeave();
-    }
-
-
-    private void Test_OnClose(UIWindow sender,UIWindow.WindowResult result)
-    {
-        MessageBox.Show("点击了对话框的：" + result, "对话框响应结果", MessageBoxType.Information);
-    }
 
     public void OnClickBag()
     {
@@ -71,7 +60,7 @@ public class UIMain : MonoSingleton<UIMain>{
 
     public void OnClickSetting()
     {
-
+        UIManager.Instance.Show<UISetting>();
     }
 
     public void OnClickSkill()

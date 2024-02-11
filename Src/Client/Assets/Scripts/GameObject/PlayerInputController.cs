@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Managers;
 using Services;
 using SkillBridge.Message;
 using System;
@@ -51,6 +52,11 @@ public class PlayerInputController:MonoBehaviour
     {
         if (character == null)
             return;
+
+        if(InputManager.Instance.isInputMode)
+        {
+            return;
+        }
 
         float v = Input.GetAxis("Vertical");
         if(v>0.01)

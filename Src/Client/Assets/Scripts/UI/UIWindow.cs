@@ -8,6 +8,8 @@ public class UIWindow : MonoBehaviour {
 
     public virtual System.Type Type { get { return this.GetType(); } }
 
+    public GameObject root;
+
     public enum WindowResult
     {
         None=0,

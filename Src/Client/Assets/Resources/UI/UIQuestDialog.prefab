@@ -2559,6 +2559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1261f75f143ee974f8232c1554fad5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  root: {fileID: 0}
   questInfo: {fileID: 5737450962706641273}
   openButton: {fileID: 5353625397601018911}
   submitButton: {fileID: 7919580066993849080}

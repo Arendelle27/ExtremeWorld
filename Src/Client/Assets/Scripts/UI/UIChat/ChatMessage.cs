@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-
- public static class  GameDefine
+namespace UIChat
 {
-    public static int GuildMaxMemberCount = 50;
+    public class ChatMessage:MonoBehaviour
+    {
+    }
 }
