@@ -3,6 +3,7 @@ using Models;
 using Services;
 using System.Collections;
 using System.Collections.Generic;
+using UIRIDE;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,7 +56,7 @@ public class UIMain : MonoSingleton<UIMain>{
 
     public void OnClickRide()
     {
-
+        UIManager.Instance.Show<UIRide>();
     }
 
     public void OnClickSetting()
@@ -68,8 +69,10 @@ public class UIMain : MonoSingleton<UIMain>{
 
     }
 
+
     public void ShowTeamUI(bool show)
     {
         TeamWindow.ShowTeam(show);
     }
+
 }

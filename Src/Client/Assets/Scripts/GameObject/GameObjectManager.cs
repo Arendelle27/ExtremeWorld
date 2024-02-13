@@ -89,7 +89,7 @@ public class GameObjectManager : MonoSingleton<GameObjectManager> {
         {
             if (character.IsCurrentPlayer)//判断是否是当前玩家控制的角色
             {
-                User.Instance.CurrentCharacterObject = go;
+                User.Instance.CurrentCharacterObject = pc;
                 MainPlayerCamera.Instance.player = go;
                 pc.enabled = true;
                 pc.character = character;
@@ -100,5 +100,19 @@ public class GameObjectManager : MonoSingleton<GameObjectManager> {
                 pc.enabled = false;
             }
         }
+    }
+
+    public RideController LoadRide(int rideId,Transform parent)
+    {
+        var rideDefine = DataManager.Instance.Rides[rideId];
+        Object obj=Resloader.Load<Object>(rideDefine.Resource);
+        if(obj==null)
+        {
+            Debug.LogErrorFormat("Ride[{0}] Resource[{1}] not existed.", rideId, rideDefine.Resource);
+            return null;
+        }
+        GameObject go=(GameObject)Instantiate(obj,parent);
+        go.name = "Ride_" + rideDefine.ID+"_"+rideDefine.Name;
+        return go.GetComponent<RideController>();
     }
 }

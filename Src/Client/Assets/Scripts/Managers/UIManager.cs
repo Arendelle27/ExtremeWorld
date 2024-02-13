@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UICHAT;
 using UIGUILD;
+using UIRIDE;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager> {
@@ -30,6 +31,7 @@ public class UIManager : Singleton<UIManager> {
         this.UIResources.Add(typeof(UIGuildPopCreate), new UIElement() { Resources = "UI/UIGuild/UIGuildPopCreate", Cache = false });
         this.UIResources.Add(typeof(UIGuildApplyLIst), new UIElement() { Resources = "UI/UIGuild/UIGuildApplyLIst", Cache = false });
         this.UIResources.Add(typeof(UIPopChatMenu), new UIElement() { Resources = "UI/UIChat/UIPopChatMenu", Cache = false });
+        this.UIResources.Add(typeof(UIRide), new UIElement() { Resources = "UI/UIRide/UIRide", Cache = false });
     }
 
     ~UIManager()
