@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using Models;
 using Services;
 using SkillBridge.Message;
+using Managers;
+using Sound;
+
 public class UICharacterSelect : MonoBehaviour
 {
 
@@ -91,7 +94,7 @@ public class UICharacterSelect : MonoBehaviour
             MessageBox.Show("请输入角色名称");
             return;
         }
-
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
         UserService.Instance.SendCharacterCreate(this.charName.text, this.charClass);
     }
 
@@ -108,7 +111,7 @@ public class UICharacterSelect : MonoBehaviour
         }
 
         descs.text = DataManager.Instance.Characters[charClass].Description;
-
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
     }
 
 

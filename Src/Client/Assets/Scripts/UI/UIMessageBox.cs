@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Managers;
+using Sound;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -43,10 +45,20 @@ public class UIMessageBox : MonoBehaviour {
         this.buttonNo.onClick.AddListener(OnClickNo);
 
         this.buttonNo.gameObject.SetActive(type == MessageBoxType.Confirm);
+
+        if(type == MessageBoxType.Error)
+        {
+            SoundManager.Instance.PlaySound(SoundDefine.SFX_Message_Error);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySound(SoundDefine.SFX_Message_Info);
+        }
     }
 
     void OnClickYes()
     {
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Confirm);
         Destroy(this.gameObject);
         if (this.OnYes != null)
             this.OnYes();
@@ -54,6 +66,7 @@ public class UIMessageBox : MonoBehaviour {
 
     void OnClickNo()
     {
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Win_Close);
         Destroy(this.gameObject);
         if (this.OnNo != null)
             this.OnNo();

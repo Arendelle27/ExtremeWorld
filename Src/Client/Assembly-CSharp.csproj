@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\UIRegsitera.cs" />
     <Compile Include="Assets\Scripts\Managers\ShopManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectTool.cs" />
+    <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Entity\Character.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabView.cs" />
     <Compile Include="Assets\Scripts\UI\MessageBox.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Assets\Scripts\UI\UIBag.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestSystem.cs" />
     <Compile Include="Assets\Scripts\Services\MapService.cs" />
+    <Compile Include="Assets\Scripts\Sound\SoundDefine.cs" />
     <Compile Include="Assets\Scripts\Services\ChatService.cs" />
     <Compile Include="Assets\Scripts\UI\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\Managers\NpcManager.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="Assets\Scripts\Models\User.cs" />
     <Compile Include="Assets\Scripts\UI\UIIconItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildMemberItem.cs" />
+    <Compile Include="Assets\Scripts\UI\UISystemConfig\UISystemConfig.cs" />
     <Compile Include="Assets\Scripts\UI\UITeam\UITeamItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildPopCreate.cs" />
     <Compile Include="Assets\Scripts\UI\UIChat\ChatMessage.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="Assets\Scripts\UI\UIEquipItem.cs" />
     <Compile Include="Assets\Scripts\Managers\TeamManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Sound\Config.cs" />
     <Compile Include="Assets\Scripts\Services\QuestService.cs" />
     <Compile Include="Assets\Scripts\UI\UIFriend\UIInputBox.cs" />
   </ItemGroup>
