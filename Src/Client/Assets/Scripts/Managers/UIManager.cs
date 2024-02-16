@@ -83,6 +83,11 @@ namespace Managers
                 }
             }
         }
+
+        public void Close<T>()
+        {
+            this.Close(typeof(T));
+        }
     }
 
 }

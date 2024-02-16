@@ -687,13 +687,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 7295781324894604446}
   targets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 369364277375814343}
   description: {fileID: 7592761177609031611}
-  rewardItems: {fileID: 0}
+  overview: {fileID: 0}
+  rewardItems: {fileID: 1506578035819607051}
   rewardMoney: {fileID: 8432986262884552521}
   rewardExp: {fileID: 7141144784788467341}
+  navButton: {fileID: 0}
 --- !u!1 &2837310208373878527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,6 +2380,7 @@ GameObject:
   - component: {fileID: 1791688585319047302}
   - component: {fileID: 2197148536573430572}
   - component: {fileID: 815142901889936793}
+  - component: {fileID: 1506578035819607051}
   m_Layer: 5
   m_Name: Award1
   m_TagString: Untagged
@@ -2444,6 +2445,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1506578035819607051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7457574160920977022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5bd9f6b2aa25b84ba8100afede4e8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainImage: {fileID: 815142901889936793}
+  secondImage: {fileID: 0}
+  mainText: {fileID: 0}
 --- !u!1 &7585405137716801132
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Services\GuildService.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipManager.cs" />
     <Compile Include="Assets\Scripts\UI\UISetting.cs" />
+    <Compile Include="Assets\Scripts\GameObject\NavPathRenderer.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestItem.cs" />
     <Compile Include="Assets\Scripts\Managers\BagManager.cs" />
     <Compile Include="Assets\Scripts\UI\UITeam\UITeam.cs" />
@@ -168,6 +169,7 @@
     <None Include="Assets\References\Protocol.dll" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Shader\MyMobile VertexLit Diffuse.shader" />
+    <None Include="Assets\Resources\ParticlesAlpha Blended.shader" />
     <None Include="Assets\Shader\MyMobile Particles AddNoMask Diff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Shader\Lightmap\Lightmap.shader" />
