@@ -80,8 +80,10 @@
     <Property Name="Gold" Type="bigint" Nullable="false" />
     <Property Name="Equips" Type="binary" Nullable="false" MaxLength="28" />
     <Property Name="Level" Type="int" Nullable="false" />
-    <Property Name="Exp" Type="int" Nullable="true" />
+    <Property Name="Exp" Type="bigint" Nullable="false" />
     <Property Name="GuildId" Type="int" Nullable="false" />
+    <Property Name="HP" Type="int" Nullable="false" />
+    <Property Name="MP" Type="int" Nullable="false" />
     <Property Name="Player_ID" Type="int" Nullable="false" />
     <Property Name="Bag_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -350,9 +352,11 @@
           <Property Name="Equips" Type="Binary" Nullable="false" FixedLength="true" MaxLength="28" />
           <NavigationProperty Name="Quests" Relationship="ExtremeWorldModel.TCharacterTCharacterQuest" FromRole="TCharacter" ToRole="TCharacterQuest" />
           <Property Name="Level" Type="Int32" Nullable="false" />
-          <Property Name="Exp" Type="Int32" Nullable="true" />
+          <Property Name="Exp" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Friends" Relationship="ExtremeWorldModel.TCharacterFriendTCharacter" FromRole="TCharacter" ToRole="TCharacterFriend" />
           <Property Name="GuildId" Type="Int32" Nullable="false" />
+          <Property Name="HP" Type="Int32" Nullable="false" />
+          <Property Name="MP" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="PlayerCharacter">
           <End Type="ExtremeWorldModel.TPlayer" Role="Player" Multiplicity="1" />
@@ -533,6 +537,8 @@
           <ScalarProperty Name="Level" ColumnName="Level" />
           <ScalarProperty Name="Exp" ColumnName="Exp" />
           <ScalarProperty Name="GuildId" ColumnName="GuildId" />
+          <ScalarProperty Name="HP" ColumnName="HP" />
+          <ScalarProperty Name="MP" ColumnName="MP" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

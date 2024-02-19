@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Common.Data;
 using Models;
 using Services;
 using SkillBridge.Message;
@@ -100,6 +101,19 @@ namespace Managers
                 if (OnEquipChanaged != null)
                     OnEquipChanaged();
             }
+        }
+
+        public List<EquipDefine> GetEquipedDefines()
+        {
+            List<EquipDefine> result= new List<EquipDefine>();
+            for(int i = 0;i<(int)EquipSlot.SlotMax;i++)
+            {
+                if (this.Equips[i]!=null)
+                {
+                    result.Add(this.Equips[i].EquipInfo);
+                }
+            }
+            return result;
         }
     }
 }

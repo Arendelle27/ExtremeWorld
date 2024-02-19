@@ -40,7 +40,7 @@ public class UIFriend : UIWindow
         {
             friendName = input;
         }
-        if(friendId==User.Instance.CurrentCharacter.Id||friendName==User.Instance.CurrentCharacter.Name)
+        if(friendId==User.Instance.CurrentCharacterInfo.Id||friendName==User.Instance.CurrentCharacterInfo.Name)
         {
             tips = "开玩笑的吗？不能添加自己为好友哦";
             return false;

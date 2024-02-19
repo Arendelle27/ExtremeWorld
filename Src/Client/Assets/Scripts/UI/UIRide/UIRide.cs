@@ -46,7 +46,7 @@ namespace UIRIDE
         {
             foreach(var kv in ItemManager.Instance.Items)
             {
-                if(kv.Value.Define.Type==ItemType.Ride&&(kv.Value.Define.LimitClass==CharacterClass.None||kv.Value.Define.LimitClass==User.Instance.CurrentCharacter.Class))
+                if(kv.Value.Define.Type==ItemType.Ride&&(kv.Value.Define.LimitClass==CharacterClass.None||kv.Value.Define.LimitClass==User.Instance.CurrentCharacterInfo.Class))
                 {
                     //以装备的就不显示了
                     if (EquipManager.Instance.Contains(kv.Key))

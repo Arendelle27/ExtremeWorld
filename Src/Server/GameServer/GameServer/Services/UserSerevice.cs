@@ -111,6 +111,8 @@ namespace GameServer.Services
                 MapPosZ = 820,
 
                 Gold = 100000,//初始金钱
+                HP=1000,
+                MP=1000,
                 Equips = new byte[28]
             };
 

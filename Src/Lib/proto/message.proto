@@ -86,17 +86,19 @@ message NCharacterInfo {
 	CHARACTER_TYPE type = 5;
 	CHARACTER_CLASS class = 6;
 	int32 level = 7;
-	int32 mapId = 8;
-	NEntity entity = 9;
-	int64 gold = 10;
+	int64 exp=8;
+	NAttributeDynamic attrDynamic=9;
+	int32 mapId = 10;
+	NEntity entity = 11;
+	int64 gold = 12;
 
-	repeated NItemInfo Items=11;
-	NBagInfo Bag=12;
-	bytes Equips=13;
-	repeated NQuestInfo quests=14;
-	repeated NFriendInfo friends=15;
-	NGuildInfo guild=16;
-	int32 ride=17;
+	repeated NItemInfo Items=13;
+	NBagInfo Bag=14;
+	bytes Equips=15;
+	repeated NQuestInfo quests=16;
+	repeated NFriendInfo friends=17;
+	NGuildInfo guild=18;
+	int32 ride=19;
 }
 
 message NItemInfo
@@ -129,8 +131,9 @@ enum STATUS_TYPE
 {
 	MONEY=0;
 	EXP=1;
-	SKILL_POINT=2;
-	ITEM=3;
+	level=2;
+	SKILL_POINT=3;
+	ITEM=4;
 }
 
 
@@ -745,4 +748,10 @@ message ChatResponse
 	repeated ChatMessage privateMessages=6;
 	repeated ChatMessage teamMessages=7;
 	repeated ChatMessage guildMessages=8;
+}
+
+message NAttributeDynamic
+{
+	int32 H_P=1;
+	int32 M_P=2;
 }
