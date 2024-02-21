@@ -11,4 +11,6 @@ json-excel\json-excel json Tables\ Data\
 @copy Data\EquipDefine.txt ..\Client\Data\
 @copy Data\QuestDefine.txt ..\Client\Data\
 @copy Data\RideDefine.txt ..\Client\Data\
+@copy Data\BuffDefine.txt ..\Client\Data\
+@copy Data\SkillDefine.txt ..\Client\Data\
 pause

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UICHAT;
 using UIGUILD;
 using UIRIDE;
+using UISKILL;
 using UnityEngine;
 
 namespace Managers
@@ -36,6 +37,7 @@ namespace Managers
             this.UIResources.Add(typeof(UIPopChatMenu), new UIElement() { Resources = "UI/UIChat/UIPopChatMenu", Cache = false });
             this.UIResources.Add(typeof(UIRide), new UIElement() { Resources = "UI/UIRide/UIRide", Cache = false });
             this.UIResources.Add(typeof(UISystemConfig), new UIElement() { Resources = "UI/UISystemConfig/UISystemConfig", Cache = false });
+            this.UIResources.Add(typeof(UISkill), new UIElement() { Resources = "UI/UISkill/UISkill", Cache = false });
         }
 
         ~UIManager()

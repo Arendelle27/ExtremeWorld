@@ -4,6 +4,7 @@ using Services;
 using System.Collections;
 using System.Collections.Generic;
 using UIRIDE;
+using UISKILL;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,7 +67,7 @@ public class UIMain : MonoSingleton<UIMain>{
 
     public void OnClickSkill()
     {
-
+        UIManager.Instance.Show<UISkill>();
     }
 
 
