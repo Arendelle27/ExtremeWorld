@@ -67,4 +67,32 @@ namespace Common.Battle
         MAX
     }
 
+    public enum SkillType
+    {
+        None,
+        Normal,
+        SKill
+    }
+
+    public enum TargetType
+    {
+        None,
+        self,
+        Target,
+        Position
+    }
+
+    public enum BuffEffect
+    {
+        None,
+        Stun
+    }
+
+    public enum SkillResult
+    {
+        OK=0,
+        InvalidTarget,
+        OutOfMP,
+        Cooldown,
+    }
 }

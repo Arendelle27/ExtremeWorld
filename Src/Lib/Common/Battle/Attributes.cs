@@ -22,14 +22,14 @@ namespace Common.Battle
 
         public float HP
         {
-            get { return dynamic.HP; }
-            set { dynamic.HP = (int)Math.Min(MaxHP, value); }
+            get { return dynamic.Hp; }
+            set { dynamic.Hp = (int)Math.Min(MaxHP, value); }
         }
 
         public float MP
         {
-            get { return dynamic.MP; }
-            set { dynamic.MP = (int)Math.Min(MaxMP, value); }
+            get { return dynamic.Mp; }
+            set { dynamic.Mp = (int)Math.Min(MaxMP, value); }
         }
 
         /// <summary>
@@ -138,8 +138,8 @@ namespace Common.Battle
             this.InitSecondaryAttributes();
 
             this.InitFinalAttributes();
-            this.HP=dynamicAttr.HP;
-            this.MP=dynamicAttr.MP;
+            this.HP=dynamicAttr.Hp;
+            this.MP=dynamicAttr.Mp; 
         }
 
         /// <summary>

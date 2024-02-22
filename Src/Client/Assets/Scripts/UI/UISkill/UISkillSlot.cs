@@ -1,3 +1,4 @@
+using Battle;
 using Common.Battle;
 using System;
 using System.Collections;
@@ -13,7 +14,7 @@ namespace UISKILL
         public Image icon;
         public Image overlay;
         public Text cdText;
-        SkillDefine skill;
+        Skill skill;
 
         float overlaySpeed = 0;
         float cdRemain = 0;
@@ -27,7 +28,7 @@ namespace UISKILL
         {
             if (overlay.fillAmount > 0)
             {
-                overlay.fillAmount = this.cdRemain / this.skill.CD;
+                overlay.fillAmount = this.cdRemain / this.skill.Define.CD;
                 this.cdText.text = ((int)Math.Ceiling(this.cdRemain)).ToString();
                 this.cdRemain -= Time.deltaTime;
             }
@@ -40,15 +41,25 @@ namespace UISKILL
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (this.overlay.fillAmount > 0)
+            SkillResult result= this.skill.CanCast();
+
+            switch(result)
             {
-                MessageBox.Show("技能：" + this.skill.Name + "还在冷却中");
+                case SkillResult.InvalidTarget:
+                    MessageBox.Show("技能：" + this.skill.Define.Name + "需要选择目标");
+                    return;
+                case SkillResult.OutOfMP:
+                    MessageBox.Show("技能：" + this.skill.Define.Name + "法力值不足");
+                    return;
+                case SkillResult.Cooldown:
+                    MessageBox.Show("技能：" + this.skill.Define.Name + "还在冷却中");
+                    return;
             }
-            else
-            {
-                MessageBox.Show("释放技能：" + this.skill.Name);
-                this.SetCD(this.skill.CD);
-            }
+
+            MessageBox.Show("释放技能：" + this.skill.Define.Name);
+            this.SetCD(this.skill.Define.CD);
+            this.skill.Cast();
+
         }
 
         public void SetCD(float cd)
@@ -61,11 +72,11 @@ namespace UISKILL
             this.cdRemain = cd;
         }
 
-        public void SetSkill(SkillDefine value)
+        public void SetSkill(Skill value)
         {
             this.skill = value;
-            if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Icon);
-            this.SetCD(this.skill.CD);
+            if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Define.Icon);
+            this.SetCD(this.skill.Define.CD);
         }
     }
 }

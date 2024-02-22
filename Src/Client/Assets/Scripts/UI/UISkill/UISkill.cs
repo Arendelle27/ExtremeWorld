@@ -29,7 +29,7 @@ namespace UISKILL
         public void OnItemSelected(ListView.ListViewItem item)
         {
             this.selectedItem = item as UISkillItem;
-            this.descript.text = this.selectedItem.item.Description;
+            this.descript.text = this.selectedItem.item.Define.Description;
         }
 
         void RefreshUI()
@@ -40,14 +40,14 @@ namespace UISKILL
 
         void InitItems()
         {
-            var Skills = DataManager.Instance.Skills[(int)User.Instance.CurrentCharacterInfo.Class];
+            var Skills = User.Instance.CurrentCharacter.skillMgr.Skills;
             foreach (var skill in Skills)
             { 
-                if(skill.Value.Type== SkillType.SKill)
+                if(skill.Define.Type== SkillType.SKill)
                 {
                     GameObject go=Instantiate(itemPrefab,this.ListMain.transform);
                     UISkillItem uiItem = go.GetComponent<UISkillItem>();
-                    uiItem.SetItem(skill.Value,this,false);
+                    uiItem.SetItem(skill,this,false);
                      this.ListMain.AddItem(uiItem);
                 }
             }

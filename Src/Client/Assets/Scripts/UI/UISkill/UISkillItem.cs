@@ -1,3 +1,4 @@
+using Battle;
 using Common.Battle;
 using System;
 using System.Collections;
@@ -24,15 +25,15 @@ namespace UISKILL
             this.background.overrideSprite = selected ? selectedBg : normalBg;
         }
 
-        public SkillDefine item;
+        public Skill item;
 
-        public void SetItem(SkillDefine item, UISkill owner, bool equiped)
+        public void SetItem(Skill item, UISkill owner, bool equiped)
         {
             this.item = item;
 
-            if (this.title != null) this.title.text = this.item.Name;
-            if (this.level != null) this.level.text = item.UnlockLevel.ToString();
-            if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.item.Icon);
+            if (this.title != null) this.title.text = this.item.Define.Name;
+            if (this.level != null) this.level.text = item.info.Level.ToString();
+            if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.item.Define.Icon);
         }
     }
 }

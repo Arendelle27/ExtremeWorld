@@ -23,12 +23,12 @@ public class GameObjectManager : MonoSingleton<GameObjectManager> {
         CharacterManager.Instance.OnCharacterLeave -= OnCharacterLeave;
     }
 
-    private void OnCharacterEnter(Character cha)
+    private void OnCharacterEnter(Creature cha)
     {
         CreateCharacterObjection(cha);
     }
 
-    private void OnCharacterLeave(Character cha)
+    private void OnCharacterLeave(Creature cha)
     {
         if (!Characters.ContainsKey(cha.entityId))
             return;
@@ -54,7 +54,7 @@ public class GameObjectManager : MonoSingleton<GameObjectManager> {
 	}
 
 
-    private void CreateCharacterObjection(Character character)
+    private void CreateCharacterObjection(Creature character)
     {
         if(!Characters.ContainsKey(character.entityId) ||Characters[character.entityId]==null)
         {
@@ -72,7 +72,7 @@ public class GameObjectManager : MonoSingleton<GameObjectManager> {
         this.InitGameObject(Characters[character.entityId], character);
     }
 
-    private void InitGameObject(GameObject go,Character character)
+    private void InitGameObject(GameObject go,Creature character)
     {
         go.transform.position = GameObjectTool.LogicToWorld(character.position);
         go.transform.forward = GameObjectTool.LogicToWorld(character.direction);

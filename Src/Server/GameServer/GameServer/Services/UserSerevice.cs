@@ -109,7 +109,7 @@ namespace GameServer.Services
                 MapPosX = 5000,
                 MapPosY = 4000,
                 MapPosZ = 820,
-
+                Level = 1,
                 Gold = 100000,//初始金钱
                 HP=1000,
                 MP=1000,

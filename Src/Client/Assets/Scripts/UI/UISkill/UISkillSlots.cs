@@ -17,11 +17,11 @@ namespace UISKILL
 
         void RefreshUI()
         {
-            var Skills = DataManager.Instance.Skills[(int)User.Instance.CurrentCharacterInfo.Class];
+            var Skills = User.Instance.CurrentCharacter.skillMgr.Skills;
             int skillIdx = 0;
             foreach (var skill in Skills)
             {
-                slots[skillIdx].SetSkill(skill.Value);
+                slots[skillIdx].SetSkill(skill);
                 skillIdx++;
             }
         }

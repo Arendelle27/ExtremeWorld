@@ -99,12 +99,26 @@ message NCharacterInfo {
 	repeated NFriendInfo friends=17;
 	NGuildInfo guild=18;
 	int32 ride=19;
+
+	repeated NSkillInfo Skills=20;
+}
+
+message NAttributeDynamic
+{
+	int32 HP=1;
+	int32 MP=2;
 }
 
 message NItemInfo
 {
 	int32 id=1;
 	int32 count=2;
+}
+
+message NSkillInfo
+{
+	int32 id=1;
+	int32 level=2;
 }
 
 message NVector3
@@ -748,10 +762,4 @@ message ChatResponse
 	repeated ChatMessage privateMessages=6;
 	repeated ChatMessage teamMessages=7;
 	repeated ChatMessage guildMessages=8;
-}
-
-message NAttributeDynamic
-{
-	int32 H_P=1;
-	int32 M_P=2;
 }

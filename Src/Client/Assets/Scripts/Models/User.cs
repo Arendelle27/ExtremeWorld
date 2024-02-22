@@ -27,7 +27,7 @@ namespace Models
 
         public MapDefine CurrentMapData { get; set; }
 
-        public Character CurrentCharacter;
+        public Creature CurrentCharacter;
         public NCharacterInfo CurrentCharacterInfo { get; set; }
 
         public PlayerInputController CurrentCharacterObject { get; set; }
