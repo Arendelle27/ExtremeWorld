@@ -1,6 +1,8 @@
-﻿using Managers;
+﻿using Entities;
+using Managers;
 using Models;
 using Services;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UIRIDE;
@@ -14,10 +16,14 @@ public class UIMain : MonoSingleton<UIMain>{
     public Text avaterLevel;
 
     public UITeam TeamWindow;
+
+    public UICreatureInfo targetUI;
 	protected override void OnStart () {
         this.UpdateAvater();
+        this.targetUI.gameObject.SetActive(false);
+        BattleManager.Instance.OnTargetChanged += OnTargetChanged;
 	}
-	
+
     void UpdateAvater()
     {
         this.avatarName.text = string.Format("{0}[{1}]", User.Instance.CurrentCharacterInfo.Name, User.Instance.CurrentCharacterInfo.Id);
@@ -76,4 +82,19 @@ public class UIMain : MonoSingleton<UIMain>{
         TeamWindow.ShowTeam(show);
     }
 
+    private void OnTargetChanged(Creature target)
+    {
+        if(target!=null)
+        {
+            if(!targetUI.isActiveAndEnabled)
+            { 
+                targetUI.gameObject.SetActive(true);
+            }
+            targetUI.Target = target;
+        }
+        else
+        {
+            targetUI.gameObject.SetActive(false);
+        }
+    }
 }

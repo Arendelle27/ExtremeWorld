@@ -24,6 +24,7 @@ namespace Common.Battle
         public float BUlletResource { get; set; }
         public string BulletResource { get; set; }
         public float AOERange { get; set; }
+        public string SkillAnim { get; set; }
         public float Duration { get; set; }
         public float Interval { get; set; }
         public List<int> Buff { get; set; }

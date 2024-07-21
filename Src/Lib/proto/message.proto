@@ -51,8 +51,8 @@ enum ITEM_TYPE
 {
 	NORMAL=0;
 	MATERIAL=1;
-	TASK=2;//ÈÎÎñÎïÆ·
-    EQUIP=3;//×°±¸
+	TASK=2;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+    EQUIP=3;//×°ï¿½ï¿½
 	RIDE=4;
 }
 
@@ -145,7 +145,7 @@ enum STATUS_TYPE
 {
 	MONEY=0;
 	EXP=1;
-	level=2;
+	LEVEL=2;
 	SKILL_POINT=3;
 	ITEM=4;
 }
@@ -244,6 +244,8 @@ message NetMessageRequest{
 	GuildAdminRequest guildAdmin=29;
 
 	ChatRequest chat=30;
+
+	SkillCastRequest skillCast=50;
 }
 
 message NetMessageResponse{
@@ -284,6 +286,8 @@ message NetMessageResponse{
 	GuildAdminResponse guildAdmin=29;
 
 	ChatResponse chat=30;
+
+	SkillCastResponse skillCast=50;
 
 	StatusNotify statusNotify = 100;
 	
@@ -393,13 +397,13 @@ message ItemBuyResponse
 	string errormsg=2;
 }
 
-//±³°ü±£´æ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 message BagSaveRequest
 {
 	NBagInfo BagInfo=1;
 }
 
-//±³°ü
+//ï¿½ï¿½ï¿½ï¿½
 message BagSaveResponse
 {
 	RESULT result=1;
@@ -423,10 +427,10 @@ message ItemEquipResponse
 
 enum QUEST_STATUS
 {
-	IN_PROGRESS = 0;//½øÐÐÖÐ
-	COMPLATED = 1;//ÒÑÍê³É,Î´Ìá½»
-	FINISHED = 2;//ÒÑÍê³É,ÒÑÌá½»
-	FAILED = 3;//ÒÑÊ§°Ü
+	IN_PROGRESS = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	COMPLATED = 1;//ï¿½ï¿½ï¿½ï¿½ï¿½,Î´ï¿½á½»
+	FINISHED = 2;//ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½á½»
+	FAILED = 3;//ï¿½ï¿½Ê§ï¿½ï¿½
 }
 
 enum Quest_LIST_TYPE
@@ -604,29 +608,29 @@ enum APPLY_RESULT
 
 message NGuildInfo
 {
-	int32 id=1;		//¹«»áID
-	string guild_name=2;	//¹¤»áÃû³Æ
-	int32 leaderId=3;	//»á³¤ID
-	string leaderName=4;	//»á³¤Ãû³Æ
-	string notice=5;	//¹«»á×ÚÖ¼/Í¨Öª¹«¸æ
+	int32 id=1;		//ï¿½ï¿½ï¿½ï¿½ID
+	string guild_name=2;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int32 leaderId=3;	//ï¿½á³¤ID
+	string leaderName=4;	//ï¿½á³¤ï¿½ï¿½ï¿½ï¿½
+	string notice=5;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼/Í¨Öªï¿½ï¿½ï¿½ï¿½
 	int32 memberCount=6;
-	repeated NGuildMemberInfo member=7;		//³ÉÔ±ÁÐ±í
-	repeated NGuildApplyInfo applies=8;		//ÉêÇë¼ÓÈëÐÅÏ¢
+	repeated NGuildMemberInfo member=7;		//ï¿½ï¿½Ô±ï¿½Ð±ï¿½
+	repeated NGuildApplyInfo applies=8;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	int64 createTime=9;
 }
 
 message NGuildMemberInfo
 {
 	int32 id=1;
-	int32 characterId=2;	//½ÇÉ«id
+	int32 characterId=2;	//ï¿½ï¿½É«id
 	GUILD_TITLE title=3;	//Ö°Î»
-	NCharacterInfo info=4;	//½ÇÉ«ÐÅÏ¢
-	int64 joinTime=5;	//¼ÓÈëÊ±¼ä
-	int64 lastTime=6;	//ÉÏ´ÎÔÚÏß
-	int32 status=7;		//ÔÚÏß×´Ì¬
+	NCharacterInfo info=4;	//ï¿½ï¿½É«ï¿½ï¿½Ï¢
+	int64 joinTime=5;	//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	int64 lastTime=6;	//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
+	int32 status=7;		//ï¿½ï¿½ï¿½ï¿½×´Ì¬
 }
 
-//¼ÓÈë¹²»áÉêÇëÐÅÏ¢
+//ï¿½ï¿½ï¿½ë¹²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 message NGuildApplyInfo
 {
 	int32 guild_id=1;
@@ -637,7 +641,7 @@ message NGuildApplyInfo
 	APPLY_RESULT result=6;
 }
 
-//´´½¨¹«»á
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 message GuildCreateRequest
 {
 	string guild_name=1;
@@ -651,13 +655,13 @@ message GuildCreateResponse
 	NGuildInfo guildInfo=3;
 }
 
-//¼ÓÈë¹«»áÉêÇë[member	-> server	->leader]
+//ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[member	-> server	->leader]
 message GuildJoinRequest
 {
 	NGuildApplyInfo apply=1;
 }
 
-//¼ÓÈë¹«»áÉêÇëÏìÓ¦[server -> member]
+//ï¿½ï¿½ï¿½ë¹«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦[server -> member]
 message GuildJoinResponse
 {
 	RESULT result =1;
@@ -665,7 +669,7 @@ message GuildJoinResponse
 	NGuildApplyInfo apply=3;
 }
 
-//¹«»áÁÐ±í
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 message GuildListRequest
 {
 
@@ -678,7 +682,7 @@ message GuildListResponse
 	repeated NGuildInfo guilds=3;
 }
 
-//¹«»áÐÅÏ¢
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 message GuildRequest
 {
 
@@ -701,13 +705,13 @@ message GuildLeaveResponse
 	string errormsg=2;
 }
 
-//¹«»á¹ÜÀí
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum GUILD_ADMIN_COMMAND
 {
-	KICKOUT=1;//ÌßÈË
-	PROMOTE=2;//½úÉý
-	DEPOST=3;//°ÕÃâ
-	TRANSFER=4;//×ªÈÃ»á³¤
+	KICKOUT=1;//ï¿½ï¿½ï¿½ï¿½
+	PROMOTE=2;//ï¿½ï¿½ï¿½ï¿½
+	DEPOST=3;//ï¿½ï¿½ï¿½ï¿½
+	TRANSFER=4;//×ªï¿½Ã»á³¤
 }
 
 message GuildAdminRequest
@@ -723,16 +727,16 @@ message GuildAdminResponse
 	GuildAdminRequest command=3;
 }
 
-//ÁÄÌì
+//ï¿½ï¿½ï¿½ï¿½
 enum CHAT_CHANNEL
 {
-	ALL=-1;//ËùÓÐ
-	LOCAL=1;//±¾µØ
-	WORLD=2;//ÊÀ½ç
+	ALL=-1;//ï¿½ï¿½ï¿½ï¿½
+	LOCAL=1;//ï¿½ï¿½ï¿½ï¿½
+	WORLD=2;//ï¿½ï¿½ï¿½ï¿½
 	SYSTEM=4;//ÏµÍ³
-	PRIVATE=8;//Ë½ÁÄ
-	TEAM=16;//¶ÓÎé
-	GUILD=32;//¹«»á
+	PRIVATE=8;//Ë½ï¿½ï¿½
+	TEAM=16;//ï¿½ï¿½ï¿½ï¿½
+	GUILD=32;//ï¿½ï¿½ï¿½ï¿½
 }
 
 message ChatMessage
@@ -762,4 +766,39 @@ message ChatResponse
 	repeated ChatMessage privateMessages=6;
 	repeated ChatMessage teamMessages=7;
 	repeated ChatMessage guildMessages=8;
+}
+
+/////////////////////////////////////////////////////
+//
+// Battle
+//
+/////////////////////////////////////////////////////
+
+enum SkILL_RESULT
+{
+	OK=0;//ï¿½É¹ï¿½
+	OUT_OF_MP=1;//ï¿½ï¿½ï¿½ï¿½
+	COOL_DOWN=2;//ï¿½ï¿½È´ï¿½ï¿½
+	INVALID_TARGET=3;//ï¿½ï¿½Ð§ï¿½ï¿½Ä¿ï¿½ï¿½
+	OUT_OF_RANGE=4;
+}
+
+message NSkillCastInfo
+{
+	int32 skillId=1;
+	int32 casterId=2;
+	int32 targetId=3;
+	NVector3 position=4;
+}
+
+message SkillCastRequest
+{
+	NSkillCastInfo castInfo=1;
+}
+
+message SkillCastResponse
+{
+	RESULT result=1;
+	string errormsg=2;
+	NSkillCastInfo castInfo=3;
 }

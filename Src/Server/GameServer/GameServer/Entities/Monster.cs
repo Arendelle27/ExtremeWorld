@@ -1,4 +1,5 @@
 ﻿using GameServer.Core;
+using GameServer.Models;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ namespace GameServer.Entities
 {
     class Monster : Creature
     {
-        public Monster(int tid, int level, Vector3Int pos, Vector3Int dir) : base(CharacterType.Monster, tid, level, pos, dir)
+        public Monster(int tid, int level, Vector3Int pos, Vector3Int dir) : 
+            base(CharacterType.Monster, tid, level, pos, dir)
         {
 
         }

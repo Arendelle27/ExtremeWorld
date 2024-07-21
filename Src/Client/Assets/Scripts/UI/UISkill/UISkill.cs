@@ -40,7 +40,7 @@ namespace UISKILL
 
         void InitItems()
         {
-            var Skills = User.Instance.CurrentCharacter.skillMgr.Skills;
+            var Skills = User.Instance.CurrentCharacter.SkillMgr.Skills;
             foreach (var skill in Skills)
             { 
                 if(skill.Define.Type== SkillType.SKill)

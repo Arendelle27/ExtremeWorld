@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\UI\UICharacterSelect.cs" />
     <Compile Include="Assets\Scripts\Network\NetClient.cs" />
     <Compile Include="Assets\Scripts\Models\BagItem.cs" />
+    <Compile Include="Assets\Scripts\UI\UIShop\UIShop.cs" />
     <Compile Include="Assets\Scripts\UI\UIWorldElement.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIChat\UIChat.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\GameObject\NpcController.cs" />
     <Compile Include="Assets\Scripts\Managers\GuildManager.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIShop\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\Services\GuildService.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipManager.cs" />
     <Compile Include="Assets\Scripts\UI\UISetting.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestItem.cs" />
     <Compile Include="Assets\Scripts\Managers\BagManager.cs" />
     <Compile Include="Assets\Scripts\UI\UITeam\UITeam.cs" />
+    <Compile Include="Assets\Scripts\UI\UICreatureInfo.cs" />
     <Compile Include="Assets\Scripts\UI\UIRide\UIRide.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestInfo.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
@@ -99,7 +102,6 @@
     <Compile Include="Assets\Scripts\Managers\MiniMapManager.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UISkillSlots.cs" />
     <Compile Include="Assets\Scripts\GameObject\PlayerInputController.cs" />
-    <Compile Include="Assets\Scripts\UI\UIShop.cs" />
     <Compile Include="Assets\Scripts\Models\Quest.cs" />
     <Compile Include="Assets\Scripts\UI\UIRide\UIRideItem.cs" />
     <Compile Include="Assets\Scripts\Utilities\GameUtil.cs" />
@@ -128,18 +130,19 @@
     <Compile Include="Assets\Scripts\Sound\SoundDefine.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UISkill.cs" />
     <Compile Include="Assets\Scripts\Services\ChatService.cs" />
-    <Compile Include="Assets\Scripts\UI\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\Managers\NpcManager.cs" />
     <Compile Include="Assets\Scripts\Services\StatusService.cs" />
     <Compile Include="Assets\Scripts\UI\UILogin.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestDialog.cs" />
     <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabButton.cs" />
+    <Compile Include="Assets\Scripts\UI\UIEquip\UICharEquip.cs" />
     <Compile Include="Assets\Scripts\Services\UserService.cs" />
     <Compile Include="Assets\Scripts\GameObject\RideController.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\Models\User.cs" />
+    <Compile Include="Assets\Scripts\Services\BattleService.cs" />
     <Compile Include="Assets\Scripts\UI\UIIconItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildMemberItem.cs" />
     <Compile Include="Assets\Scripts\UI\UISystemConfig\UISystemConfig.cs" />
@@ -153,10 +156,11 @@
     <Compile Include="Assets\Scripts\Managers\EntityManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuild.cs" />
+    <Compile Include="Assets\Scripts\UI\UIEquip\UIEquipItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildInfo.cs" />
     <Compile Include="Assets\Scripts\GameObject\TelepertorObject.cs" />
     <Compile Include="Assets\Scripts\Utilities\MonoSingleton.cs" />
-    <Compile Include="Assets\Scripts\UI\UICharEquip.cs" />
+    <Compile Include="Assets\Scripts\Entity\IEntityController.cs" />
     <Compile Include="Assets\Scripts\Managers\FriendManager.cs" />
     <Compile Include="Assets\Scripts\Services\TeamService.cs" />
     <Compile Include="Assets\Scripts\LoadingManager.cs" />
@@ -164,7 +168,6 @@
     <Compile Include="Assets\Scripts\Services\FriendService.cs" />
     <Compile Include="Assets\Scripts\GameObject\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriendItem.cs" />
-    <Compile Include="Assets\Scripts\UI\UIEquipItem.cs" />
     <Compile Include="Assets\Scripts\Managers\TeamManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Sound\Config.cs" />

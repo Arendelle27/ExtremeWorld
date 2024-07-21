@@ -88,11 +88,12 @@ namespace Common.Battle
         Stun
     }
 
-    public enum SkillResult
-    {
-        OK=0,
-        InvalidTarget,
-        OutOfMP,
-        Cooldown,
-    }
+    //public enum SkillResult
+    //{
+    //    OK=0,
+    //    InvalidTarget,
+    //    OutOfMP,
+    //    Cooldown,
+    //    OutOfRange,
+    //}
 }

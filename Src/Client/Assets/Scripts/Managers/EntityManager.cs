@@ -54,5 +54,12 @@ namespace Managers
                 }
             }
         }
+
+        public Entity GetEntity(int entityId)
+        {
+            Entity entity = null;
+            this.entities.TryGetValue(entityId, out entity);
+            return entity;
+        }
     }
 }

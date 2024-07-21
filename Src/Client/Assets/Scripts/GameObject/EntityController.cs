@@ -8,7 +8,7 @@ using Managers;
 using SkillBridge.Message;
 using UnityEngine;
 
-public class EntityController : MonoBehaviour, IEntityNotify
+public class EntityController : MonoBehaviour, IEntityNotify,IEntityController
 {
     public Animator anim;
     public Rigidbody rb;
@@ -95,6 +95,8 @@ public class EntityController : MonoBehaviour, IEntityNotify
             case EntityEvent.Idle:
                 anim.SetBool("Move", false);
                 anim.SetTrigger("Idle");
+                Creature target = this.entity as Creature;
+                target.BattleState = false;
                 break;
             case EntityEvent.MoveFwd:
                 anim.SetBool("Move", true);
@@ -149,8 +151,37 @@ public class EntityController : MonoBehaviour, IEntityNotify
         this.anim.transform.position=position+(this.anim.transform.position-this.rideBone.position);
     }
 
+    void OnMouseDown()
+    {
+        Creature target= this.entity as Creature;
+        if (target.IsCurrentPlayer)
+            return;
+
+        BattleManager.Instance.CurrentTarget=this.entity as Creature;
+    }
+
+    public void PlayAnim()
+    {
+        this.anim.SetTrigger(name);
+    }
+
+    public void SetSyandby(bool standby)
+    {
+        this.anim.SetBool("Standby", standby);
+    }
+
     public void OnEntityChanged(Entity entity)
     {
         Debug.LogFormat("OnEntityChanged:ID:{0} POS:{1} DIR:{2} SPD:{3}", entity.entityId, entity.position, entity.direction, entity.speed);
+    }
+
+    public void PlayAnim(string name)
+    {
+        this.anim.SetTrigger(name);
+    }
+
+    public void SetStandby(bool standby)
+    {
+        this.anim.SetBool("Standby", standby);
     }
 }

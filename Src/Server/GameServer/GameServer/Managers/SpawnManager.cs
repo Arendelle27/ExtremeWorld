@@ -8,6 +8,7 @@ using SkillBridge.Message;
 using GameServer.Entities;
 using GameServer.Models;
 using System.Data;
+using System.Diagnostics;
 
 namespace GameServer.Managers
 {
@@ -35,7 +36,6 @@ namespace GameServer.Managers
         public void Update()
         {
             if(Rules.Count==0) return;
-
             for(int i=0;i<Rules.Count;i++)
             {
                 this.Rules[i].Update();

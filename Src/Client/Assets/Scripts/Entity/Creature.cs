@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Battle;
+﻿using Battle;
 using Common.Battle;
 using Common.Data;
-using Managers;
 using Models;
 using SkillBridge.Message;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Entities
@@ -20,12 +16,28 @@ namespace Entities
 
         public Attributes Attributes;
 
-        public SkillManager skillMgr;
+        public SkillManager SkillMgr;
+
+        bool battleState = false;
+        public bool BattleState
+        {
+            get { return battleState; }
+            set
+            {
+                if(battleState!=value)
+                {
+                    battleState = value;
+                    this.SetStandby(value);
+                }
+            }
+        }
 
         public int Id
         {
             get { return this.Info.Id; }
         }
+
+        public Skill CastringSkill = null;
 
         public string Name
         {
@@ -59,12 +71,20 @@ namespace Entities
             this.Attributes = new Attributes();
 
             this.Attributes.Init(this.Define, this.Info.Level,GetEquips(),this.Info.attrDynamic);
-            this.skillMgr = new SkillManager(this);
+            this.SkillMgr = new SkillManager(this);
         }
 
         public virtual List<EquipDefine> GetEquips()
         {
             return null;
+        }
+
+        internal void UpdateInfo(NCharacterInfo info)
+        {
+            this.SetEntityData(info.Entity);
+            this.Info = info;
+            this.Attributes.Init(this.Define, this.Info.Level, GetEquips(), this.Info.attrDynamic);
+            this.SkillMgr.UpdateSkills();
         }
 
         public void MoveForward()
@@ -95,6 +115,35 @@ namespace Entities
         {
             //Debug.LogFormat("SetPosition:{0}", position);
             this.position = position;
+        }
+
+        public void CastSkill(int skillId,Creature target,NVector3 pos)
+        {
+            this.SetStandby(true);
+            var skill=this.SkillMgr.GetSkill(skillId);
+            skill.BeginCast();
+        }
+
+        public void PlayAnim(string anim)
+        {
+            if(this.Controller!=null)
+            {
+                this.Controller.PlayAnim(anim);
+            }
+        }
+
+        public void SetStandby(bool standby)
+        {
+            if(this.Controller!=null)
+            {
+                this.Controller.SetStandby(standby);
+            }
+        }
+
+        public override void OnUpdate(float delta)
+        {
+            base.OnUpdate(delta);
+            this.SkillMgr.OnUpdate(delta);
         }
     }
 }

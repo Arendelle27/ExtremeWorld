@@ -17,7 +17,7 @@ namespace UISKILL
 
         void RefreshUI()
         {
-            var Skills = User.Instance.CurrentCharacter.skillMgr.Skills;
+            var Skills = User.Instance.CurrentCharacter.SkillMgr.Skills;
             int skillIdx = 0;
             foreach (var skill in Skills)
             {

@@ -15,43 +15,87 @@ namespace Battle
         public Creature Owner;
         public SkillDefine Define;
 
-        public float CD;
+        private float cd=0;
+        private float castTime = 0;
+
+        public bool IsCasting = false;
+
+        public float CD
+        {
+            get { return cd; }
+        }
 
         public Skill(NSkillInfo info, Creature owner)
         {
             this.info = info;
             this.Owner = owner;
             this.Define = DataManager.Instance.Skills[(int)this.Owner.Define.Class][info.Id];
+            this.cd = 0;
         }
 
-        public SkillResult CanCast()
+        public SkILLRESULT CanCast(Creature target)
         {
-            if(this.Define.CastTarget == TargetType.Target&&BattleManager.Instance.Target==null)
+            if(this.Define.CastTarget == TargetType.Target&&BattleManager.Instance.CurrentTarget==null)
             {
-                return SkillResult.InvalidTarget;
+                //return SkillResult.InvalidTarget;
+                if (target == null || target == this.Owner)
+                {
+                    return SkILLRESULT.InvalidTarget;
+                }
+                int distance = (int)Vector3.Distance(this.Owner.position, target.position);
+                if (distance>this.Define.CastRange)
+                {
+                    return SkILLRESULT.OutOfRange;
+                }
+
+
             }
 
-            if (this.Define.CastTarget == TargetType.Position && BattleManager.Instance.Position == Vector3.negativeInfinity)
+            if (this.Define.CastTarget == TargetType.Position && BattleManager.Instance.CurrentPosition == null)
             {
-                return SkillResult.InvalidTarget;
+                return SkILLRESULT.InvalidTarget;
             }
 
             if(this.Owner.Attributes.MP<this.Define.MPCost)
             {
-                return SkillResult.OutOfMP;
+                return SkILLRESULT.OutOfMp;
             }
 
-            if(this.CD>0)
+            if(this.cd>0)
             {
-                return SkillResult.Cooldown;
+                return SkILLRESULT.CoolDown;
             }
 
-            return SkillResult.OK;
+            return SkILLRESULT.Ok;
         }
 
-        public void Cast()
+        public void BeginCast()
         {
+            this.IsCasting = true;
+            this.castTime = 0;
+            this.cd=this.Define.CD;
 
+            this.Owner.PlayAnim(this.Define.SkillAnim);
+        }
+
+        public void OnUpdate(float delta)
+        {
+            if(this.IsCasting)
+            { 
+            }
+            UpdateCD(delta);
+        }
+
+        private void UpdateCD(float delta)
+        {
+            if(this.cd>0)
+            {
+                this.cd-=delta;
+            }
+            if (cd < 0)
+            {
+                this.cd = 0;
+            }
         }
     }
 }

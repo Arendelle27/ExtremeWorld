@@ -30,7 +30,7 @@ namespace GameServer.Services
 
         private void OnMapCharacterEnter(NetConnection<NetSession> sender, MapCharacterEnterRequest message)
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnMapEntitySync(NetConnection<NetSession> sender,MapEntitySyncRequest request)

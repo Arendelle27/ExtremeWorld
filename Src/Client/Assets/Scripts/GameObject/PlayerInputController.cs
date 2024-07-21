@@ -48,6 +48,7 @@ public class PlayerInputController:MonoBehaviour
             cinfo.Entity.Direction.X = 0;
             cinfo.Entity.Direction.Y = 100;
             cinfo.Entity.Direction.Z = 0;
+            cinfo.attrDynamic = new NAttributeDynamic();
             this.character = new Creature(cinfo);
 
             if (entityController != null) entityController.entity = this.character;
@@ -56,7 +57,7 @@ public class PlayerInputController:MonoBehaviour
         if(agent==null)
         {
             agent=this.gameObject.AddComponent<NavMeshAgent>();
-            agent.stoppingDistance = 0.3f;//停止距离
+            agent.stoppingDistance = 2f;//停止距离
         }
     }
 
@@ -145,7 +146,7 @@ public class PlayerInputController:MonoBehaviour
                 this.character.MoveForward();
                 this.SendEntityEvent(EntityEvent.MoveFwd);
             }
-            this.rb.velocity = this.rb.velocity.y * Vector3.up + GameObjectTool.LogicToWorld(character.direction) * (this.character.speed + 9.81f) / 100f;
+            this.rb.velocity = /*this.rb.velocity.y * Vector3.up +*/ GameObjectTool.LogicToWorld(character.direction) * (this.character.speed + 9.81f) / 100f;
         }
         else if(v<-0.01)
         {

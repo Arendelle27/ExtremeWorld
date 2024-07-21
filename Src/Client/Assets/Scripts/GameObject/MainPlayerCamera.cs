@@ -20,7 +20,7 @@ public class MainPlayerCamera : MonoSingleton<MainPlayerCamera>
     {
         if(player == null&&User.Instance.CurrentCharacterInfo!=null) 
         {
-            player = User.Instance.CurrentCharacterObject.gameObject;
+            player = User.Instance.CurrentCharacterObject?.gameObject;
         }
 
         if (player == null)

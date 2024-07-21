@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using Battle;
+using Entities;
+using Services;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -11,8 +13,55 @@ namespace Managers
 {
     public class BattleManager :Singleton<BattleManager>
     {
-        public Creature Target { get; set; }
+        public delegate void TargetChangedHandler(Creature target);
+        public event TargetChangedHandler OnTargetChanged;
 
-        public Vector3 Position { get; set; }
+        private Creature currentTarget;
+        public Creature CurrentTarget 
+        {
+            get { return currentTarget; }
+            set
+            {
+                this.SetTarget(value);
+            }
+        }
+
+        private NVector3 currentPosition;
+        public NVector3 CurrentPosition
+        {
+            get { return currentPosition; }
+            set 
+            {
+                this.SetPositon(value);
+            }
+        }
+
+        public void Init()
+        {
+
+        }
+
+        public void SetTarget(Creature target)
+        {
+            if(this.currentTarget!=target&&this.OnTargetChanged!=null)
+            {
+                this.OnTargetChanged(target);
+            }
+
+            this.currentTarget = target;
+            Debug.LogFormat("BattleManager:SetTarget:[{0}:{1}]", target.entityId , target.Name);
+        }
+
+        public void SetPositon(NVector3 position)
+        {
+            this.currentPosition = position;
+            Debug.LogFormat("BattleManager:SetPosition:[{0}]", position);
+        }
+
+        public void CastSkill(Skill skill)
+        {
+            int target=currentTarget!=null?currentTarget.entityId:0;
+            BattleService.Instance.SendSkillCast(skill.Define.ID,skill.Owner.entityId, target, this.currentPosition);
+        }
     }
 }
