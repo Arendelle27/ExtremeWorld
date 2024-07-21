@@ -3,6 +3,7 @@ using Common.Battle;
 using Common.Data;
 using Models;
 using SkillBridge.Message;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -117,11 +118,11 @@ namespace Entities
             this.position = position;
         }
 
-        public void CastSkill(int skillId,Creature target,NVector3 pos)
+        public void CastSkill(int skillId,Creature target,NVector3 pos,NDamageInfo damage)
         {
             this.SetStandby(true);
             var skill=this.SkillMgr.GetSkill(skillId);
-            skill.BeginCast();
+            skill.BeginCast(damage);
         }
 
         public void PlayAnim(string anim)
@@ -144,6 +145,13 @@ namespace Entities
         {
             base.OnUpdate(delta);
             this.SkillMgr.OnUpdate(delta);
+        }
+
+        public void DoDamage(NDamageInfo damage)
+        {
+            Debug.LogFormat("DoDamage:{0}", damage.Damage);
+            this.Attributes.HP -= damage.Damage;
+            this.PlayAnim("Hurt");
         }
     }
 }

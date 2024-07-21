@@ -1,6 +1,7 @@
 using GameServer.Entities;
 using GameServer.Managers;
 using SkillBridge.Message;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -53,6 +54,26 @@ namespace GameServer.Battle
         public void AddSkill(Skill skill)
         {
             this.Skills.Add(skill);
+        }
+
+        internal Skill GetSkill(int skillId)
+        {
+            for(int i=0;i<this.Skills.Count;i++)
+            {
+                if (this.Skills[i].Define.ID==skillId)
+                {
+                    return this.Skills[i];
+                }
+            }
+            return null;
+        }
+
+        internal void Update()
+        {
+            for(int i=0;i<this.Skills.Count;i++)
+            {
+                this.Skills[i].Update();
+            }
         }
     }
 

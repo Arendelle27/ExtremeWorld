@@ -24,6 +24,8 @@ namespace GameServer.Entities
         public Attributes Attributes;
         public SkillManager SkillMgr;
 
+        public bool IsDeath=false;
+
         public Creature(CharacterType type, int configId, int level, Vector3Int pos, Vector3Int dir) :
            base(pos, dir)
         {
@@ -52,6 +54,27 @@ namespace GameServer.Entities
         {
             this.SkillMgr = new SkillManager(this);
             this.Info.Skills.AddRange(this.SkillMgr.Infos);
+        }
+
+        internal void CastSkill(BattleContext context, int skillId)
+        {
+            Skill skill=this.SkillMgr.GetSkill(skillId);
+            context.Result = skill.Cast(context);
+        }
+
+        internal void DoDamage(NDamageInfo damage)
+        {
+            this.Attributes.HP -= damage.Damage;
+            if(this.Attributes.HP<0)
+            {
+                this.IsDeath=true;
+                damage.WillDead=true;
+            }
+        }
+
+        public override void Update()
+        {
+            this.SkillMgr.Update();
         }
     }
 }

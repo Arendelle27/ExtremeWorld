@@ -20,5 +20,6 @@ namespace Entities
         {
             return EquipManager.Instance.GetEquipedDefines();
         }
+
     }
 }
