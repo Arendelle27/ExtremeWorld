@@ -273,6 +273,7 @@ namespace Services
         {
             Debug.LogFormat("OnUserGameLeave:{0} [{1}]", response.Result, response.Errormsg);
             User.Instance.CurrentCharacterInfo = null;
+            User.Instance.CurrentCharacter = null;
             MapService.Instance.CurrentMapId = 0;
             if (this.isQuitGame)
             {

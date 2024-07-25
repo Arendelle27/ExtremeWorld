@@ -28,6 +28,10 @@ namespace UISKILL
 
         private void Update()
         {
+            if(this.skill==null)
+            {
+                return;
+            }
             if(this.skill.CD>0)
             {
                 if(overlay.enabled)
@@ -55,9 +59,9 @@ namespace UISKILL
 
             switch(result)
             {
-                //case SkILLRESULT.InvalidTarget:
-                //    MessageBox.Show("技能[" + this.skill.Define.Name + "]目标无效");
-                //    return;
+                case SkILLRESULT.InvalidTarget:
+                    MessageBox.Show("技能[" + this.skill.Define.Name + "]目标无效");
+                    return;
                 case SkILLRESULT.OutOfMp:
                     MessageBox.Show("技能：" + this.skill.Define.Name + "MP不足");
                     return;
@@ -70,28 +74,16 @@ namespace UISKILL
             }
             BattleManager.Instance.CastSkill(this.skill);
 
-            //MessageBox.Show("释放技能：" + this.skill.Define.Name);
-            //this.SetCD(this.skill.Define.CD);
-            //this.skill.Owner.BattleState=true;
-            //this.skill.BeginCast();
-
         }
-
-        //public void SetCD(float cd)
-        //{
-        //    if (!overlay.enabled) overlay.enabled = true;
-        //    if (!this.cdText.enabled) this.cdText.enabled = true;
-        //    this.cdText.text = ((int)Math.Floor(this.cdRemain)).ToString();
-        //    this.overlay.fillAmount = 1f;
-        //    this.overlaySpeed = 1f / cd;
-        //    this.cdRemain = cd;
-        //}
 
         public void SetSkill(Skill value)
         {
             this.skill = value;
-            if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Define.Icon);
-            //this.SetCD(this.skill.Define.CD);
+            if (this.icon != null)
+            {
+                this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Define.Icon);
+                this.icon.SetAllDirty();
+            }
         }
     }
 }

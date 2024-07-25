@@ -61276,6 +61276,7 @@ MonoBehaviour:
   avaterLevel: {fileID: 1867248801}
   TeamWindow: {fileID: 1515524579}
   targetUI: {fileID: 1253845539}
+  skillSlots: {fileID: 1872131219}
 --- !u!1 &1418130635
 GameObject:
   m_ObjectHideFlags: 0
