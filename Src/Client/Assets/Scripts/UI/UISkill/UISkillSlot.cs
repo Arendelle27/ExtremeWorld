@@ -1,6 +1,7 @@
 using Battle;
 using Common.Battle;
 using Managers;
+using Models;
 using SkillBridge.Message;
 using System;
 using System.Collections;
@@ -53,8 +54,24 @@ namespace UISKILL
             }
         }
 
+        public void OnPositionSelected(Vector3 pos)
+        {
+            BattleManager.Instance.CurrentPosition=GameObjectTool.WorldToLogicN(pos);
+            this.CastSkill();
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
+            if(this.skill.Define.CastTarget==Common.Battle.TargetType.Position)
+            {
+                TargetSelector.ShowSelector(User.Instance.CurrentCharacter.position,this.skill.Define.CastRange, this.skill.Define.AOERange, this.OnPositionSelected);
+                return;
+            }
+            CastSkill();
+        }
+
+        public void CastSkill()
+        { 
             SkILLRESULT result = this.skill.CanCast(BattleManager.Instance.CurrentTarget);
 
             switch(result)

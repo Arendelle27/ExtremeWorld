@@ -23,6 +23,8 @@ namespace GameServer.Entities
 
         public Attributes Attributes;
         public SkillManager SkillMgr;
+        public BuffManager BuffMgr;
+        public EffectManager EffectMgr;
 
         public bool IsDeath=false;
 
@@ -39,6 +41,7 @@ namespace GameServer.Entities
             this.Info.EntityId = this.entityId;
             this.Info.Name = this.Define.Name;
             this.InitSKills();
+            this.InitBuffs();
 
             this.Attributes = new Attributes();
             this.Attributes.Init(this.Define, this.Info.Level,this.GetEquip(),this.Info.attrDynamic);
@@ -54,6 +57,12 @@ namespace GameServer.Entities
         {
             this.SkillMgr = new SkillManager(this);
             this.Info.Skills.AddRange(this.SkillMgr.Infos);
+        }
+
+        void InitBuffs()
+        {
+            BuffMgr=new BuffManager(this);
+            EffectMgr=new EffectManager(this);
         }
 
         internal void CastSkill(BattleContext context, int skillId)
@@ -75,6 +84,7 @@ namespace GameServer.Entities
         public override void Update()
         {
             this.SkillMgr.Update();
+            this.BuffMgr.Update();
         }
 
         internal int Distance(Creature target)
@@ -85,6 +95,11 @@ namespace GameServer.Entities
         internal int Distance(Vector3Int position)
         {
             return (int)Vector3Int.Distance(this.Position, position);
+        }
+
+        internal void AddBuff(BattleContext context, BuffDefine buffDefine)
+        {
+            this.BuffMgr.AddBuff(context, buffDefine);
         }
     }
 }

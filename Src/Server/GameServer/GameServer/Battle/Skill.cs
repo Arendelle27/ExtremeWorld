@@ -4,6 +4,7 @@ using Common.Utils;
 using GameServer.Core;
 using GameServer.Entities;
 using GameServer.Managers;
+using Microsoft.SqlServer.Server;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,8 @@ namespace GameServer.Battle
                 this.Context = context;
                 this.Hit = 0;
                 this.Bullets.Clear();
+
+                this.AddBuff(TriggerType.SkillHit);
 
                 if(this.Instant)
                 {
@@ -265,7 +268,7 @@ namespace GameServer.Battle
 
         private void HitTarget(Creature target,NSkillHitInfo hit)
         {
-            if(this.Define.CastTarget==Common.Battle.TargetType.self&&(target!=Context.Caster))
+            if(this.Define.CastTarget==Common.Battle.TargetType.Self&&(target!=Context.Caster))
             {
                 return;
             }
@@ -277,15 +280,40 @@ namespace GameServer.Battle
             Log.InfoFormat("Skill[{0}].HitTarget[{1}] Damage:{2} Crit:{3}", this.Define.Name, target.Define.Name, damage.Damage,damage.Crit);
             target.DoDamage(damage);
             hit.Damages.Add(damage);
+
+            this.AddBuff(TriggerType.SkillHit);
         }
+
+        private void AddBuff(TriggerType trigger)
+        {
+            if(this.Define.Buff==null||this.Define.Buff.Count==0)
+            {
+                return;
+            }
+
+            foreach(var buffId in this.Define.Buff)
+            {
+                var buffDefine = DataManager.Instance.Buffs[buffId];
+                if (buffDefine.Trigger != trigger) continue;//触发类型不一致
+                if(buffDefine.Target == TargetType.Self)
+                {
+                    this.Owner.AddBuff(this.Context,buffDefine);
+                }
+                else if(buffDefine.Target==TargetType.Target&&this.Context.Target!=null)
+                {
+                    this.Context.Target.AddBuff(this.Context,buffDefine);
+                }
+            }
+        }
+
         /*
-         战斗计算公式
-        物理伤害=物理攻击或者技能原始伤害*（1-物理防御/（物理防御+100））
-        魔法伤害=魔法攻击或者技能原始伤害*（1-魔法防御/（魔法防御+100））
-        暴击伤害=固定两倍伤害
-        注：伤害值最小为1，当伤害小于1时取1
-        注：最终伤害值在最终取舍时随时浮动5%。即最终伤害值*（1-5%）<最终伤害值输出<最终伤害值*（1+5%）
-         */
+战斗计算公式
+物理伤害=物理攻击或者技能原始伤害*（1-物理防御/（物理防御+100））
+魔法伤害=魔法攻击或者技能原始伤害*（1-魔法防御/（魔法防御+100））
+暴击伤害=固定两倍伤害
+注：伤害值最小为1，当伤害小于1时取1
+注：最终伤害值在最终取舍时随时浮动5%。即最终伤害值*（1-5%）<最终伤害值输出<最终伤害值*（1+5%）
+*/
         private NDamageInfo CalcSkillDamage(Creature caster, Creature target)
         {
             float ad = this.Define.AD + caster.Attributes.AD * this.Define.ADFactor;
@@ -338,7 +366,7 @@ namespace GameServer.Battle
                 pos=this.Owner.Position;
             }
 
-            List<Creature> units = this.Context.Battle.FindUnitsInRange(pos, this.Define.AOERange);
+            List<Creature> units = this.Context.Battle.FindUnitsInMapRange(pos, this.Define.AOERange);
             foreach(var target in units)
             {
                 this.HitTarget(target,hit);

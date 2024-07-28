@@ -22,6 +22,8 @@ namespace GameServer.Battle
 
         List<NSkillHitInfo> Hits=new List<NSkillHitInfo>();
 
+        List<NBuffInfo> BuffActions=new List<NBuffInfo>();
+
         List<Creature> DeahPool=new List<Creature>();
 
         public Battle(Map map)
@@ -45,6 +47,7 @@ namespace GameServer.Battle
         internal void Update()
         {
             this.Hits.Clear();
+            this.BuffActions.Clear();
             if(this.Actions.Count>0) 
             {
                 NSkillCastInfo skillCast = this.Actions.Dequeue();
@@ -70,6 +73,7 @@ namespace GameServer.Battle
             BattleContext context = new BattleContext(this);
             context.Caster=EntityManager.Instance.GetCreature(cast.casterId);
             context.Target = EntityManager.Instance.GetCreature(cast.targetId);
+            context.Position = cast.Position;
             context.CastSkill=cast;
             if(context.Caster!=null) 
             {
@@ -84,7 +88,6 @@ namespace GameServer.Battle
             NetMessageResponse message=new NetMessageResponse();
             message.skillCast = new SkillCastResponse();
             message.skillCast.castInfo = context.CastSkill;
-            message.skillCast.Damage = context.Damage;
             message.skillCast.Result=context.Result==SkILLRESULT.Ok?Result.Success:Result.Failed;
             message.skillCast.Errormsg = context.Result.ToString();
             this.Map.BroadcastBattleResponse(message);
@@ -93,12 +96,22 @@ namespace GameServer.Battle
 
         void BroadcastHitsMessage()
         {
-            if (this.Hits.Count == 0) return;
+            if (this.Hits.Count == 0&&this.BuffActions.Count==0) return;
             NetMessageResponse message = new NetMessageResponse();
-            message.skillHits = new SkillHitResponse();
-            message.skillHits.Hits.AddRange(this.Hits);
-            message.skillHits.Result=Result.Success;
-            message.skillHits.Errormsg = "";
+            if(this.Hits.Count>0)
+            {
+                message.skillHits = new SkillHitResponse();
+                message.skillHits.Hits.AddRange(this.Hits);
+                message.skillHits.Result = Result.Success;
+                message.skillHits.Errormsg = "";
+            }
+            if(this.BuffActions.Count>0)
+            {
+                message.buffRes = new BuffResponse();
+                message.buffRes.Buffs.AddRange(this.BuffActions);
+                message.buffRes.Result = Result.Success;
+                message.buffRes.Errormsg = "";
+            }
             this.Map.BroadcastBattleResponse(message);
         }
 
@@ -120,22 +133,19 @@ namespace GameServer.Battle
             }
         }
 
-        internal List<Creature> FindUnitsInRange(Vector3Int pos, int range)
+        internal List<Creature> FindUnitsInMapRange(Vector3Int pos, int range)
         {
-            List<Creature> result= new List<Creature>();
-            foreach(var unit in this.AllUnits)
-            {
-                if(unit.Value.Distance(pos)<range)
-                {
-                    result.Add(unit.Value);
-                }
-            }
-            return result;
+            return EntityManager.Instance.GetMapEntitiesInRange<Creature>(this.Map.ID, pos, range);
         }
 
         internal void AddHitInfo(NSkillHitInfo hit)
         {
             this.Hits.Add(hit);
+        }
+
+        internal void AddBuffAction(NBuffInfo buff)
+        {
+            this.BuffActions.Add(buff);
         }
     }
 }

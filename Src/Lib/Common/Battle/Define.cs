@@ -77,7 +77,7 @@ namespace Common.Battle
     public enum TargetType
     {
         None,
-        self,
+        Self,
         Target,
         Position
     }
@@ -88,12 +88,10 @@ namespace Common.Battle
         Stun
     }
 
-    //public enum SkillResult
-    //{
-    //    OK=0,
-    //    InvalidTarget,
-    //    OutOfMP,
-    //    Cooldown,
-    //    OutOfRange,
-    //}
+    public enum TriggerType
+    {
+        None=0,
+        SkillCast=1,//技能释放
+        SkillHit=2,//技能命中
+    }
 }

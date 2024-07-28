@@ -154,6 +154,10 @@ namespace GameServer.Models
             }
         }
 
+        /// <summary>
+        /// 技能释放，击中，buff等响应广播
+        /// </summary>
+        /// <param name="response"></param>
         internal void BroadcastBattleResponse(NetMessageResponse response)
         {
             foreach(var kv in this.MapCharacters)
@@ -165,6 +169,10 @@ namespace GameServer.Models
                 if(response.skillHits!=null)
                 {
                     kv.Value.connection.Session.Response.skillHits = response.skillHits;
+                }
+                if(response.buffRes!=null)
+                {
+                    kv.Value.connection.Session.Response.buffRes = response.buffRes;
                 }
                 kv.Value.connection.SendResponse();
             }
