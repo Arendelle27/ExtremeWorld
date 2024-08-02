@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\UI\UISystemConfig\UISystemConfig.cs" />
     <Compile Include="Assets\Scripts\UI\UITeam\UITeamItem.cs" />
+    <Compile Include="Assets\Scripts\Battle\EffectManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIChat\ChatMessage.cs" />
     <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectManager.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Assets\Scripts\Managers\TeamManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIMessageBox.cs" />
     <Compile Include="Assets\Scripts\Network\NetClient.cs" />
+    <Compile Include="Assets\Scripts\UI\UISkill\UIBuffItem.cs" />
     <Compile Include="Assets\Scripts\Models\BagItem.cs" />
     <Compile Include="Assets\Scripts\UI\UIShop\UIShop.cs" />
     <Compile Include="Assets\Scripts\UI\UIWorldElement.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Assets\Scripts\UI\UIMain.cs" />
     <Compile Include="Assets\Scripts\UI\InputBox.cs" />
     <Compile Include="Assets\Scripts\Log\UnityLogger.cs" />
+    <Compile Include="Assets\Scripts\UI\UISkill\UIBuffIcons.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UISkillSlot.cs" />
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Entity\Creature.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="Assets\Scripts\UI\UINameBar.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildApplyItem.cs" />
     <Compile Include="Assets\Scripts\Managers\CharacterManager.cs" />
+    <Compile Include="Assets\Scripts\Battle\BuffManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIBag.cs" />
     <Compile Include="Assets\Scripts\UI\UIQuest\UIQuestSystem.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UISkill.cs" />
@@ -166,6 +170,7 @@
     <Compile Include="Assets\Scripts\Models\User.cs" />
     <Compile Include="Assets\Scripts\Services\BattleService.cs" />
     <Compile Include="Assets\Scripts\UI\UIIconItem.cs" />
+    <Compile Include="Assets\Scripts\Battle\Buff.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildMemberItem.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildPopCreate.cs" />

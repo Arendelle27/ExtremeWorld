@@ -19,7 +19,7 @@ public class UIWorldElementManager : MonoSingleton<UIWorldElementManager>
         GameObject goNameBar = Instantiate(nameBarPrefab, this.transform);
         goNameBar.name = "NameBar" + character.entityId;
         goNameBar.GetComponent<UIWorldElement>().owner = owner;
-        goNameBar.GetComponent<UINameBar>().character = character;
+        goNameBar.GetComponent<UINameBar>().character = (Character)character;
         goNameBar.SetActive(true);
         this.elementNames[owner] = goNameBar;
     }

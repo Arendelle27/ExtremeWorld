@@ -9,15 +9,15 @@ public class UINameBar : MonoBehaviour {
     public Image avatar;
     public Text characterName; 
 
-    public Creature character;
+    public Character character;
+
+    public UIBuffIcons buffIcons;
+
 	// Use this for initialization
 	void Start () {
         if( character!=null)
         {
-            if(character.Info.Type==SkillBridge.Message.CharacterType.Monster)
-                this.avatar.gameObject.SetActive(false);
-            else
-                this.avatar.gameObject.SetActive(true);
+            buffIcons.SetOwner(character);
         }
 	}
 	

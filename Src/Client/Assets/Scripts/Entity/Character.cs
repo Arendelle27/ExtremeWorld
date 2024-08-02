@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class Character : Creature
+    public class Character : Creature
     {
         public Character(NCharacterInfo info) : base(info)
         {

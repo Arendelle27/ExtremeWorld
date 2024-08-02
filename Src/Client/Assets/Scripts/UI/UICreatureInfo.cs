@@ -11,6 +11,8 @@ public class UICreatureInfo : MonoBehaviour
     public Slider MPBar;
     public Text HPText;
     public Text MPText;
+
+    public UIBuffIcons buffIcons;
     void Start()
     {
         
@@ -23,6 +25,7 @@ public class UICreatureInfo : MonoBehaviour
         set
         {
             this.target = value;
+            buffIcons.SetOwner(value);
             this.UpdateUI();
         }
     }
