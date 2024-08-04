@@ -59,10 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildList.cs" />
+    <Compile Include="Assets\Scripts\GameObject\AnimationEventController.cs" />
     <Compile Include="Assets\Scripts\UI\UICharacterSelect.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\NpcController.cs" />
+    <Compile Include="Assets\FX\Scripts\DelayActiveChild.cs" />
     <Compile Include="Assets\Scripts\Managers\GuildManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIShop\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipManager.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Assets\Scripts\Models\Quest.cs" />
     <Compile Include="Assets\Scripts\UI\UIRide\UIRideItem.cs" />
     <Compile Include="Assets\Scripts\Managers\QuestManager.cs" />
+    <Compile Include="Assets\FX\Scripts\uv_l.cs" />
     <Compile Include="Assets\Scripts\GameObject\EntityController.cs" />
     <Compile Include="Assets\Scripts\UIRegsitera.cs" />
     <Compile Include="Assets\Scripts\Managers\ShopManager.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Assets\Scripts\UI\UIFriend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\UI\UISystemConfig\UISystemConfig.cs" />
     <Compile Include="Assets\Scripts\UI\UITeam\UITeamItem.cs" />
+    <Compile Include="Assets\Scripts\Battle\EffectType.cs" />
     <Compile Include="Assets\Scripts\Battle\EffectManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIChat\ChatMessage.cs" />
     <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Assets\Scripts\UI\InputBox.cs" />
     <Compile Include="Assets\Scripts\Log\UnityLogger.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UIBuffIcons.cs" />
+    <Compile Include="Assets\FX\Scripts\EffectController.cs" />
     <Compile Include="Assets\Scripts\UI\UISkill\UISkillSlot.cs" />
     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Entity\Creature.cs" />
@@ -174,6 +179,7 @@
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildMemberItem.cs" />
     <Compile Include="Assets\Scripts\Entity\Monster.cs" />
     <Compile Include="Assets\Scripts\UI\UIGuild\UIGuildPopCreate.cs" />
+    <Compile Include="Assets\Scripts\GameObject\EntityEffectManager.cs" />
     <Compile Include="Assets\Scripts\Services\ItemService.cs" />
     <Compile Include="Assets\Scripts\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\UI\UIEquip\UIEquipItem.cs" />

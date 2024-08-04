@@ -32,7 +32,7 @@ namespace Battle
         Dictionary<int, List<NDamageInfo>> HitMap = new Dictionary<int, List<NDamageInfo>>();
 
         List<Bullet> Bullets=new List<Bullet>();
-
+        private NVector3 TargetPosition;
 
         public Skill(NSkillInfo info, Creature owner)
         {
@@ -75,7 +75,7 @@ namespace Battle
             return SkILLRESULT.Ok;
         }
 
-        public void BeginCast(Creature target)
+        public void BeginCast(Creature target,NVector3 pos)
         {
             this.IsCasting = true;
             this.Hit = 0;
@@ -83,10 +83,20 @@ namespace Battle
             this.skillTime = 0;
             this.cd=this.Define.CD;
             this.Target = target;
+            this.TargetPosition = pos;
             this.Bullets.Clear();
             this.HitMap.Clear();
 
             this.Owner.PlayAnim(this.Define.SkillAnim);
+
+            if(this.Define.CastTarget==Common.Battle.TargetType.Position)
+            {
+                this.Owner.FaceTo(this.TargetPosition.ToVector3Int());
+            }
+            else if(this.Define.CastTarget==Common.Battle.TargetType.Target)
+            {
+                this.Owner.FaceTo(this.Target.position);
+            }
 
             if(this.Define.CastTime>0)
             {
@@ -94,8 +104,28 @@ namespace Battle
             }
             else
             {
-                this.Status = SkillStatus.Running;
+                this.StartSkill();
             }
+        }
+
+        private void StartSkill()
+        {
+            this.Status = SkillStatus.Running;
+            //if(!string.IsNullOrEmpty(this.Define.AOEEffect))
+            //{
+            //    if(this.Define.CastTarget==TargetType.Position)
+            //    {
+            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition.ToVector3Int());
+            //    }
+            //    else if(this.Define.CastTarget==TargetType.Target)
+            //    {
+            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition.ToVector3Int());
+            //    }
+            //    else if(this.Define.CastTarget==TargetType.Self)
+            //    {
+            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.Owner.position);
+            //    }
+            //}
         }
 
         public void OnUpdate(float delta)
@@ -209,6 +239,7 @@ namespace Battle
             Bullet bullet = new Bullet(this);
             Debug.LogFormat("Skill[{0}].CastBullet[{1}] Target[{2}]", this.Define.Name, this.Hit, this.Target);
             this.Bullets.Add(bullet);
+            this.Owner.PlayEffect(EffectType.Bullet, this.Define.BulletResource, this.Target, bullet.duration);
         }
 
         private void UpdateCD(float delta)

@@ -8,7 +8,7 @@ using Managers;
 using SkillBridge.Message;
 using UnityEngine;
 
-public class EntityController : MonoBehaviour, IEntityNotify,IEntityController
+public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
 {
     public Animator anim;
     public Rigidbody rb;
@@ -34,6 +34,8 @@ public class EntityController : MonoBehaviour, IEntityNotify,IEntityController
     private int currentRide = 0;
 
     public Transform rideBone;
+
+    public EntityEffectManager EffectMgr;
 
     void Start()
     {
@@ -183,5 +185,23 @@ public class EntityController : MonoBehaviour, IEntityNotify,IEntityController
     public void SetStandby(bool standby)
     {
         this.anim.SetBool("Standby", standby);
+    }
+
+    public void UpdateDirection()
+    {
+        this.direction=GameObjectTool.LogicToWorld(entity.direction);
+        this.transform.forward=this.direction;
+        this.lastRotation=this.rotation;
+    }
+
+    public void PlayEffect(EffectType type, string name, Entity target, float duration)
+    {
+        Transform transform = target.Controller.GetTransform();
+        this.EffectMgr.PlayEffect(type, name, transform, duration);
+    }
+
+    public Transform GetTransform()
+    {
+        return this.transform;
     }
 }
