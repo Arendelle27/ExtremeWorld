@@ -108,24 +108,27 @@ namespace Battle
             }
         }
 
+        /// <summary>
+        /// 技能执行开始
+        /// </summary>
         private void StartSkill()
         {
             this.Status = SkillStatus.Running;
-            //if(!string.IsNullOrEmpty(this.Define.AOEEffect))
-            //{
-            //    if(this.Define.CastTarget==TargetType.Position)
-            //    {
-            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition.ToVector3Int());
-            //    }
-            //    else if(this.Define.CastTarget==TargetType.Target)
-            //    {
-            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition.ToVector3Int());
-            //    }
-            //    else if(this.Define.CastTarget==TargetType.Self)
-            //    {
-            //        this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.Owner.position);
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(this.Define.AOEEffect))
+            {
+                if (this.Define.CastTarget == TargetType.Position)
+                {
+                    this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition);
+                }
+                else if (this.Define.CastTarget == TargetType.Target)
+                {
+                    this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.Target);
+                }
+                else if (this.Define.CastTarget == TargetType.Self)
+                {
+                    this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.Owner);
+                }
+            }
         }
 
         public void OnUpdate(float delta)
@@ -150,7 +153,7 @@ namespace Battle
             else
             {
                 this.castTime = 0;
-                this.Status = SkillStatus.Running;
+                this.StartSkill();
                 Debug.LogFormat("Skill[{0}].UpdateCasting Finish", this.Define.Name);
             }
         }
@@ -283,7 +286,11 @@ namespace Battle
                 {
                     continue;
                 }
-                target.DoDamage(dmg);
+                target.DoDamage(dmg,true);
+                if(this.Define.HitEffect!=null)
+                {
+                    target.PlayEffect(EffectType.Hit, this.Define.HitEffect, target);
+                }
             }
         }
     }

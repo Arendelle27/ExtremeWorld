@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 public enum EffectType
 {
     None,
-    Bullet
+    Bullet,//子弹
+    Position,//位置
+    Hit,// 受击
 }

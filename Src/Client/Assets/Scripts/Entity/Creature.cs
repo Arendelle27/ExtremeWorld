@@ -155,11 +155,18 @@ namespace Entities
             this.BuffMgr.OnUpdate(delta);
         }
 
-        public void DoDamage(NDamageInfo damage)
+        public void DoDamage(NDamageInfo damage,bool playHurt)
         {
             Debug.LogFormat("DoDamage:{0} DMG:{1} CRIT:{2}", this.Name,damage.Damage,damage.Crit);
             this.Attributes.HP -= damage.Damage;
-            this.PlayAnim("Hurt");
+            if(playHurt)
+            {
+                this.PlayAnim("Hurt");
+            }
+            if(this.Controller!=null)
+            {
+                UIWorldElementManager.Instance.ShowPopupText(PopupType.Damage, this.Controller.GetTransform().position+this.GetPopupOffset(), -damage.Damage, damage.Crit);
+            }
         }
 
         internal void DoSkillHit(NSkillHitInfo hit)
@@ -184,7 +191,7 @@ namespace Entities
                     this.RemoveBuff(buff.buffId);
                     break;
                 case BuffAction Hit:
-                    this.DoDamage(buff.Damage);
+                    this.DoDamage(buff.Damage,false);
                     break;
                 default:
                     break;
@@ -235,7 +242,7 @@ namespace Entities
 
         }
 
-        internal void PlayEffect(EffectType type, string name, Entity target, float duration)
+        internal void PlayEffect(EffectType type, string name, Creature target, float duration=0)
         {
             if(string.IsNullOrEmpty(name))
             {
@@ -245,6 +252,28 @@ namespace Entities
             {
                 this.Controller.PlayEffect(type, name, target, duration);
             }
+        }
+
+        internal void PlayEffect(EffectType type, string name, NVector3 position)
+        {
+            if(string.IsNullOrEmpty(name))
+            {
+                return;
+            }
+            if(this.Controller!=null)
+            {
+                this.Controller.PlayEffect(type, name,position,0);
+            }
+        }
+
+        public Vector3 GetPopupOffset()
+        {
+            return new Vector3(0,this.Define.Height, 0);
+        }
+
+        public Vector3 GetHitOffset()
+        {
+            return new Vector3(0, this.Define.Height * 0.8f, 0);
         }
     }
 }

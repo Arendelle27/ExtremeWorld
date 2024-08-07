@@ -28,16 +28,24 @@ public class EffectController : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    internal void Init(EffectType type,Transform source, Transform target,float duration)
+    internal void Init(EffectType type,Transform source, Transform target,Vector3 offset, float duration)
     {
         this.type = type;
         this.target = target;
-        this.lifeTime = duration;
+        if(duration>0)
+        {
+            this.lifeTime=duration;
+        }
+        this.time= 0;
         if(type==EffectType.Bullet)
         {
             this.startPos=this.transform.position;
-            this.offset = new Vector3(0, (this.transform.position.y - source.position.y), 0);
+            this.offset = offset;
             this.targetPos = target.position + offset;
+        }
+        else if(type==EffectType.Hit)
+        {
+            this.transform.position = target.position+offset;
         }
     }
 
@@ -52,6 +60,11 @@ public class EffectController : MonoBehaviour
             }
             this.transform.LookAt(targetPos);
             if(Vector3.Distance(this.targetPos,this.transform.position)<0.5f)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+            if(this.lifeTime>0&&this.time>=this.lifeTime)
             {
                 Destroy(this.gameObject);
                 return;

@@ -10,11 +10,10 @@ namespace Common.Data
     {
         public int TID { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
         public CharacterClass Class { get; set; }
         public string Resource { get; set; }
         public string Description { get; set; }
-
+        public float Height { get; set; }
         public float MaxHP { get; set; }
         public float MaxMP { get; set; }
 

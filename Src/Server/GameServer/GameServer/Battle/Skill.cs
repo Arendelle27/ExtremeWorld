@@ -112,7 +112,7 @@ namespace GameServer.Battle
                 this.Hit = 0;
                 this.Bullets.Clear();
 
-                this.AddBuff(TriggerType.SkillHit,this.Context.Target);
+                //this.AddBuff(TriggerType.SkillHit,this.Context.Target);
 
                 if(this.Instant)
                 {

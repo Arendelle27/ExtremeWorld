@@ -12,7 +12,7 @@ public class EntityEffectManager : MonoBehaviour
     void Start()
     {
         this.Effects.Clear();
-        if(this.Root.childCount>0)
+        if(this.Root!=null&& this.Root.childCount>0)
         {
             for(int i=0;i<this.Root.childCount;i++) 
             {
@@ -38,12 +38,12 @@ public class EntityEffectManager : MonoBehaviour
         }
     }
 
-    public void PlayEffect(EffectType type, string name, Transform target, float duration)
+    public void PlayEffect(EffectType type, string name, Transform target,Vector3 pos, float duration)
     {
         if (type == EffectType.Bullet)
         {
             EffectController effect = InstantiateEffect(name);
-            effect.Init(type, this.transform, target, duration);
+            effect.Init(type, this.transform, target, pos,duration);
             effect.gameObject.SetActive(true);
         }
         else

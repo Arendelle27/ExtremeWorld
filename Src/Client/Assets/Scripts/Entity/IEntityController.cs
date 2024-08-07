@@ -12,7 +12,8 @@ namespace Entities
     {
         Transform GetTransform();
         void PlayAnim(string name);
-        void PlayEffect(EffectType type, string name, Entity target, float duration);
+        void PlayEffect(EffectType type, string name, Creature target, float duration);
+        void PlayEffect(EffectType type, string name, NVector3 position,float duration);
         void SetStandby(bool standby);
         void UpdateDirection();
     }
