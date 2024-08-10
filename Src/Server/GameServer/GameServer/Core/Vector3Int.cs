@@ -355,6 +355,15 @@ namespace GameServer.Core
         {
             return string.Format("({0}, {1}, {2})", x.ToString(format), y.ToString(format), z.ToString(format));
         }
+
+        internal Vector3Int normalized
+        {
+            get
+            {
+                var m= magnitude;
+                return new Vector3Int((int)(this.x * 100f / m), (int)(this.y * 100f / m), (int)(this.z * 100f / m));
+            }
+        }
     }
 
 }

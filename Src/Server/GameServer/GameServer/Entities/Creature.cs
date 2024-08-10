@@ -4,17 +4,12 @@ using GameServer.Battle;
 using GameServer.Core;
 using GameServer.Managers;
 using SkillBridge.Message;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameServer.Entities
 {
     class Creature : Entity
     {
-
         public int Id { get; set; }
         public string Name { get { return this.Info.Name; } }
 
@@ -27,6 +22,9 @@ namespace GameServer.Entities
         public EffectManager EffectMgr;
 
         public bool IsDeath=false;
+
+        public BattleState BattleState;
+        public CharacterState State;
 
         public Creature(CharacterType type, int configId, int level, Vector3Int pos, Vector3Int dir) :
            base(pos, dir)
@@ -69,16 +67,43 @@ namespace GameServer.Entities
         {
             Skill skill=this.SkillMgr.GetSkill(skillId);
             context.Result = skill.Cast(context);
+            if(context.Result==SkILLRESULT.Ok)
+            {
+                this.BattleState=BattleState.InBattle;
+            }
+
+            if(context.CastSkill==null)
+            {
+                if(context.Result==SkILLRESULT.Ok)
+                {
+                    context.CastSkill = new NSkillCastInfo()
+                    {
+                        casterId = this.entityId,
+                        targetId = context.Target.entityId,
+                        skillId = skill.Define.ID,
+                        Position = new NVector3(),
+                        Result = context.Result
+                    };
+                    context.Battle.AddCastSkillInfo(context.CastSkill);
+                }
+            }
+            else
+            {
+                context.CastSkill.Result = context.Result;
+                context.Battle.AddCastSkillInfo(context.CastSkill);
+            }
         }
 
-        internal void DoDamage(NDamageInfo damage)
+        internal void DoDamage(NDamageInfo damage,Creature source)
         {
+            this.BattleState=BattleState.InBattle;
             this.Attributes.HP -= damage.Damage;
             if(this.Attributes.HP<0)
             {
                 this.IsDeath=true;
                 damage.WillDead=true;
             }
+            this.OnDamage(damage, source);
         }
 
         public override void Update()
@@ -100,6 +125,11 @@ namespace GameServer.Entities
         internal void AddBuff(BattleContext context, BuffDefine buffDefine)
         {
             this.BuffMgr.AddBuff(context, buffDefine);
+        }
+
+        protected virtual void OnDamage(NDamageInfo damage, Creature source)
+        {
+            
         }
     }
 }

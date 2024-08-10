@@ -30,9 +30,9 @@ namespace Common.Data
 
         public float DEF { get; set; }
         public float MDEF { get; set; }
-        public float SPD { get; set; }
-        public float CRI { get; set; }
-
+        public float SPD { get; set; }//攻击速度
+        public float CRI { get; set; }//暴击率
+        public string AI { get; set; }
 
 
 

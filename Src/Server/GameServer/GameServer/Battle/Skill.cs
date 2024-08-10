@@ -53,7 +53,7 @@ namespace GameServer.Battle
         {
             this.info = info;
             this.Owner = owner;
-            this.Define = DataManager.Instance.Skills[(int)this.Owner.Define.Class][info.Id];
+            this.Define = DataManager.Instance.Skills[(int)this.Owner.Define.TID][info.Id];
         }
 
         public SkILLRESULT CanCast(BattleContext context)
@@ -278,7 +278,7 @@ namespace GameServer.Battle
             }
             NDamageInfo damage = this.CalcSkillDamage(Context.Caster, target);
             Log.InfoFormat("Skill[{0}].HitTarget[{1}] Damage:{2} Crit:{3}", this.Define.Name, target.Define.Name, damage.Damage,damage.Crit);
-            target.DoDamage(damage);
+            target.DoDamage(damage,Context.Caster);
             hit.Damages.Add(damage);
 
             this.AddBuff(TriggerType.SkillHit,target);

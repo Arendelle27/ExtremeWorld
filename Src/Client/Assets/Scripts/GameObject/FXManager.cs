@@ -32,6 +32,11 @@ public class FXManager : MonoSingleton<FXManager>
     public void PlayEffect(EffectType type,string name,Transform target,Vector3 pos,float duration)
     {
         EffectController effect = CreateEffect(name,pos);
+        if(effect==null)
+        {
+            Debug.LogErrorFormat("Effect not found:{0}",name);
+            return;
+        }
         effect.Init(type,this.transform,target,pos,duration);
         effect.gameObject.SetActive(true);
         
