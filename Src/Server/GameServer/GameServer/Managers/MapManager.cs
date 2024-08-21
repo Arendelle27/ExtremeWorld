@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Data;
 using GameServer.Models;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,23 @@ namespace GameServer.Managers
 {
     class MapManager:Singleton<MapManager>
     {
-        Dictionary<int,Map> Maps = new Dictionary<int, Map>();
+        Dictionary<int,Dictionary<int,Map>> Maps = new Dictionary<int, Dictionary<int, Map>>();
 
         public void Init()
         {
             foreach (var mapdefine in DataManager.Instance.Maps.Values)
             {
-                Map map = new Map(mapdefine);
-                Log.InfoFormat("MapManager.Init>Map:{0}:{1}", map.Define.ID, map.Define.Name);
-                this.Maps[mapdefine.ID] = map;
+                Log.InfoFormat("MapManager.Init>Map:{0}:{1}", mapdefine.ID, mapdefine.Name);
+                int instanceCount = 1;
+                if(mapdefine.Type==MapType.Arena||mapdefine.Type==MapType.Story)
+                {
+                    instanceCount = ArenaManager.MaxInstance;
+                }
+                this.Maps[mapdefine.ID] = new Dictionary<int, Map>();
+                for(int i=0;i<instanceCount;i++)
+                {
+                    this.Maps[mapdefine.ID][i] = new Map(mapdefine,i);
+                }
             }
         }
 
@@ -27,7 +36,7 @@ namespace GameServer.Managers
         {
             get
             {
-                return this.Maps[key];
+                return this.Maps[key][0];
             }
         }
 
@@ -35,8 +44,16 @@ namespace GameServer.Managers
         {
             foreach(var map in this.Maps.Values)
             {
-                map.Update();
+                foreach(var instance in map.Values)
+                {
+                    instance.Update();
+                }
             }
+        }
+
+        public Map GetInstance(int mapId, int instance)
+        {
+            return this.Maps[mapId][instance];
         }
     }
 

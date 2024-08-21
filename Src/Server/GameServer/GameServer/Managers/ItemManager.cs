@@ -94,8 +94,13 @@ namespace GameServer.Managers
             return true;
         }
 
+        /// <summary>
+        /// 生成传输的背包信息
+        /// </summary>
+        /// <param name="list"></param>
         public void GetItemInfos(List<NItemInfo> list)
         {
+            list.Clear();
             foreach(var item in this.Items)
             {
                 list.Add(new NItemInfo() { Id = item.Value.ItemID, Count = item.Value.Count });

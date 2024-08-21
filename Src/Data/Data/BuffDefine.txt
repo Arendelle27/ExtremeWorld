@@ -38,7 +38,7 @@
     "Trigger": "SkillHit",
     "Duration": 5.0,
     "Interval": 1.0,
-    "APFator": 0.25
+    "APFactor": 0.25
   },
   "5": {
     "ID": 5,
@@ -49,7 +49,7 @@
     "Trigger": "SkillHit",
     "Duration": 3.0,
     "Interval": 1.0,
-    "ADFator": 0.125
+    "ADFactor": 0.125
   },
   "6": {
     "ID": 6,
@@ -60,6 +60,6 @@
     "Trigger": "SkillHit",
     "Duration": 5.0,
     "Interval": 1.0,
-    "APFator": 0.16667
+    "APFactor": 0.16667
   }
 }

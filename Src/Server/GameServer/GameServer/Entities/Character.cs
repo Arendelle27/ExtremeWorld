@@ -111,7 +111,7 @@ namespace GameServer.Entities
         public long Exp
         {
             get { return this.Data.Exp; }
-            private set
+            set
             {
                 if (this.Data.Exp == value)
                     return;

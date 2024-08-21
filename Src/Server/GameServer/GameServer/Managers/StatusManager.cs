@@ -50,7 +50,7 @@ namespace GameServer.Managers
             }
             if(goldDelta<0)
             {
-                this.AddStatus(StatusType.Money, 0, -goldDelta, StatusAction.Add);
+                this.AddStatus(StatusType.Money, 0, -goldDelta, StatusAction.Delete);
             }
         }
 

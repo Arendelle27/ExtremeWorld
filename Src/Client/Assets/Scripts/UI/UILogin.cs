@@ -41,6 +41,7 @@ public class UILogin : MonoBehaviour {
         SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
         // Enter Game
         UserService.Instance.SendLogin(this.username.text,this.password.text);
+        
 
     }
 
@@ -55,6 +56,21 @@ public class UILogin : MonoBehaviour {
 
         }
         else
+        {
             MessageBox.Show(message, "错误", MessageBoxType.Error);
+        }
+        this.Clear();
+    }
+
+    void Clear()
+    {
+        this.username.text = "";
+        this.password.text = "";
+    }
+
+    public void OnClickRegister()
+    {
+        this.Clear();
+        this.gameObject.SetActive(false);
     }
 }

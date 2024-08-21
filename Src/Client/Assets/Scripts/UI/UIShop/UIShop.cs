@@ -18,6 +18,8 @@ public class UIShop : UIWindow
     public GameObject shopItem;
 
     List<Image> slots;
+
+    long moneyMount = 0;
     void Start () {
         StartCoroutine(InitItems());
 	}
@@ -49,7 +51,17 @@ public class UIShop : UIWindow
     {
         this.shop = shop;
         this.title.text = shop.Name;
-        this.money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
+        //this.money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
+    }
+
+    private void Update()
+    {
+        long curMoney= User.Instance.CurrentCharacterInfo.Gold;
+        if(curMoney != moneyMount)
+        {
+            this.money.text = curMoney.ToString();
+            this.moneyMount= curMoney;
+        }
     }
 
     private UIShopItem selectdeItem;

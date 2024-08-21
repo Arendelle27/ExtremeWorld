@@ -267,7 +267,7 @@ namespace Battle
 
         internal void DoHit(int hitId, List<NDamageInfo> damages)
         {
-            if(hitId>this.Hit)
+            if(hitId>this.Hit)//如果是后续的伤害
             {
                 this.HitMap[hitId]=damages;
             }

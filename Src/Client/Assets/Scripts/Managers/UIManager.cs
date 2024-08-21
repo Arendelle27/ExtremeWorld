@@ -38,6 +38,7 @@ namespace Managers
             this.UIResources.Add(typeof(UIRide), new UIElement() { Resources = "UI/UIRide/UIRide", Cache = false });
             this.UIResources.Add(typeof(UISystemConfig), new UIElement() { Resources = "UI/UISystemConfig/UISystemConfig", Cache = false });
             this.UIResources.Add(typeof(UISkill), new UIElement() { Resources = "UI/UISkill/UISkill", Cache = false });
+            this.UIResources.Add(typeof(UIStory), new UIElement() { Resources = "UI/UIStory/UIStory", Cache = false });
         }
 
         ~UIManager()

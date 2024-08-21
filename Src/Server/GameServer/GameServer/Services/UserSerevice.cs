@@ -8,6 +8,8 @@ using Network;
 using SkillBridge.Message;
 using GameServer.Entities;
 using GameServer.Managers;
+using Common.Data;
+using GameServer.Models;
 
 namespace GameServer.Services
 {
@@ -21,6 +23,8 @@ namespace GameServer.Services
             MessageDistributer<NetConnection<NetSession>>.Instance.Subscribe<UserCreateCharacterRequest>(this.OnCreateCharacter);
             MessageDistributer<NetConnection<NetSession>>.Instance.Subscribe<UserGameEnterRequest>(this.OnGameEnter);
             MessageDistributer<NetConnection<NetSession>>.Instance.Subscribe<UserGameLeaveRequest>(this.OnGameLeave);
+            MessageDistributer<NetConnection<NetSession>>.Instance.Subscribe<UserDeleteCharacterRequest>(this.OnDeleteCharacter);
+            MessageDistributer<NetConnection<NetSession>>.Instance.Subscribe<UserCharacterDeathRequest>(this.OnCharacterDeath);
         }
 
         public void Init()
@@ -155,6 +159,42 @@ namespace GameServer.Services
             }
 
             sender.SendResponse();
+        }
+
+        void OnDeleteCharacter(NetConnection<NetSession> sender, UserDeleteCharacterRequest request)
+        {
+            Log.InfoFormat("UserDeleteCharacterRequest: characterID:{0}", request.characterIdx);
+            TCharacter dbchar = sender.Session.User.Player.Characters.ElementAt(request.characterIdx);
+            DBService.Instance.Entities.CharacterBags.Remove(dbchar.Bag);
+            DBService.Instance.Entities.CharacterItem.RemoveRange(dbchar.Items);
+            DBService.Instance.Entities.CharacterQuests.RemoveRange(dbchar.Quests);
+            DBService.Instance.Entities.CharacterFriends.RemoveRange(dbchar.Friends);
+            DBService.Instance.Entities.Characters.Remove(dbchar);
+            DBService.Instance.Entities.SaveChanges();
+
+            sender.Session.User.Player.Characters.Remove(dbchar);
+
+            sender.Session.Response.deleteChar = new UserDeleteCharacterResponse();
+            sender.Session.Response.deleteChar.Result = Result.Success;
+            sender.Session.Response.deleteChar.Errormsg = "None";
+            foreach (var c in sender.Session.User.Player.Characters)
+            {
+                NCharacterInfo info = new NCharacterInfo();
+                info.Id = 0;
+                info.Name = c.Name;
+                info.Type = CharacterType.Player;
+                info.Class = (CharacterClass)c.Class;
+                info.ConfigId = c.TID;
+                sender.Session.Response.deleteChar.Characters.Add(info);
+            }
+            sender.SendResponse();
+        }
+
+        void OnCharacterDeath(NetConnection<NetSession> sender, UserCharacterDeathRequest request)
+        {
+            Log.InfoFormat("UserCharacterDeathRequest: characterID:{0}", request.characterId);
+
+            BattleManager.Instance.CharacterDeathReturnMainCity(sender);
         }
 
         void OnGameEnter(NetConnection<NetSession> sender, UserGameEnterRequest request)

@@ -31,6 +31,8 @@ namespace GameServer.Models
         {
             get { return this.Define.ID; }
         }
+
+        public int InstanceID { get; set; }
         internal MapDefine Define;
 
         Dictionary<int, MapCharacter> MapCharacters = new Dictionary<int, MapCharacter>();
@@ -45,9 +47,10 @@ namespace GameServer.Models
 
         public MonsterManager MonsterManager=new MonsterManager();
 
-        internal Map(MapDefine define)
+        internal Map(MapDefine define,int instanceId)
         {
             this.Define = define;
+            this.InstanceID = instanceId;
             this.SpawnManager.Init(this);
             this.MonsterManager.Init(this);
             this.Battle=new Battle.Battle(this);
@@ -67,17 +70,16 @@ namespace GameServer.Models
         internal void CharacterEnter(NetConnection<NetSession> conn,Character character)
         {
             Log.InfoFormat("CharacterEnter:Map:{0} characterId:{1}", this.Define.ID, character.Id);
-                
-            character.Info.mapId = this.ID;
-            this.MapCharacters[character.Id] = new MapCharacter(conn, character);
+
+            AddCharacter(conn, character);
 
             conn.Session.Response.mapCharacterEnter = new MapCharacterEnterResponse();
             conn.Session.Response.mapCharacterEnter.mapId = this.Define.ID;
 
-            foreach(var kv in this.MapCharacters)
+            foreach (var kv in this.MapCharacters)
             {
                 conn.Session.Response.mapCharacterEnter.Characters.Add(kv.Value.character.Info);
-                if (kv.Value.character!=character)
+                if (kv.Value.character != character)
                 {
                     this.AddCharacterEnterMap(kv.Value.connection, character.Info);
                 }
@@ -89,9 +91,21 @@ namespace GameServer.Models
             conn.SendResponse();
         }
 
+        public void AddCharacter(NetConnection<NetSession> conn, Character character)
+        {
+            Log.InfoFormat("AddCharacter:Map:{0} characterId:{1}", this.Define.ID, character.Id);
+            character.OnEnterMap(this);
+            character.Info.mapId = this.ID;
+            if(!this.MapCharacters.ContainsKey(character.Id))
+            {
+                this.MapCharacters[character.Id] = new MapCharacter(conn, character);
+            }
+        }
+
 
         internal void CharacterLeave(Character cha)
         {
+            cha.OnLeaveMap(this);
             Log.InfoFormat("CharacterLeave:Map:{0} characterId:{1}", this.Define.ID, cha.Id);
             foreach(var kv in this.MapCharacters)
             {

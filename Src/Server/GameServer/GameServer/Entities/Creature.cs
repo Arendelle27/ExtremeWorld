@@ -3,6 +3,7 @@ using Common.Data;
 using GameServer.Battle;
 using GameServer.Core;
 using GameServer.Managers;
+using GameServer.Models;
 using SkillBridge.Message;
 using System.Collections.Generic;
 
@@ -26,6 +27,7 @@ namespace GameServer.Entities
         public BattleState BattleState;
         public CharacterState State;
 
+        public Map Map;
         public Creature(CharacterType type, int configId, int level, Vector3Int pos, Vector3Int dir) :
            base(pos, dir)
         {
@@ -46,7 +48,16 @@ namespace GameServer.Entities
             this.Info.attrDynamic = this.Attributes.DynamicAttr;
         }
 
-        private List<EquipDefine> GetEquip()
+        public virtual void OnEnterMap(Map map)
+        {
+            this.Map = map;
+        }
+
+        public void OnLeaveMap(Map map)
+        {
+            this.Map = null;
+        }
+        public List<EquipDefine> GetEquip()
         {
             return null;
         }

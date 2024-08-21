@@ -37,6 +37,11 @@ namespace GameServer.AI
                 this.owner.BattleState=Common.Battle.BattleState.Idle;
                 return;
             }
+            if(this.target.IsDeath)
+            {
+                this.target = null;
+                return;
+            }
             if(!TryCastSkill())
             {
                 if(!TryCastNormal())

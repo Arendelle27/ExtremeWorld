@@ -50,6 +50,7 @@ public class UIRegister : MonoBehaviour {
         }
         SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
         UserService.Instance.SendRegister(this.username.text,this.password.text);
+        this.Clear();
     }
 
 
@@ -61,12 +62,23 @@ public class UIRegister : MonoBehaviour {
             MessageBox.Show("注册成功,请登录", "提示", MessageBoxType.Information).OnYes = this.CloseRegister;
         }
         else
+        {
             MessageBox.Show(message, "错误", MessageBoxType.Error);
+        }
+        this.Clear();
     }
 
-    void CloseRegister()
+    public void CloseRegister()
     {
         this.gameObject.SetActive(false);
         uiLogin.SetActive(true);
+        this.Clear();
+    }
+
+   void Clear()
+    {
+        this.username.text = "";
+        this.password.text = "";
+        this.passwordConfirm.text = "";
     }
 }

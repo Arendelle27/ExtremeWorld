@@ -188,6 +188,15 @@ public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
         this.anim.SetBool("Standby", standby);
     }
 
+    internal void UpdateTransform()
+    {
+        this.position = GameObjectTool.LogicToWorld(entity.position);
+        this.rb.MovePosition(this.position);
+        this.lastPosition = this.position;
+
+        UpdateDirection();
+    }
+
     public void UpdateDirection()
     {
         this.direction=GameObjectTool.LogicToWorld(entity.direction);

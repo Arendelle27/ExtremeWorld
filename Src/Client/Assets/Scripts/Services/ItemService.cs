@@ -36,10 +36,15 @@ namespace Services
             NetClient.Instance.SendMessage(message);
         }
 
-        private void OnItemBuy(object sender,ItemBuyResponse message)
+        private void OnItemBuy(object sender,ItemBuyResponse reponse)
         {
-            MessageBox.Show("购买结果:" + message.Result + "\n" + message.Errormsg, "购买完成");
-            //BagManager.Instance.Init();
+            MessageBox.Show("购买结果:" + reponse.Result + "\n" + reponse.Errormsg, "购买完成");
+            //if (reponse.Result == Result.Success)
+            //{
+            //    ItemManager.Instance.Init(reponse.Items);
+            //    //BagManager.Instance.AddItem(message.Item);
+            //}
+
         }
 
         Item pendingEquip = null;

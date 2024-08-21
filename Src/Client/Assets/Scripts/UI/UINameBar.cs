@@ -1,4 +1,5 @@
 ﻿using Entities;
+using SkillBridge.Message;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,13 @@ public class UINameBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (this.character == null)
+            return;
         this.UpdateInfo();
+        if(character.Attributes.HP<=0)
+        {
+            this.gameObject.SetActive(false);
+        }
 	}
 
     void UpdateInfo()
@@ -34,6 +41,22 @@ public class UINameBar : MonoBehaviour {
             if(name!=this.characterName.text)
             {
                 this.characterName.text = name;
+            }
+
+
+            string classText = "";
+            if (this.character.Define.Type == CharacterType.Player)
+            {
+                classText = this.character.Define.Class.ToString();
+            }
+            else
+            {
+                classText = "Monster";
+            }
+
+            if (this.avatar.sprite.name != classText)
+            {
+                this.avatar.sprite = Resloader.Load<Sprite>("UI/Avatars/" + classText);
             }
         }
     }

@@ -18,7 +18,7 @@
       ],
       "HitEffect": "EFX_Warrior_Behurt_prefab",
       "AP": 0.0,
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "102": {
       "ID": 102,
@@ -40,7 +40,7 @@
       ],
       "AD": 60.0,
       "AP": 0.0,
-      "ADFator": 0.1
+      "ADFactor": 0.1
     },
     "103": {
       "ID": 103,
@@ -63,7 +63,7 @@
       ],
       "AD": 80.0,
       "AP": 0.0,
-      "ADFator": 0.125
+      "ADFactor": 0.125
     },
     "104": {
       "ID": 104,
@@ -84,7 +84,7 @@
       ],
       "AD": 100.0,
       "AP": 0.0,
-      "ADFator": 0.2
+      "ADFactor": 0.2
     }
   },
   "2": {
@@ -108,7 +108,7 @@
         0.4
       ],
       "HitEffect": "EFX_Wizard_AttkA_hit_prefab",
-      "APFator": 1.0
+      "APFactor": 1.0
     },
     "202": {
       "ID": 202,
@@ -133,7 +133,7 @@
       "HitEffect": "EFX_Wizard_SkillA_Hit_prefab",
       "AD": 0.0,
       "AP": 80.0,
-      "APFator": 0.125
+      "APFactor": 0.125
     },
     "203": {
       "ID": 203,
@@ -154,7 +154,7 @@
       "Interval ": 0.8,
       "AD": 0.0,
       "AP": 100.0,
-      "APFator": 0.16667
+      "APFactor": 0.16667
     },
     "204": {
       "ID": 204,
@@ -179,7 +179,7 @@
       ],
       "AD": 0.0,
       "AP": 140.0,
-      "APFator": 0.25
+      "APFactor": 0.25
     }
   },
   "3": {
@@ -203,7 +203,7 @@
         0.8
       ],
       "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "302": {
       "ID": 302,
@@ -231,7 +231,7 @@
       ],
       "AD": 70.0,
       "AP": 0.0,
-      "ADFator": 0.125
+      "ADFactor": 0.125
     },
     "303": {
       "ID": 303,
@@ -257,7 +257,7 @@
       ],
       "AD": 80.0,
       "AP": 0.0,
-      "ADFator": 0.16667
+      "ADFactor": 0.16667
     },
     "304": {
       "ID": 304,
@@ -284,7 +284,7 @@
       "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
       "AD": 70.0,
       "AP": 0.0,
-      "ADFator": 0.2
+      "ADFactor": 0.2
     }
   },
   "1001": {
@@ -301,7 +301,7 @@
       "HitTimes": [
         0.3
       ],
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "10012": {
       "ID": 10012,
@@ -317,7 +317,7 @@
       "HitTimes": [
         0.3
       ],
-      "ADFator": 2.0
+      "ADFactor": 2.0
     }
   },
   "1002": {
@@ -335,7 +335,7 @@
         0.6,
         1.0
       ],
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "10022": {
       "ID": 10022,
@@ -351,7 +351,7 @@
       "HitTimes": [
         0.52
       ],
-      "ADFator": 2.0
+      "ADFactor": 2.0
     },
     "10023": {
       "ID": 10023,
@@ -366,7 +366,7 @@
       "HitTimes": [
         0.6
       ],
-      "ADFator": 3.0
+      "ADFactor": 3.0
     }
   },
   "1003": {
@@ -383,7 +383,7 @@
       "HitTimes": [
         0.3
       ],
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "10032": {
       "ID": 10032,
@@ -398,7 +398,7 @@
       "HitTimes": [
         0.6
       ],
-      "ADFator": 2.0
+      "ADFactor": 2.0
     }
   },
   "1004": {
@@ -415,7 +415,7 @@
       "HitTimes": [
         0.5
       ],
-      "ADFator": 1.0
+      "ADFactor": 1.0
     },
     "10042": {
       "ID": 10042,
@@ -430,7 +430,7 @@
       "HitTimes": [
         1.5
       ],
-      "ADFator": 2.0
+      "ADFactor": 2.0
     }
   },
   "1005": {
@@ -448,8 +448,8 @@
         0.4
       ],
       "HitEffect": "EFX_M1005_AtkA_hit_prefab",
-      "ADFator": 1.0,
-      "APFator": 1.0
+      "ADFactor": 1.0,
+      "APFactor": 1.0
     },
     "10052": {
       "ID": 10052,
@@ -465,8 +465,8 @@
       "HitTimes": [
         0.3
       ],
-      "ADFator": 2.0,
-      "APFator": 2.0
+      "ADFactor": 2.0,
+      "APFactor": 2.0
     },
     "10053": {
       "ID": 10053,
@@ -481,8 +481,8 @@
       "HitTimes": [
         1.0
       ],
-      "ADFator": 2.0,
-      "APFator": 2.0
+      "ADFactor": 2.0,
+      "APFactor": 2.0
     },
     "10054": {
       "ID": 10054,
@@ -501,8 +501,8 @@
         0.7
       ],
       "HitEffect": "EFX_M1005_SkillC_hit",
-      "ADFator": 3.0,
-      "APFator": 3.0
+      "ADFactor": 3.0,
+      "APFactor": 3.0
     }
   }
 }

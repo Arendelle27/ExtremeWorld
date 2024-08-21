@@ -40,6 +40,7 @@ public class UICharacterSelect : MonoBehaviour
         //DataManager.Instance.Load();
         InitCharacterSelect(true);
         UserService.Instance.OnCharacterCreate = OnCharacterCreate;
+        UserService.Instance.OnCharacterDelete = OnCharacterDelete;
     }
 
 
@@ -98,6 +99,24 @@ public class UICharacterSelect : MonoBehaviour
         UserService.Instance.SendCharacterCreate(this.charName.text, this.charClass);
     }
 
+    public void OnClickDelete()
+    {
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
+        UserService.Instance.SendCharacterDelete(selectCharacterIdx);
+    }
+
+    void OnCharacterDelete(Result result, string message)
+    {
+        if (result == Result.Success)
+        {
+            InitCharacterSelect(true);
+        }
+        else
+        {
+            MessageBox.Show(message, "错误", MessageBoxType.Error);
+        }
+    }
+
     public void OnSelectClass(int charClass)
     {
         this.charClass = (CharacterClass)charClass;
@@ -141,6 +160,7 @@ public class UICharacterSelect : MonoBehaviour
     }
     public void OnClickPlay()
     {
+        SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Click);
         if (selectCharacterIdx >= 0)
         {
             //MessageBox.Show("进入游戏", "进入游戏", MessageBoxType.Confirm);

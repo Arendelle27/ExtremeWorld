@@ -28,7 +28,7 @@ namespace Managers
         public void Init(List<NQuestInfo> quests)
         {
             this.questInfo = quests;
-            allQuests.Clear();
+            this.allQuests.Clear();
             this.npcQuests.Clear();
             InitQuests();
         }
@@ -125,7 +125,7 @@ namespace Managers
                     if (!this.npcQuests[npcId][NpcQuestStatus.Complete].Contains(quest))
                         this.npcQuests[npcId][NpcQuestStatus.Complete].Add(quest);
                 }
-                if (quest.Define.SubmitNPC == npcId && quest.Info.Status != QuestStatus.Complated )
+                if (quest.Define.SubmitNPC == npcId && quest.Info.Status ==QuestStatus.InProgress )
                 {
                     if (!this.npcQuests[npcId][NpcQuestStatus.InComplete].Contains(quest))
                         this.npcQuests[npcId][NpcQuestStatus.InComplete].Add(quest);
@@ -238,10 +238,37 @@ namespace Managers
 
         public void OnQuestAccepted(NQuestInfo quest)
         {
+            //this.questInfo.Add(quest);
+            Quest q = new Quest(quest);
+            this.allQuests[quest.QuestId] = q;
+
+            this.npcQuests.Clear();
+            foreach (var kv in this.allQuests)
+            {
+                this.AddNpcQuest(kv.Value.Define.AcceptNPC, kv.Value);
+                this.AddNpcQuest(kv.Value.Define.SubmitNPC, kv.Value);
+            }
+            if (this.OnQuestStatusChanged!=null)
+            {
+                this.OnQuestStatusChanged(q);
+            }
         }
 
         public void OnQuestSubmited(NQuestInfo quest)
         {
+            Quest q = new Quest(quest);
+            this.allQuests[quest.QuestId] = q;
+            this.CheckAvailableQuests();//检查是否有新任务可接
+            this.npcQuests.Clear();
+            foreach (var kv in this.allQuests)
+            {
+                this.AddNpcQuest(kv.Value.Define.AcceptNPC, kv.Value);
+                this.AddNpcQuest(kv.Value.Define.SubmitNPC, kv.Value);
+            }
+            if (this.OnQuestStatusChanged != null)
+            {
+                this.OnQuestStatusChanged(q);
+            }
         }
     }
 }

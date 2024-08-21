@@ -31,6 +31,8 @@ namespace GameServer.Services
             var result = ShopManager.Instance.BuyItem(sender, request.shopId, request.shopItemId);
             sender.Session.Response.itemBuy = new ItemBuyResponse();
             sender.Session.Response.itemBuy.Result = result;
+            //character.ItemManager.GetItemInfos(character.Info.Items);
+            //sender.Session.Response.itemBuy.Items.AddRange(character.Info.Items);
             sender.SendResponse();
         }
 

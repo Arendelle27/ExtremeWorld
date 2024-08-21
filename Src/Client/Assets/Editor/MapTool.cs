@@ -46,7 +46,7 @@ public class MapTool : MonoBehaviour {
                 TeleporterDefine def = DataManager.Instance.Teleporters[teleporter.ID];
                 if (def.MapID != map.Value.ID)
                 {
-                    EditorUtility.DisplayDialog("错误", string.Format("地图：{0} 中配置的 Teleporter:[{1}] MapID:{2{ 错误", map.Value.Resource, teleporter.ID, def.MapID), "确定");
+                    EditorUtility.DisplayDialog("错误", string.Format("地图：{0} 中配置的 Teleporter:[{1}] MapID:{2} 错误", map.Value.Resource, teleporter.ID, def.MapID), "确定");
                     return;
                 }
                 def.Position = GameObjectTool.WorldToLogicN(teleporter.transform.position);

@@ -44,6 +44,7 @@ namespace Entities
         }
 
         public Skill CastringSkill = null;
+        internal bool isDead;
 
         public string Name
         {
@@ -167,6 +168,18 @@ namespace Entities
             {
                 UIWorldElementManager.Instance.ShowPopupText(PopupType.Damage, this.Controller.GetTransform().position+this.GetPopupOffset(), -damage.Damage, damage.Crit);
             }
+            if(damage.WillDead)
+            {
+                this.Die();
+            }
+        }
+
+        public virtual void Die()
+        {
+            Debug.LogFormat("Die:{0}", this.Name);
+            this.Attributes.HP = 0;
+            this.PlayAnim("Death");
+            this.isDead = true;
         }
 
         internal void DoSkillHit(NSkillHitInfo hit)

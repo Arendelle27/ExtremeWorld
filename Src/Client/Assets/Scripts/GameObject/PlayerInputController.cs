@@ -32,32 +32,24 @@ public class PlayerInputController:MonoBehaviour
 
     private bool autoNav = false;
 
+    public bool enableRigidbody
+    {
+        get { return!this.rb.isKinematic; }
+        set
+        {
+            this.rb.isKinematic = !value;
+            this.rb.detectCollisions = value;
+        }
+    }
     void Start()
     {
-        state = SkillBridge.Message.CharacterState.Idle;
-        //if(this.character==null)
-        //{
-        //    DataManager.Instance.Load();
-        //    NCharacterInfo cinfo = new NCharacterInfo();
-        //    cinfo.Id = 1;
-        //    cinfo.Name = "Test";
-        //    cinfo.ConfigId = 1;
-        //    cinfo.Entity = new NEntity();
-        //    cinfo.Entity.Position = new NVector3();
-        //    cinfo.Entity.Direction = new NVector3();
-        //    cinfo.Entity.Direction.X = 0;
-        //    cinfo.Entity.Direction.Y = 100;
-        //    cinfo.Entity.Direction.Z = 0;
-        //    cinfo.attrDynamic = new NAttributeDynamic();
-        //    this.character = new Creature(cinfo);
-
-        //    if (entityController != null) entityController.entity = this.character;
-        //}
+        state = CharacterState.Idle;
 
         if(agent==null)
         {
             agent=this.gameObject.AddComponent<NavMeshAgent>();
             agent.stoppingDistance = 2f;//停止距离
+            agent.updatePosition = false;
         }
     }
 
@@ -68,6 +60,8 @@ public class PlayerInputController:MonoBehaviour
 
     IEnumerator BeginNav(Vector3 target)
     {
+        agent.updatePosition = true;
+        agent.nextPosition = this.transform.position;
         agent.SetDestination(target);
         yield return null;
         autoNav = true;
@@ -114,7 +108,7 @@ public class PlayerInputController:MonoBehaviour
         }
 
         NavPathRenderer.Instance.SetPath(agent.path,agent.destination);
-        if(agent.isStopped||agent.remainingDistance<1f)
+        if(agent.isStopped||agent.remainingDistance<2f)
         {
             StopNav();
             return;
@@ -123,8 +117,9 @@ public class PlayerInputController:MonoBehaviour
 
     void FixedUpdate()
     {
-        if (character == null)
+        if (character == null||!character.ready||this.character.isDead)
             return;
+
 
         if(autoNav)
         {
@@ -196,6 +191,10 @@ public class PlayerInputController:MonoBehaviour
     float lastSync = 0;
     private void LateUpdate()//查值
     {
+        if(this.character==null||!this.character.ready)
+        {
+            return;
+        }
         Vector3 offset = this.rb.transform.position - lastPos;
         this.speed = (int)(offset.magnitude * 100f / Time.deltaTime);
         this.lastPos = this.rb.transform.position;
@@ -225,5 +224,19 @@ public class PlayerInputController:MonoBehaviour
             entityController.OnEntityEvent(entityEvent,param);
         }
         MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData,param);
+    }
+
+    public void OnLeaveLevel()
+    {
+        this.enableRigidbody = false;
+        this.rb.velocity = Vector3.zero;
+    }
+
+    public void OnEnterLevel()
+    {
+        this.rb.velocity = Vector3.zero;
+        this.entityController.UpdateTransform();
+        this.lastPos = this.rb.transform.position;
+        this.enableRigidbody = true;
     }
 }

@@ -18,6 +18,7 @@ namespace Services
         public UnityEngine.Events.UnityAction<Result, string> OnLogin;
         public UnityEngine.Events.UnityAction<Result, string> OnRegister;
         public UnityEngine.Events.UnityAction<Result, string> OnCharacterCreate;
+        public UnityEngine.Events.UnityAction<Result, string> OnCharacterDelete;
 
         NetMessage pendingMessage = null;
         bool connected = false;
@@ -34,6 +35,7 @@ namespace Services
             MessageDistributer.Instance.Subscribe<UserCreateCharacterResponse>(this.OnUserCreateCharacter);//请求
             MessageDistributer.Instance.Subscribe<UserGameEnterResponse>(this.OnUserGameEnter);
             MessageDistributer.Instance.Subscribe<UserGameLeaveResponse>(this.OnUserGameLeave);
+            MessageDistributer.Instance.Subscribe<UserDeleteCharacterResponse>(this.OnUserCharacterDelete);
         }
 
         public void Dispose()
@@ -43,6 +45,7 @@ namespace Services
             MessageDistributer.Instance.Unsubscribe<UserCreateCharacterResponse>(this.OnUserCreateCharacter);
             MessageDistributer.Instance.Unsubscribe<UserGameEnterResponse>(this.OnUserGameEnter);
             MessageDistributer.Instance.Unsubscribe<UserGameLeaveResponse>(this.OnUserGameLeave);
+            MessageDistributer.Instance.Unsubscribe<UserDeleteCharacterResponse>(this.OnUserCharacterDelete);
 
             NetClient.Instance.OnConnect -= OnGameServerConnect;
             NetClient.Instance.OnDisconnect -= OnGameServerDisconnect;
@@ -227,6 +230,56 @@ namespace Services
             }
         }
 
+        public void SendCharacterDelete(int characterIdx)
+        {
+            Debug.LogFormat("UserDeleteCharacterRequest::characterIdx{0}", characterIdx);
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.deleteChar = new UserDeleteCharacterRequest();
+            message.Request.deleteChar.characterIdx = characterIdx;
+
+            if (this.connected && NetClient.Instance.Connected)
+            {
+                this.pendingMessage = null;
+                NetClient.Instance.SendMessage(message);
+            }
+            else
+            {
+                this.pendingMessage = message;
+                this.ConnectToServer();
+            }
+        }
+
+        public void OnUserCharacterDelete(object sender, UserDeleteCharacterResponse response)
+        {
+            Debug.LogFormat("OnCharacterDelete:{0} [{1}]", response.Result, response.Errormsg);
+            if (response.Result == Result.Success)
+            {
+                Models.User.Instance.Info.Player.Characters.Clear();
+                Models.User.Instance.Info.Player.Characters.AddRange(response.Characters);
+            }
+
+            if (this.OnCharacterDelete != null)
+            {
+                this.OnCharacterDelete(response.Result, response.Errormsg);
+
+            }
+        }
+
+        public void SendCharacterDeath(int characterId)
+        {
+            Debug.LogFormat("UserCharacterDeathRequest");
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.characterDeath = new UserCharacterDeathRequest();
+            message.Request.characterDeath.characterId = characterId;
+            NetClient.Instance.SendMessage(message);
+        }
+
+        /// <summary>
+        /// 发送角色进入游戏请求
+        /// </summary>
+        /// <param name="characterIdx"></param>
         public void SendGameEnter(int characterIdx)
         {
             Debug.LogFormat("UserGameEnterRequest::characterId :{0} ", characterIdx);
@@ -239,6 +292,8 @@ namespace Services
             message.Request.gameEnter.characterIdx = characterIdx;
             NetClient.Instance.SendMessage(message);
         }
+
+
 
         void OnUserGameEnter(object sender, UserGameEnterResponse response)
         {

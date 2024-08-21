@@ -38,6 +38,7 @@ public class TargetSelector : MonoSingleton<TargetSelector>
 
         Ray ray=Camera.main.ScreenPointToRay(Input.mousePosition);//摄像机需要设置MainCamera的Tag这里才能找到
         RaycastHit hitInfo;
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
         if (Physics.Raycast(ray, out hitInfo, 100f, LayerMask.GetMask("Terrain")))
         {
             Vector3 hitPoint=hitInfo.point;

@@ -14,7 +14,7 @@ public class UIBag : UIWindow {
     public GameObject bagItem;
 
     List<Image> slots;
-	void Start () {
+	void OnEnable () {
 		if(slots==null)
         {
             slots = new List<Image>();

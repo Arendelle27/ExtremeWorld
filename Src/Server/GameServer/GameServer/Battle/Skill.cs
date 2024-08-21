@@ -329,7 +329,7 @@ namespace GameServer.Battle
                 final = final * 2f;//暴击伤害翻倍
             }
             //随机浮动
-            final=final*(float)MathUtil.Random.NextDouble() * 0.1f -0.05f;
+            final+=final*((float)MathUtil.Random.NextDouble() * 0.1f -0.05f);
 
             NDamageInfo damage = new NDamageInfo();
             damage.entityId = target.entityId;

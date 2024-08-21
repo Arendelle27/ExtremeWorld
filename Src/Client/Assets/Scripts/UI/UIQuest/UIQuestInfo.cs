@@ -68,9 +68,10 @@ public class UIQuestInfo:MonoBehaviour
         }
     }
 
-        public void OnClickAbandon()
-        { 
-        }
+    public void OnClickAbandon()
+    {
+
+    }
 
     public void OnClickNav()
     {

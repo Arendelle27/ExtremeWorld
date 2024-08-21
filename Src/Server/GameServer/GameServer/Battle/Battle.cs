@@ -26,7 +26,7 @@ namespace GameServer.Battle
 
         List<NBuffInfo> BuffActions=new List<NBuffInfo>();
 
-        List<Creature> DeahPool=new List<Creature>();
+        List<Creature> DeathPool=new List<Creature>();
 
         public Battle(Map map)
         {
@@ -119,17 +119,17 @@ namespace GameServer.Battle
 
         private void UpdateUnits()
         {
-            this.DeahPool.Clear();
+            this.DeathPool.Clear();
             foreach(var kv in this.AllUnits)
             {
                 kv.Value.Update();
                 if(kv.Value.IsDeath)
                 {
-                    this.DeahPool.Add(kv.Value);
+                    this.DeathPool.Add(kv.Value);
                 }
             }
 
-            foreach(var unit in this.DeahPool)
+            foreach(var unit in this.DeathPool)
             {
                 this.LeaveBattle(unit);
             }

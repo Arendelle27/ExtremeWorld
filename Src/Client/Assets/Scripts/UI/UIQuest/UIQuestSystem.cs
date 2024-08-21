@@ -1,6 +1,7 @@
 using Common.Data;
 using Managers;
 using Models;
+using SkillBridge.Message;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,12 +55,12 @@ public class UIQuestSystem : UIWindow
         {
             if (showAvailableList)
             {
-                if (kv.Value.Info != null)
+                if (kv.Value.Info != null)//待接取
                     continue;
             }
             else
             {
-                if (kv.Value.Info == null)
+                if (kv.Value.Info == null||kv.Value.Info.Status==QuestStatus.Finished)//已接取并且未完成
                 {
                     continue;
                 }

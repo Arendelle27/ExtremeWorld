@@ -12,27 +12,33 @@ using UnityEngine.UI;
 
 public class UIMain : MonoSingleton<UIMain>{
 
-    public Text avatarName;
-    public Text avaterLevel;
+    public UIAvator Avator;
 
     public UITeam TeamWindow;
 
     public UICreatureInfo targetUI;
 
     public UISkillSlots skillSlots;
-	protected override void OnStart () {
-        this.UpdateAvater();
+
+    bool show=true;
+
+    public bool Show 
+    {   get { return show; }
+        set
+        {
+            this.show = value;
+            this.gameObject.SetActive(value);
+        }
+    }
+
+    protected override void OnStart () {
+        this.Avator.UpdateAvater();
         this.targetUI.gameObject.SetActive(false);
         BattleManager.Instance.OnTargetChanged += OnTargetChanged;
         User.Instance.OnCharacterInit+=this.skillSlots.UpdateSkills;
         this.skillSlots.UpdateSkills();
 	}
 
-    void UpdateAvater()
-    {
-        this.avatarName.text = string.Format("{0}[{1}]", User.Instance.CurrentCharacterInfo.Name, User.Instance.CurrentCharacterInfo.Id);
-        this.avaterLevel.text = User.Instance.CurrentCharacterInfo.Level.ToString();
-    }
 
 	// Update is called once per frame
 	void Update () {
@@ -86,7 +92,7 @@ public class UIMain : MonoSingleton<UIMain>{
         TeamWindow.ShowTeam(show);
     }
 
-    private void OnTargetChanged(Creature target)
+    public void OnTargetChanged(Creature target)
     {
         if(target!=null)
         {

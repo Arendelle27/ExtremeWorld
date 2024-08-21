@@ -15,12 +15,16 @@ namespace Services
     public class MapService : Singleton<MapService>, IDisposable
     {
         public int CurrentMapId = 0;
+
+        private bool loadingDone=true;
         public MapService()
         {
             MessageDistributer.Instance.Subscribe<MapCharacterEnterResponse>(this.OnMapCharacterEnter);
             MessageDistributer.Instance.Subscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
 
             MessageDistributer.Instance.Subscribe<MapEntitySyncResponse>(this.OnMapEntitySync);
+
+            SceneManager.Instance.onSceneLoadDone += OnLoadDone;
         }
 
 
@@ -28,6 +32,8 @@ namespace Services
         {
             MessageDistributer.Instance.Unsubscribe<MapCharacterEnterResponse>(this.OnMapCharacterEnter);
             MessageDistributer.Instance.Unsubscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
+
+            SceneManager.Instance.onSceneLoadDone -= OnLoadDone;
         }
 
         public void Init()
@@ -49,16 +55,18 @@ namespace Services
                     {
                         User.Instance.CurrentCharacter.UpdateInfo(cha);
                     }
+                    User.Instance.CurrentCharacter.ready = false;
                     User.Instance.CharacterInited();
                     CharacterManager.Instance.AddCharacter(User.Instance.CurrentCharacter);
+                    
+                    if(CurrentMapId!=response.mapId)
+                    {
+                        this.EnterMap(response.mapId);
+                        this.CurrentMapId = response.mapId;
+                    }
                     continue;
                 }
                 CharacterManager.Instance.AddCharacter(new Character(cha));
-            }
-            if (CurrentMapId != response.mapId)
-            {
-                this.EnterMap(response.mapId);
-                this.CurrentMapId = response.mapId;
             }
         }
 
@@ -68,7 +76,13 @@ namespace Services
             if (response.entityId != User.Instance.CurrentCharacterInfo.EntityId)
                 CharacterManager.Instance.RemoveCharacter(response.entityId);
             else
+            {
+                if (User.Instance.CurrentCharacterObject != null)
+                {
+                    User.Instance.CurrentCharacterObject.OnLeaveLevel();
+                }
                 CharacterManager.Instance.Clear();
+            }
         }
 
         private void EnterMap(int mapId)
@@ -88,7 +102,11 @@ namespace Services
 
         internal void SendMapEntitySync(EntityEvent entityEvent, NEntity entity,int param)
         {
-            //Debug.LogFormat("MapEntityUpdateRequest:ID:{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
+            if (!loadingDone)
+            {
+                return;
+            }
+            Debug.LogFormat("SendMapEntitySync:EntityID:{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.mapEntitySync = new MapEntitySyncRequest();
@@ -104,6 +122,10 @@ namespace Services
 
         private void OnMapEntitySync(object sender, MapEntitySyncResponse response)
         {
+            if (!loadingDone)
+            {
+                return;
+            }
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendFormat("MapEntityUpdateResponse:Entity:{0}", response.entitySyncs.Count);
             sb.AppendLine();
@@ -124,6 +146,19 @@ namespace Services
             message.Request.mapTeleport = new MapTeleportRequest();
             message.Request.mapTeleport.teleporterId = telepoterID;
             NetClient.Instance.SendMessage(message);
+        }
+
+        private void OnLoadDone()
+        {
+            if(User.Instance.CurrentCharacter!=null)
+            {
+                User.Instance.CurrentCharacter.ready = true;
+            }
+            if(User.Instance.CurrentMapData!=null)
+            {
+                User.Instance.CurrentCharacterObject.OnEnterLevel();
+            }
+            loadingDone = true;
         }
     }
 }

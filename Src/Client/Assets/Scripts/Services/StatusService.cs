@@ -11,6 +11,15 @@ namespace Services
 {
     class StatusService:Singleton<StatusService>,IDisposable
     {
+        public StatusService()
+        {
+            MessageDistributer.Instance.Subscribe<StatusNotify>(this.OnStatusNotify);
+        }
+
+        public void Dispose()
+        {
+            MessageDistributer.Instance.Unsubscribe<StatusNotify>(this.OnStatusNotify);
+        }
 
         public delegate bool StatusNotifyHandler(NStatus status);
 
@@ -35,16 +44,6 @@ namespace Services
             handlers.Add(action);
         }
 
-        public StatusService()
-        {
-            MessageDistributer.Instance.Subscribe<StatusNotify>(this.OnStatusNotify);
-        }
-
-        public void Dispose()
-        {
-            MessageDistributer.Instance.Unsubscribe<StatusNotify>(this.OnStatusNotify);
-        }
-
         private void OnStatusNotify(object sender,StatusNotify notify)
         {
             foreach(NStatus status in notify.Status)
@@ -63,6 +62,7 @@ namespace Services
                     User.Instance.AddGold(status.Value);
                 else if (status.Action == StatusAction.Delete)
                     User.Instance.AddGold(-status.Value);
+
             }
 
             StatusNotifyHandler handler;

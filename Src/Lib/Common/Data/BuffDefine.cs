@@ -17,7 +17,6 @@ namespace Common.Data
         public TargetType Target { get; set; }
         public BuffEffect Effect { get; set; }
         public TriggerType Trigger { get; set; }
-        public List<int> Buff { get; set; }
         public int CD { get; set;}
         public float Duration { get; set; }
         public float Interval { get; set; }

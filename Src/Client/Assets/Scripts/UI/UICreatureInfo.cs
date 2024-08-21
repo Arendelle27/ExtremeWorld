@@ -1,4 +1,5 @@
 using Entities;
+using SkillBridge.Message;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class UICreatureInfo : MonoBehaviour
     public Slider MPBar;
     public Text HPText;
     public Text MPText;
+    public Image Avatar;
 
     public UIBuffIcons buffIcons;
     void Start()
@@ -43,6 +45,22 @@ public class UICreatureInfo : MonoBehaviour
         this.MPBar.maxValue = this.target.Attributes.MaxMP;
         this.MPBar.value = this.target.Attributes.MP;
         this.MPText.text = string.Format("{0}/{1}", this.target.Attributes.MP, this.target.Attributes.MaxMP);
+
+
+        string classText = "";
+        if (this.target.Define.Type == CharacterType.Player)
+        {
+            classText = this.target.Define.Class.ToString();
+        }
+        else
+        {
+            classText = "Monster";
+        }
+
+        if (this.Avatar.sprite.name != classText)
+        {
+            this.Avatar.sprite = Resloader.Load<Sprite>("UI/Avatars/" + classText);
+        }
     }
 
     void Update()
