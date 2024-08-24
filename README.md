@@ -1,4 +1,3 @@
-# 《极世界》MMORPG
+MMORPG Demo
 
-《极世界》MMORPG 教学项目# ExtremeWorld
 # ExtremeWorld
