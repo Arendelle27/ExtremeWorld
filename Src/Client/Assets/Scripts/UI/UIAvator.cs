@@ -21,7 +21,11 @@ public class UIAvator : MonoBehaviour
 
     public void UpdateAvater()
     {
-        this.owner = User.Instance.CurrentCharacter;
+        if(this.owner!=User.Instance.CurrentCharacter)
+        {
+            this.owner = User.Instance.CurrentCharacter;
+        }
+
         if(this.owner==null)
         {
             return;
@@ -62,6 +66,6 @@ public class UIAvator : MonoBehaviour
 
     private void Update()
     {
-        this.UpdateUI();
+        this.UpdateAvater();
     }
 }

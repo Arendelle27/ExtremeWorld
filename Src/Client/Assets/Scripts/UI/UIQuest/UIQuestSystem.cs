@@ -29,6 +29,14 @@ public class UIQuestSystem : UIWindow
 
     }
 
+    private void OnEnable()
+    {
+        if(this.questInfo.gameObject.activeSelf)
+        {
+            this.questInfo.gameObject.SetActive(false);
+        }
+    }
+
     void OnSelectTab(int idx)
     {
         showAvailableList = idx == 1;
@@ -87,6 +95,10 @@ public class UIQuestSystem : UIWindow
 
     public void OnQuestSelected(ListView.ListViewItem item)
     {
+        if (!this.questInfo.gameObject.activeSelf)
+        {
+            this.questInfo.gameObject.SetActive(true);
+        }
         UIQuestItem questItem = item as UIQuestItem;
         this.questInfo.SetQuestInfo(questItem.quest);
     }

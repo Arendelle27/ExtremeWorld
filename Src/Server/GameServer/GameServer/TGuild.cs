@@ -17,8 +17,8 @@ namespace GameServer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TGuild()
         {
-            this.Members = new HashSet<TGuildMember>();
             this.Applies = new HashSet<TGuildApply>();
+            this.Members = new HashSet<TGuildMember>();
         }
     
         public int Id { get; set; }
@@ -29,8 +29,8 @@ namespace GameServer
         public System.DateTime CreateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TGuildMember> Members { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TGuildApply> Applies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TGuildMember> Members { get; set; }
     }
 }

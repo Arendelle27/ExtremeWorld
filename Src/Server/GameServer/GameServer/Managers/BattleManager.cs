@@ -48,7 +48,7 @@ namespace GameServer.Managers
             EntityManager.Instance.AddMapEntity(map.ID, map.InstanceID, character);
 
             character.IsDeath = false;
-            character.Attributes.Init(character.Define, character.Info.Level, character.GetEquip(), character.Info.attrDynamic);
+            character.Attributes.Init(character.Info.attrDynamic,character.Define, character.Info.Level, character.GetEquip());
         }
     }
 

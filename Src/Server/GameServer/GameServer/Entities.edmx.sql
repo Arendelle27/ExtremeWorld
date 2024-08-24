@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/18/2024 20:21:19
+-- Date Created: 08/23/2024 19:06:01
 -- Generated from EDMX file: C:\GameMaker\ExtremeWorld\mmowork\Src\Server\GameServer\GameServer\Entities.edmx
 -- --------------------------------------------------
 
@@ -35,11 +35,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TCharacterFriendTCharacter]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CharacterFriends] DROP CONSTRAINT [FK_TCharacterFriendTCharacter];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TGuildMemberTGuild]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[GuildMembers] DROP CONSTRAINT [FK_TGuildMemberTGuild];
-GO
 IF OBJECT_ID(N'[dbo].[FK_TGuildTGuildApply]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[GuildApplies] DROP CONSTRAINT [FK_TGuildTGuildApply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TGuildTGuildMember]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GuildMembers] DROP CONSTRAINT [FK_TGuildTGuildMember];
 GO
 
 -- --------------------------------------------------
@@ -181,8 +181,7 @@ CREATE TABLE [dbo].[GuildMembers] (
     [Title] int  NOT NULL,
     [JoinTime] datetime  NOT NULL,
     [LastTime] datetime  NOT NULL,
-    [GuildId] int  NOT NULL,
-    [Guild_Id] int  NOT NULL
+    [GuildId] int  NOT NULL
 );
 GO
 
@@ -357,21 +356,6 @@ ON [dbo].[CharacterFriends]
     ([Owner_ID]);
 GO
 
--- Creating foreign key on [Guild_Id] in table 'GuildMembers'
-ALTER TABLE [dbo].[GuildMembers]
-ADD CONSTRAINT [FK_TGuildMemberTGuild]
-    FOREIGN KEY ([Guild_Id])
-    REFERENCES [dbo].[Guilds]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TGuildMemberTGuild'
-CREATE INDEX [IX_FK_TGuildMemberTGuild]
-ON [dbo].[GuildMembers]
-    ([Guild_Id]);
-GO
-
 -- Creating foreign key on [GuildId] in table 'GuildApplies'
 ALTER TABLE [dbo].[GuildApplies]
 ADD CONSTRAINT [FK_TGuildTGuildApply]
@@ -384,6 +368,21 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_TGuildTGuildApply'
 CREATE INDEX [IX_FK_TGuildTGuildApply]
 ON [dbo].[GuildApplies]
+    ([GuildId]);
+GO
+
+-- Creating foreign key on [GuildId] in table 'GuildMembers'
+ALTER TABLE [dbo].[GuildMembers]
+ADD CONSTRAINT [FK_TGuildTGuildMember]
+    FOREIGN KEY ([GuildId])
+    REFERENCES [dbo].[Guilds]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TGuildTGuildMember'
+CREATE INDEX [IX_FK_TGuildTGuildMember]
+ON [dbo].[GuildMembers]
     ([GuildId]);
 GO
 

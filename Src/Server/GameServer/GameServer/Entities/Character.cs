@@ -91,7 +91,7 @@ namespace GameServer.Entities
         void LevelUp()
         {
             this.Level += 1;
-            Log.InfoFormat("Character{{0}:{1}} LevelUp to {2}", this.Id, this.Info.Name, this.Level);
+            Log.InfoFormat("Character[{0}:{1}] LevelUp to {2}", this.Id, this.Info.Name, this.Level);
             CheckLevelUp();
         }
 
@@ -118,6 +118,7 @@ namespace GameServer.Entities
                 this.StatusManager.AddExpChange((int)(value - this.Data.Exp));
                 this.Data.Exp = value;
                 this.Info.Exp = value;
+                this.CheckLevelUp();
             }
         }
 

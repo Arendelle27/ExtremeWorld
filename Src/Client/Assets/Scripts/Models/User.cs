@@ -1,7 +1,7 @@
-﻿using Common.Data;
+﻿using Common.Battle;
+using Common.Data;
 using Entities;
 using SkillBridge.Message;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +37,13 @@ namespace Models
         public void AddGold(int gold)
         {
             this.CurrentCharacterInfo.Gold += gold;
+        }
+
+        public void AddLevel(int level)
+        {
+            this.CurrentCharacterInfo.Level += level;
+            Attributes attribute = this.CurrentCharacter.Attributes;
+            this.CurrentCharacter.Attributes.Init(this.CurrentCharacterInfo.attrDynamic,this.CurrentCharacter.Define,this.CurrentCharacterInfo.Level,null);
         }
 
         public int CurrentRide = 0;

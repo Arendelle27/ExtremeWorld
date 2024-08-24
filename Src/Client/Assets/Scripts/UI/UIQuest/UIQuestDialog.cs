@@ -11,10 +11,6 @@ public class UIQuestDialog: UIWindow
 
     public GameObject openButton;
     public GameObject submitButton;
-    void Start()
-    {
-        
-    }
 
     public void SetQueset(Quest quest)
     {

@@ -46,7 +46,7 @@ namespace GameServer.Services
             if(GuildManager.Instance.CheckNameExisted(request.GuildName))
             {
                 sender.Session.Response.guildCreate.Result = Result.Failed;
-                sender.Session.Response.teamInviteRes.Errormsg = "好友已经有队伍";
+                sender.Session.Response.guildCreate.Errormsg = "该工会已经存在";
                 sender.SendResponse();
                 return;
             }
@@ -129,6 +129,7 @@ namespace GameServer.Services
                 requester.Session.Response.guildJoinRes = response;
                 requester.Session.Response.guildJoinRes.Result = Result.Success;
                 requester.Session.Response.guildJoinRes.Errormsg = "加入公会成功";
+                requester.Session.Response.guildJoinRes.guildInfo = guild.GuildInfo(null);
                 requester.SendResponse();
             }
         }
@@ -139,7 +140,18 @@ namespace GameServer.Services
             Log.InfoFormat("OnGuildLeave::character:{0}", character.Id);
             sender.Session.Response.guildLeave = new GuildLeaveResponse();
 
-            character.Guild.Leave(character);
+            if(character.Guild.Leave(character))
+            {
+                DBService.Instance.Entities.GuildMembers.RemoveRange(character.Guild.Data.Members);
+                DBService.Instance.Entities.GuildApplies.RemoveRange(character.Guild.Data.Applies);
+                DBService.Instance.Entities.Guilds.Remove(character.Guild.Data);
+            }
+            else
+            {
+                //DBService.Instance.Entities.GuildMembers.RemoveRange(character.Guild.Data.Members);
+                DBService.Instance.Entities.GuildApplies.RemoveRange(character.Guild.Data.Applies);
+            }
+            character.Guild = null;
             sender.Session.Response.guildLeave.Result = Result.Success;
 
             DBService.Instance.Save();

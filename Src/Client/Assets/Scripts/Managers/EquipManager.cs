@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Common.Data;
+using Entities;
 using Models;
 using Services;
 using SkillBridge.Message;
@@ -89,6 +90,9 @@ namespace Managers
             }
             this.Equips[(int)equip.EquipInfo.Slot] = ItemManager.Instance.Items[equip.Id];
 
+            Character character = User.Instance.CurrentCharacter;
+            character.Attributes.Init(character.Info.attrDynamic,character.Define, character.Info.Level, character.GetEquips());
+
             if (OnEquipChanaged != null)
                 OnEquipChanaged();
         }
@@ -98,6 +102,10 @@ namespace Managers
             if(this.Equips[(int)slot]!=null)
             {
                 this.Equips[(int)slot] = null;
+
+                Character character = User.Instance.CurrentCharacter;
+               character.Attributes.Init(character.Info.attrDynamic,character.Define, character.Info.Level, character.GetEquips());
+
                 if (OnEquipChanaged != null)
                     OnEquipChanaged();
             }

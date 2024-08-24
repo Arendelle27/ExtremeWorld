@@ -154,7 +154,7 @@ namespace Services
             {
                 User.Instance.CurrentCharacter.ready = true;
             }
-            if(User.Instance.CurrentMapData!=null)
+            if(User.Instance.CurrentCharacterObject != null)
             {
                 User.Instance.CurrentCharacterObject.OnEnterLevel();
             }

@@ -2,6 +2,7 @@
 using Models;
 using SkillBridge.Message;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ public class UIQuestInfo:MonoBehaviour
 
     public Text overview;
 
-    public UIIconItem rewardItems;
+    public List<Image> rewardItems;
 
     public Text rewardMoney;
     public Text rewardExp;
@@ -27,7 +28,7 @@ public class UIQuestInfo:MonoBehaviour
         this.title.text = string.Format("[{0}]{1}", quest.Define.Type, quest.Define.Name);
         if(this.overview!=null)
         {
-            this.overview.text = quest.Define.Dialog;
+            this.overview.text = quest.Define.Overview;
         }
 
         if(this.description!=null)
@@ -42,11 +43,27 @@ public class UIQuestInfo:MonoBehaviour
                 {
                     this.description.text = quest.Define.DialogFinish;
                 }
+                else
+                {
+                    this.description.text = quest.Define.DialogIncomplete;
+                }
             }
         }
 
         this.rewardMoney.text = quest.Define.RewardGold.ToString();
         this.rewardExp.text = quest.Define.RewardExp.ToString();
+        if(quest.Define.RewardItem1!=0)
+        {
+            this.rewardItems[0].sprite = Resloader.Load<Sprite>(DataManager.Instance.Items[quest.Define.RewardItem1].Icon);
+        }
+        if (quest.Define.RewardItem2 != 0)
+        {
+            this.rewardItems[1].sprite = Resloader.Load<Sprite>(DataManager.Instance.Items[quest.Define.RewardItem2].Icon);
+        }
+        if(quest.Define.RewardItem3!=0)
+        {
+            this.rewardItems[2].sprite = Resloader.Load<Sprite>(DataManager.Instance.Items[quest.Define.RewardItem3].Icon);
+        }
 
         if(quest.Info==null)
         {

@@ -710,6 +710,7 @@ message GuildJoinResponse
 	RESULT result =1;
 	string errormsg=2;
 	NGuildApplyInfo apply=3;
+	NGuildInfo guildInfo=4;
 }
 
 //�����б�

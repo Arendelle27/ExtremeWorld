@@ -102,10 +102,10 @@ namespace Services
         {
             Debug.Log("OnFriendList");
             FriendManager.Instance.allFriends=message.Friends;
-            //if(this.OnFriendUpdate!=null)
-            //{
-            //    this.OnFriendUpdate();
-            //}
+            if (this.OnFriendUpdate != null)
+            {
+                this.OnFriendUpdate();
+            }
         }
 
         public void SendFriendRemoveRequest(int id,int friendId)

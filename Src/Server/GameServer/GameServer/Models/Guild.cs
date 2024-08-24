@@ -19,7 +19,6 @@ namespace GameServer.Models
     class Guild
     {
         public int Id { get { return this.Data.Id; } }
-        public Character Leader;
         public string Name { get { return this.Data.Name; } }
         public List<Character> Members = new List<Character>();
 
@@ -34,10 +33,10 @@ namespace GameServer.Models
         public bool JoinApply(NGuildApplyInfo apply)
         {
             var oldApply = this.Data.Applies.FirstOrDefault(a => a.CharacterId == apply.characterId);
-            if(oldApply!=null)
-            {
-                return false;
-            }
+            //if(oldApply!=null)
+            //{
+            //    return false;
+            //}
 
             var dbApply=DBService.Instance.Entities.GuildApplies.Create();
             dbApply.GuildId = apply.GuildId;
@@ -95,6 +94,7 @@ namespace GameServer.Models
             if(character!=null)
             {
                 character.Data.GuildId=this.Id;
+                character.Guild=this;
             }
             else
             {
@@ -105,19 +105,34 @@ namespace GameServer.Models
             timestamp = Time.timestamp;
         }
 
-        public void Leave(Character member)
+        public bool Leave(Character member)
         {
             Log.InfoFormat("Leave Guild : {0}:{1}", member.Id, member.Info.Name);
-            foreach(var m in this.Data.Members)
+            bool isClearGuild = false;
+            if(this.Data.LeaderID==member.Id)
             {
-                if(m.CharacterId==member.Id)
+                foreach (var m in this.Members)
                 {
-                    member.Data.GuildId = 0;
-                    //this.Data.Members.Remove(m);
-                    break;
+                    m.Data.GuildId = 0;
+                }
+                GuildManager.Instance.RemoveGuild(this);
+                isClearGuild = true;
+            }
+            else
+            {
+                foreach (var m in this.Data.Members)
+                {
+                    if (m.CharacterId == member.Id)
+                    {
+                        member.Data.GuildId = 0;
+                        DBService.Instance.Entities.GuildMembers.RemoveRange(this.Data.Members);
+                        this.Data.Members.Remove(m);
+                        break;
+                    }
                 }
             }
             timestamp = TimeUtil.timestamp;
+            return isClearGuild;
         }
 
         public void PostProcess(Character from,NetMessageResponse message)

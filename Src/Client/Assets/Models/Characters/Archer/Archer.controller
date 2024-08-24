@@ -458,7 +458,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SkillB
+    m_ConditionEvent: SkillA
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102863006987332508}
@@ -530,7 +530,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SkillA
+    m_ConditionEvent: SkillB
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102168130318498528}
@@ -942,7 +942,7 @@ AnimatorStateMachine:
     m_Position: {x: 440, y: 770, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102168130318498528}
-    m_Position: {x: 552, y: 408, z: 0}
+    m_Position: {x: 570, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102863006987332508}
     m_Position: {x: 560, y: 460, z: 0}

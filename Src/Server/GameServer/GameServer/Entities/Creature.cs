@@ -44,7 +44,7 @@ namespace GameServer.Entities
             this.InitBuffs();
 
             this.Attributes = new Attributes();
-            this.Attributes.Init(this.Define, this.Info.Level,this.GetEquip(),this.Info.attrDynamic);
+            this.Attributes.Init(this.Info.attrDynamic,this.Define, this.Info.Level,this.GetEquip());
             this.Info.attrDynamic = this.Attributes.DynamicAttr;
         }
 

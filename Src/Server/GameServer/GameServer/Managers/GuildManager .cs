@@ -53,7 +53,7 @@ namespace GameServer.Managers
             Guild guild = new Guild(dbGuild);
             guild.AddMember(leader.Id,leader.Name,leader.Data.Class,leader.Data.Level,SkillBridge.Message.GuildTitle.President);
             leader.Guild = guild;
-            DBService.Instance.Save();
+            //DBService.Instance.Save();
             leader.Data.GuildId=dbGuild.Id;
             DBService.Instance.Save();
             this.AddGuild(guild);
@@ -78,6 +78,12 @@ namespace GameServer.Managers
                 result.Add(guild.Value.GuildInfo(null));
             }
             return result;
+        }
+
+        internal void RemoveGuild(Guild guild)
+        {
+            this.Guilds.Remove(guild.Id);
+            this.GuildNames.Remove(guild.Name);
         }
     }
 }

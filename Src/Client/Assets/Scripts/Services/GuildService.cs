@@ -80,7 +80,7 @@ namespace Services
             }
             else
             {
-                MessageBox.Show(string.Format("{0} 公会创建失败", response.guildInfo.GuildName), "公会");
+                MessageBox.Show(string.Format("公会创建失败,{0}",response.Errormsg), "公会");
             }
         }
 
@@ -141,10 +141,12 @@ namespace Services
         /// <param name="message"></param>
         private void OnGuildJoinResponse(object sender, GuildJoinResponse response)
         {
-            Debug.LogFormat("OnGuildJoinResponse:{0}", response.Result);
+            Debug.LogFormat("OnGuildJoinResponse:{0}", response.Result)
+                ;
             if (response.Result == Result.Success)
             {
                 MessageBox.Show("加入公会成功", "公会");
+                GuildManager.Instance.Init(response.guildInfo);
             }
             else
                 MessageBox.Show("加入公会失败", "公会");

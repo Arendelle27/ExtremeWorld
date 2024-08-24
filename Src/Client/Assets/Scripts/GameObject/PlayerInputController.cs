@@ -234,7 +234,10 @@ public class PlayerInputController:MonoBehaviour
 
     public void OnEnterLevel()
     {
-        this.rb.velocity = Vector3.zero;
+        if(this.rb!=null)
+        {
+            this.rb.velocity = Vector3.zero;
+        }
         this.entityController.UpdateTransform();
         this.lastPos = this.rb.transform.position;
         this.enableRigidbody = true;

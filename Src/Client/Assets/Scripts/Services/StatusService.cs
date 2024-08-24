@@ -62,8 +62,12 @@ namespace Services
                     User.Instance.AddGold(status.Value);
                 else if (status.Action == StatusAction.Delete)
                     User.Instance.AddGold(-status.Value);
-
             }
+            else if(status.Type==StatusType.Level)
+            {
+                User.Instance.AddLevel(status.Value);
+            }
+
 
             StatusNotifyHandler handler;
             if(eventMap.TryGetValue(status.Type,out handler))

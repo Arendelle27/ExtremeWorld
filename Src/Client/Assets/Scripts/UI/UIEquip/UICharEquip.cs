@@ -1,4 +1,5 @@
 ﻿using Common.Battle;
+using Entities;
 using Managers;
 using Models;
 using SkillBridge.Message;
@@ -10,7 +11,8 @@ using UnityEngine.UI;
 
 public class UICharEquip : UIWindow
 {
-    public Text title;
+    public Text name;
+    public Text level;
     public Text money;
 
     public GameObject itemPrefab;
@@ -44,7 +46,10 @@ public class UICharEquip : UIWindow
         InitAllEquipItems();
         ClearEquipedList();
         InitEquipedItems();
-        this.money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
+        NCharacterInfo characterInfo = User.Instance.CurrentCharacterInfo;
+        this.money.text = characterInfo.Gold.ToString();
+        this.name.text = characterInfo.Name;
+        this.level.text = characterInfo.Level.ToString();
 
         InitAttributes();
     }

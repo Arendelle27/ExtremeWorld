@@ -40,13 +40,13 @@
       <End Role="TCharacterFriend" EntitySet="CharacterFriends" />
       <End Role="TCharacter" EntitySet="Characters" />
     </AssociationSet>
-    <AssociationSet Name="TGuildMemberTGuild" Association="ExtremeWorldModel.Store.TGuildMemberTGuild">
-      <End Role="TGuildMember" EntitySet="GuildMembers" />
-      <End Role="TGuild" EntitySet="Guilds" />
-    </AssociationSet>
     <AssociationSet Name="TGuildTGuildApply" Association="ExtremeWorldModel.Store.TGuildTGuildApply">
       <End Role="TGuild" EntitySet="Guilds" />
       <End Role="TGuildApply" EntitySet="GuildApplies" />
+    </AssociationSet>
+    <AssociationSet Name="TGuildTGuildMember" Association="ExtremeWorldModel.Store.TGuildTGuildMember">
+      <End Role="TGuild" EntitySet="Guilds" />
+      <End Role="TGuildMember" EntitySet="GuildMembers" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Users">
@@ -153,7 +153,6 @@
     <Property Name="JoinTime" Type="datetime" Nullable="false" />
     <Property Name="LastTime" Type="datetime" Nullable="false" />
     <Property Name="GuildId" Type="int" Nullable="false" />
-    <Property Name="Guild_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="GuildApplies">
     <Key>
@@ -240,18 +239,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TGuildMemberTGuild">
-    <End Role="TGuildMember" Type="ExtremeWorldModel.Store.GuildMembers" Multiplicity="*" />
-    <End Role="TGuild" Type="ExtremeWorldModel.Store.Guilds" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="TGuild">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TGuildMember">
-        <PropertyRef Name="Guild_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="TGuildTGuildApply">
     <End Role="TGuild" Type="ExtremeWorldModel.Store.Guilds" Multiplicity="1" />
     <End Role="TGuildApply" Type="ExtremeWorldModel.Store.GuildApplies" Multiplicity="*" />
@@ -260,6 +247,18 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="TGuildApply">
+        <PropertyRef Name="GuildId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TGuildTGuildMember">
+    <End Role="TGuild" Type="ExtremeWorldModel.Store.Guilds" Multiplicity="1" />
+    <End Role="TGuildMember" Type="ExtremeWorldModel.Store.GuildMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TGuild">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TGuildMember">
         <PropertyRef Name="GuildId" />
       </Dependent>
     </ReferentialConstraint>
@@ -312,14 +311,14 @@
           </AssociationSet>
           <EntitySet Name="Guilds" EntityType="ExtremeWorldModel.TGuild" />
           <EntitySet Name="GuildMembers" EntityType="ExtremeWorldModel.TGuildMember" />
-          <AssociationSet Name="TGuildMemberTGuild" Association="ExtremeWorldModel.TGuildMemberTGuild">
-            <End Role="TGuildMember" EntitySet="GuildMembers" />
-            <End Role="TGuild" EntitySet="Guilds" />
-          </AssociationSet>
           <EntitySet Name="GuildApplies" EntityType="ExtremeWorldModel.TGuildApply" />
           <AssociationSet Name="TGuildTGuildApply" Association="ExtremeWorldModel.TGuildTGuildApply">
             <End Role="TGuild" EntitySet="Guilds" />
             <End Role="TGuildApply" EntitySet="GuildApplies" />
+          </AssociationSet>
+          <AssociationSet Name="TGuildTGuildMember" Association="ExtremeWorldModel.TGuildTGuildMember">
+            <End Role="TGuild" EntitySet="Guilds" />
+            <End Role="TGuildMember" EntitySet="GuildMembers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TPlayer">
@@ -450,8 +449,8 @@
           <Property Name="LeaderName" Type="String" Nullable="false" />
           <Property Name="Notice" Type="String" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Members" Relationship="ExtremeWorldModel.TGuildMemberTGuild" FromRole="TGuild" ToRole="TGuildMember" />
           <NavigationProperty Name="Applies" Relationship="ExtremeWorldModel.TGuildTGuildApply" FromRole="TGuild" ToRole="TGuildApply" />
+          <NavigationProperty Name="Members" Relationship="ExtremeWorldModel.TGuildTGuildMember" FromRole="TGuild" ToRole="TGuildMember" />
         </EntityType>
         <EntityType Name="TGuildMember">
           <Key>
@@ -465,13 +464,9 @@
           <Property Name="Title" Type="Int32" Nullable="false" />
           <Property Name="JoinTime" Type="DateTime" Nullable="false" />
           <Property Name="LastTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Guild" Relationship="ExtremeWorldModel.TGuildTGuildMember" FromRole="TGuildMember" ToRole="TGuild" />
           <Property Name="GuildId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Guild" Relationship="ExtremeWorldModel.TGuildMemberTGuild" FromRole="TGuildMember" ToRole="TGuild" />
         </EntityType>
-        <Association Name="TGuildMemberTGuild">
-          <End Type="ExtremeWorldModel.TGuildMember" Role="TGuildMember" Multiplicity="*" />
-          <End Type="ExtremeWorldModel.TGuild" Role="TGuild" Multiplicity="1" />
-        </Association>
         <EntityType Name="TGuildApply">
           <Key>
             <PropertyRef Name="Id" />
@@ -494,6 +489,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="TGuildApply">
+              <PropertyRef Name="GuildId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TGuildTGuildMember">
+          <End Type="ExtremeWorldModel.TGuild" Role="TGuild" Multiplicity="1" />
+          <End Type="ExtremeWorldModel.TGuildMember" Role="TGuildMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGuild">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TGuildMember">
               <PropertyRef Name="GuildId" />
             </Dependent>
           </ReferentialConstraint>
@@ -656,14 +663,6 @@
         <ScalarProperty Name="ID" ColumnName="Owner_ID" />
       </EndProperty>
       <EndProperty Name="TCharacterFriend">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TGuildMemberTGuild" TypeName="ExtremeWorldModel.TGuildMemberTGuild" StoreEntitySet="GuildMembers">
-      <EndProperty Name="TGuild">
-        <ScalarProperty Name="Id" ColumnName="Guild_Id" />
-      </EndProperty>
-      <EndProperty Name="TGuildMember">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

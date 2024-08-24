@@ -171,6 +171,5 @@ namespace GameServer.Managers
                 friendChanged = false;
             }
         }
-
     }
 }

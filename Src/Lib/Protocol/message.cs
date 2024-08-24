@@ -1457,6 +1457,9 @@ namespace SkillBridge.Message
         [global::ProtoBuf.ProtoMember(3, Name = @"apply")]
         public NGuildApplyInfo Apply { get; set; }
 
+        [global::ProtoBuf.ProtoMember(4)]
+        public NGuildInfo guildInfo { get; set; }
+
     }
 
     [global::ProtoBuf.ProtoContract()]

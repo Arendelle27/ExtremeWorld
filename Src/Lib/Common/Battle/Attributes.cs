@@ -127,14 +127,22 @@ namespace Common.Battle
         /// <param name="level"></param>
         /// <param name="equips"></param>
         /// <param name="dynamicAttr"></param>
-        public void Init(CharacterDefine define,int level,List<EquipDefine> equips,NAttributeDynamic dynamicAttr)
+        public void Init(NAttributeDynamic dynamicAttr,CharacterDefine define,int level,List<EquipDefine> equips)
         {
-            Log.InfoFormat("Init Attributes:{0} Level:{1}", define.Name, level);
+            Log.InfoFormat("Init Attributes");
             this.DynamicAttr = dynamicAttr;
+
             this.LoadInitAttribute(this.Initial, define);
             this.LoadGrowthAttribute(this.Growth, define);
+
+
             this.LoadEquipAttribute(this.Equip, equips);
-            this.Level = level;
+            this.LoadEquipAttribute(this.Equip, equips);
+
+            if (level>0)
+            {
+                this.Level = level;
+            }
             this.InitBasicAttributes();
             this.InitSecondaryAttributes();
 
@@ -142,14 +150,16 @@ namespace Common.Battle
             if (this.DynamicAttr==null)
             {
                 this.DynamicAttr = new NAttributeDynamic();
-                this.HP = this.MaxHP;
-                this.MP = this.MaxMP;
+            //    this.HP = this.MaxHP;
+            //    this.MP = this.MaxMP;
+            //}
+            //else
+            //{
+            //    this.HP=this.DynamicAttr.Hp;
+            //    this.MP=this.DynamicAttr.Mp;
             }
-            else
-            {
-                this.HP=this.DynamicAttr.Hp;
-                this.MP=this.DynamicAttr.Mp;
-            }
+            this.HP = this.MaxHP;
+            this.MP = this.MaxMP;
         }
 
         /// <summary>

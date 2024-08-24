@@ -77,7 +77,7 @@ namespace Entities
             this.Define = DataManager.Instance.Characters[info.ConfigId];
             this.Attributes = new Attributes();
 
-            this.Attributes.Init(this.Define, this.Info.Level,GetEquips(),this.Info.attrDynamic);
+            this.Attributes.Init(this.Info.attrDynamic, this.Define, this.Info.Level,GetEquips());
             this.SkillMgr = new SkillManager(this);
             this.BuffMgr = new BuffManager(this);
             this.EffectMgr = new EffectManager(this);
@@ -92,7 +92,7 @@ namespace Entities
         {
             this.SetEntityData(info.Entity);
             this.Info = info;
-            this.Attributes.Init(this.Define, this.Info.Level, GetEquips(), this.Info.attrDynamic);
+            this.Attributes.Init(this.Info.attrDynamic, this.Define, this.Info.Level, GetEquips());
             this.SkillMgr.UpdateSkills();
         }
 

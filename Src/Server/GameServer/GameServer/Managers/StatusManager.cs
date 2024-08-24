@@ -61,7 +61,7 @@ namespace GameServer.Managers
 
         public void AddLevelUp(int levelDelta)
         {
-            this.AddStatus(StatusType.Exp, 0, levelDelta, StatusAction.Add);
+            this.AddStatus(StatusType.Level, 0, levelDelta, StatusAction.Add);
         }
 
 
